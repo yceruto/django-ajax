@@ -3,11 +3,6 @@ django-ajax-decorator
 
 Powerful and easy AJAX decorator for django views
 
-Install
--------
-
-...
-
 
 Usage
 -----
@@ -22,7 +17,7 @@ Basic:
         
 When nothing is returned as the result of view then reurns (JSON format):
 
-.. code:: json
+.. code:: javascript
 
     {'success': true, 'status': 200, 'data': null}
 
@@ -38,7 +33,7 @@ Sending data in the response:
         
 The result is sent to the browser in the following way (JSON format)
 
-.. code:: json
+.. code:: javascript
 
     {'success': true, 'status': 200, 'data': {'result': 5}}
 
@@ -55,6 +50,6 @@ Combining with other decorators.
         
 The result:
 
-.. code:: json
+.. code:: javascript
 
     {'success': False, 'status': 304, 'location': 'path to login'}
