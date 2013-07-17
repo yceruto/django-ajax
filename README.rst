@@ -15,7 +15,7 @@ Basic:
     def my_view(request)
         do_something()
         
-When nothing is returned as the result of view then reurns (JSON format):
+When nothing is returned as the result of view then returns (JSON format):
 
 .. code:: javascript
 
@@ -38,7 +38,7 @@ The result is sent to the browser in the following way (JSON format)
     {'success': true, 'status': 200, 'data': {'result': 5}}
 
 
-Combining with other decorators.
+Combining with other decorators:
 
 .. code:: python
 
