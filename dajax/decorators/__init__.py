@@ -1,1 +1,1 @@
-from .http import render_to_json, ajax
+from dajax.decorators.http import render_to_json, ajax

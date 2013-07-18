@@ -1,1 +1,1 @@
-from .response import JsonHttpResponse
+from dajax.http.response import JsonHttpResponse
