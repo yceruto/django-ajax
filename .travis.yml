@@ -13,7 +13,7 @@ env:
 # Package installation
 install:
   - pip install --use-mirrors $DJANGO_VERSION
-  - pip install -q -e . --use-mirrors
+  - python setup.py install
 
 # Run the tests
 script:
