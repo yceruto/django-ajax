@@ -23,11 +23,13 @@ Basic Example
 
 .. code:: python
 
+    from dajax.decorators import ajax
+
     @ajax()
     def my_view(request)
         do_something()
         
-When nothing is returned as the result of view then returns (JSON format):
+When nothing is returned as result of view then returns (JSON format):
 
 .. code:: javascript
 
@@ -43,7 +45,7 @@ Sending data in the response:
         c = 2 + 3
         return {'result': c}
         
-The result is sent to the browser in the following way (JSON format)
+The result is send to the browser in the following way (JSON format)
 
 .. code:: javascript
 
