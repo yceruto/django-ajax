@@ -36,7 +36,7 @@ When nothing is returned as result of view then returns (JSON format):
     {"success": true, "status": 200, "data": null}
 
 
-Sending data in the response:
+Sending custom data in the response:
 
 .. code:: python
 
