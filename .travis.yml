@@ -12,7 +12,7 @@ env:
 
 # Package installation
 install:
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install --use-mirrors $DJANGO_VERSION
   - pip install -q -e . --use-mirrors
 
 # Run the tests
