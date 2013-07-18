@@ -23,8 +23,8 @@ def ajax(mandatory=True):
 
         @ajax()
         def my_view(request):
-            return HttpResponse('Hi! AJAX MANDATORY')
-            # will send {'success': True, 'html': 'Hi! AJAX MANDATORY', 'status': 200}
+            return HttpResponse('<h1>Hi! AJAX MANDATORY</h1>')
+            # will send {'success': True, 'html': '<h1>Hi! AJAX MANDATORY</h1>', 'status': 200}
 
         @ajax()
         def my_view(request):
