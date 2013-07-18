@@ -2,21 +2,18 @@ language: python
 
 # Python releases to test
 python:
-  - 2.5
   - 2.6
   - 2.7
-  - 3.3
 
 # Django releases
 env:
-  - DJANGO_VERSION=Django==1.3.5
   - DJANGO_VERSION=Django==1.4.3
   - DJANGO_VERSION=Django==1.5.1
 
 # Package installation
 install:
   - pip install -q Django==$DJANGO_VERSION
-  - python setup.py -q install
+  - pip install -q -e . --use-mirrors
 
 # Run the tests
 script:
