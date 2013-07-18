@@ -4,6 +4,4 @@ python:
   - 2.7
 
 install:
-  - pip install -q --use-mirrors
-
-script: nosetests
+  - python setup.py install
