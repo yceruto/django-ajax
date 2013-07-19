@@ -15,10 +15,6 @@ env:
 install:
   - pip install --use-mirrors $DJANGO_VERSION
   - python setup.py install
-  - pip install pep8 --use-mirrors
-
-before_script:
-  - pep8 --exclude=migrations --ignore=E501,E225 dajax
 
 # Run the tests
 script:
