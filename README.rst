@@ -13,7 +13,7 @@ Install django-ajax-decorator in your python environment
 
 .. code:: sh
 
-    $ pip install django-ajax-decorator
+    $ python django-ajax-decorator install
 
 
 Usage
