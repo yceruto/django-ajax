@@ -6,6 +6,13 @@ Powerful and easy AJAX decorator for django views
 .. image:: https://travis-ci.org/yceruto/django-ajax-decorator.png?branch=master
     :target: https://travis-ci.org/yceruto/django-ajax-decorator
 
+Requirements
+------------
+
+* python>=2.6
+* django>=1.3
+
+
 Installation
 ------------
 
