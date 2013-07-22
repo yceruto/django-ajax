@@ -73,4 +73,4 @@ The result:
 
 .. code:: javascript
 
-    {"success": False, "status": 304, "location": "path to login"}
+    {"success": False, "status": 302, "location": "path to login"}
