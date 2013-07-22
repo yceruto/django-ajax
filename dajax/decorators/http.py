@@ -1,9 +1,8 @@
 from functools import wraps
-from django.http import HttpResponse, HttpResponseBadRequest, \
-    HttpResponseNotAllowed
-from django.http.response import HttpResponseRedirectBase
+from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
 from dajax.http.response import JsonHttpResponse
+from dajax.utils import response_to_dict
 
 
 def ajax(mandatory=True):
@@ -19,12 +18,14 @@ def ajax(mandatory=True):
         @ajax()
         def my_view(request):
             return {'key': 'value'}
-            # will send {'success': True, 'data': {'key': 'value'}, 'status': 200}
+            # will send {'success': True, 'data': {'key': 'value'}, +
+                         'status': 200}
 
         @ajax()
         def my_view(request):
             return HttpResponse('<h1>Hi! AJAX MANDATORY</h1>')
-            # will send {'success': True, 'html': '<h1>Hi! AJAX MANDATORY</h1>', 'status': 200}
+            # will send {'success': True, 'html': '<h1>Hi! AJAX MANDATORY</h1>',
+                         'status': 200}
 
         @ajax()
         def my_view(request):
@@ -48,51 +49,19 @@ def ajax(mandatory=True):
                          'path': 'url from my_view', 'allow': 'POST'}
 
     """
-
     def decorator(func):
         @wraps(func, assigned=available_attrs(func))
         def inner(request, *args, **kwargs):
             if mandatory and not request.is_ajax():
                 return HttpResponseBadRequest()
 
-            if mandatory or request.is_ajax():
+            if request.is_ajax():
                 try:
-                    # run view
-                    data = func(request, *args, **kwargs)
-
-                    # response not allowed
-                    if isinstance(data, HttpResponseNotAllowed):
-                        return JsonHttpResponse({
-                            'success': False, 'status': data.status_code,
-                            'method': request.method, 'path': request.path,
-                            'allow': data['Allow']
-                        })
-
-                    # response redirect
-                    if issubclass(type(data), HttpResponseRedirectBase):
-                        return JsonHttpResponse({
-                            'success': False, 'status': data.status_code,
-                            'location': data['Location']
-                        })
-
-                    # simple response
-                    if issubclass(type(data), HttpResponse):
-                        return JsonHttpResponse({
-                            'success': True, 'status': data.status_code,
-                            'html': data.content
-                        })
-
-                    # raw data
-                    return JsonHttpResponse({
-                        'success': True, 'status': 200, 'data': data
-                    })
-
+                    return JsonHttpResponse(response_to_dict(
+                        request, func(request, *args, **kwargs)))
                 except Exception as exception:
-                    return JsonHttpResponse({
-                        'success': False, 'status': 500,
-                        'exception': exception.message, 'path': request.path,
-                        'view': func.func_name
-                    })
+                    return JsonHttpResponse(
+                        response_to_dict(request, exception))
             else:
                 # conventional response
                 return func(request, *args, **kwargs)
