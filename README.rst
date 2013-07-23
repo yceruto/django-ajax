@@ -1,10 +1,10 @@
-django-ajax
+abalt-django-ajax
 =====================
 
 Powerful and easy AJAX toolkit for django applications. Contains ajax decorator, ajax middleware, shortcuts and more.
 
-.. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
-    :target: https://travis-ci.org/yceruto/django-ajax
+.. image:: https://travis-ci.org/yceruto/abalt-django-ajax.png?branch=master
+    :target: https://travis-ci.org/yceruto/abalt-django-ajax
 
 Requirements
 ------------
@@ -16,11 +16,11 @@ Requirements
 Installation
 ------------
 
-Install django-ajax in your python environment
+Install abalt-django-ajax in your python environment
 
 .. code:: sh
 
-    $ python django-ajax install
+    $ python abalt-django-ajax install
 
 
 Usage
@@ -30,9 +30,9 @@ Basic Example
 
 .. code:: python
 
-    from ajax.decorators import ajax
+    from abalt_ajax.decorators import ajax
 
-    @ajax()
+    @ajax
     def my_view(request)
         do_something()
         
@@ -47,7 +47,7 @@ Sending custom data in the response:
 
 .. code:: python
 
-    @ajax()
+    @ajax
     def my_view(request):
         c = 2 + 3
         return {'result': c}
@@ -63,7 +63,7 @@ Combining with other decorators:
 
 .. code:: python
 
-    @ajax()
+    @ajax
     @login_required
     def my_view(request):
         # if the request.user is anonymous then this view not proceed 

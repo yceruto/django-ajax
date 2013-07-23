@@ -7,8 +7,8 @@ try:
         from os.path import join
         from distutils.sysconfig import get_python_lib
         from distutils.dir_util import copy_tree
-        source = 'ajax'
-        destination = join(get_python_lib(), 'ajax')
+        source = 'abalt_ajax'
+        destination = join(get_python_lib(), 'abalt_ajax')
         copy_tree(source, destination)
 except IndexError:
     pass
@@ -19,18 +19,18 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 # Dynamically calculate the version based on django.VERSION.
-version = __import__('ajax').get_version()
+version = __import__('abalt_ajax').get_version()
 
 setup(
-    name='django-ajax',
+    name='abalt-django-ajax',
     version=version,
-    packages=['ajax'],
+    packages=['abalt_ajax'],
     license='MIT',
     description='Powerful and easy AJAX toolkit for django applications. '
                 'Contains ajax decorator, ajax middleware, shortcuts and more.',
     long_description=README,
-    url='https://github.com/yceruto/django-ajax',
-    author='Yonel Ceruto',
+    url='https://github.com/yceruto/abalt-django-ajax',
+    author='Yonel Ceruto G.',
     author_email='yceruto@abalt.org',
     requires=['django'],
     classifiers=[
