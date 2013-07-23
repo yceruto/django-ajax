@@ -7,12 +7,15 @@ import subprocess
 VERSION = (0, 3, 0, 'alpha', 0)
 
 
-def get_version(version=VERSION):
+def get_version(version=None):
     """
     Returns a PEP 386-compliant version number from VERSION.
     """
-    assert len(version) == 5
-    assert version[3] in ('alpha', 'beta', 'rc', 'final')
+    if not version:
+        version = VERSION
+    else:
+        assert len(version) == 5
+        assert version[3] in ('alpha', 'beta', 'rc', 'final')
 
     # Now build the two parts of the version number:
     # main = X.Y[.Z]
@@ -44,8 +47,9 @@ def get_git_changeset():
     """
     repo_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     git_log = subprocess.Popen('git log --pretty=format:%ct --quiet -1 HEAD',
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            shell=True, cwd=repo_dir, universal_newlines=True)
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               shell=True, cwd=repo_dir,
+                               universal_newlines=True)
     timestamp = git_log.communicate()[0]
     try:
         timestamp = datetime.datetime.utcfromtimestamp(int(timestamp))
