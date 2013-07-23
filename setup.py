@@ -1,20 +1,35 @@
 import os
+from sys import argv
 from setuptools import setup
+
+try:
+    if argv[1] == 'install':
+        from os.path import join
+        from distutils.sysconfig import get_python_lib
+        from distutils.dir_util import copy_tree
+        source = 'ajax'
+        destination = join(get_python_lib(), 'ajax')
+        copy_tree(source, destination)
+except IndexError:
+    pass
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+# Dynamically calculate the version based on django.VERSION.
+version = __import__('ajax').get_version()
+
 setup(
     name='django-ajax',
-    version='0.3',
+    version=version,
     packages=['ajax'],
-    license='MIT License',
+    license='MIT',
     description='Powerful and easy AJAX toolkit for django applications. '
                 'Contains ajax decorator, ajax middleware, shortcuts and more.',
     long_description=README,
-    url='',
+    url='https://github.com/yceruto/django-ajax',
     author='Yonel Ceruto',
     author_email='yceruto@abalt.org',
     requires=['django'],
