@@ -1,4 +1,4 @@
-django-ajax-decorator
+django-ajax
 =====================
 
 Powerful and easy AJAX toolkit for django applications. Contains ajax decorator, ajax middleware, shortcuts and more.
