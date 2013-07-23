@@ -8,10 +8,11 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-ajax-decorator',
-    version='0.2',
-    packages=['dajax', 'dajax.decorators', 'dajax.http'],
+    version='0.3',
+    packages=['ajax'],
     license='MIT License',
-    description='Powerful and easy AJAX decorator and middleware for django applications',
+    description='Powerful and easy AJAX toolkit for django applications. '
+                'Contains ajax decorator, ajax middleware, shortcuts and more.',
     long_description=README,
     url='',
     author='Yonel Ceruto',
