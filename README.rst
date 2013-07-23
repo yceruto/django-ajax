@@ -1,7 +1,7 @@
 django-ajax-decorator
 =====================
 
-Powerful and easy AJAX decorator for django views
+Powerful and easy AJAX decorator and middleware for django applications
 
 .. image:: https://travis-ci.org/yceruto/django-ajax-decorator.png?branch=master
     :target: https://travis-ci.org/yceruto/django-ajax-decorator
