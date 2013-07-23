@@ -1,7 +1,7 @@
 """
 Django middlewares
 """
-from ajax.shortcuts import render_to_json
+from abalt_ajax.shortcuts import render_to_json
 
 
 class AjaxMiddleware(object):

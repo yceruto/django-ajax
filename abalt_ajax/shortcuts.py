@@ -4,7 +4,7 @@ Shortcuts
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirectBase, \
     HttpResponseNotAllowed
-from ajax.response import JsonHttpResponse
+from abalt_ajax.response import JsonHttpResponse
 
 
 def render_to_json(request, response):
