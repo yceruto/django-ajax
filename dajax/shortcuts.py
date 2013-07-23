@@ -1,45 +1,41 @@
 """
-Useful functions
+Shortcuts
 """
+from django.http import HttpResponse
 from django.http.response import HttpResponseRedirectBase, \
-    HttpResponseNotAllowed, HttpResponse
+    HttpResponseNotAllowed
 from dajax.response import JsonHttpResponse
 
 
-def response_to_dict(request, response):
+def render_to_json(request, response):
     """
-    Serialize the response to dictionary format
+    Render response to JSON
     """
-    # not allowed response
     if isinstance(response, HttpResponseNotAllowed):
-        return JsonHttpResponse({
+        data = {
             'success': False, 'status': response.status_code,
             'method': request.method, 'path': request.path,
             'allow': response['Allow']
-        })
-
-    # redirect response
-    if issubclass(type(response), HttpResponseRedirectBase):
-        return JsonHttpResponse({
+        }
+    elif issubclass(type(response), HttpResponseRedirectBase):
+        data = {
             'success': False, 'status': response.status_code,
             'location': response['Location']
-        })
-
-    # simple response
-    if issubclass(type(response), HttpResponse):
-        return JsonHttpResponse({
+        }
+    elif issubclass(type(response), HttpResponse):
+        data = {
             'success': True, 'status': response.status_code,
             'html': response.content
-        })
-
-    # exception
-    if issubclass(type(response), Exception):
-        return {
+        }
+    elif issubclass(type(response), Exception):
+        data = {
             'success': False, 'status': 500, 'exception': unicode(response),
             'path': request.path
         }
+    else:
+        data = {
+            'success': True, 'status': 200, 'data': response
+        }
 
-    # raw response
-    return JsonHttpResponse({
-        'success': True, 'status': 200, 'data': response
-    })
+    return JsonHttpResponse(data)
+

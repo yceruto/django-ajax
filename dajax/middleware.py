@@ -1,8 +1,7 @@
 """
 Django middlewares
 """
-from dajax.response import JsonHttpResponse
-from dajax.utils import response_to_dict
+from dajax.shortcuts import render_to_json
 
 
 class AjaxMiddleware(object):
@@ -11,7 +10,7 @@ class AjaxMiddleware(object):
     """
     def process_response(self, request, response):
         if request.is_ajax():
-            return JsonHttpResponse(response_to_dict(request, response))
+            return render_to_json(request, response)
         return response
 
     def process_exception(self, request, exception):

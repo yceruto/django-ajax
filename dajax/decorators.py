@@ -4,8 +4,7 @@ Django decorators
 from functools import wraps
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
-from dajax.response import JsonHttpResponse
-from dajax.utils import response_to_dict
+from dajax.shortcuts import render_to_json
 
 
 def ajax(mandatory=True):
@@ -60,11 +59,11 @@ def ajax(mandatory=True):
 
             if request.is_ajax():
                 try:
-                    return JsonHttpResponse(response_to_dict(
-                        request, func(request, *args, **kwargs)))
+                    # json response
+                    return render_to_json(
+                        request, func(request, *args, **kwargs))
                 except Exception as exception:
-                    return JsonHttpResponse(
-                        response_to_dict(request, exception))
+                    return render_to_json(request, exception)
             else:
                 # conventional response
                 return func(request, *args, **kwargs)
