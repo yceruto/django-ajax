@@ -22,15 +22,15 @@ def render_to_json(request, response):
             'success': False, 'status': response.status_code,
             'location': response['Location']
         }
-    elif issubclass(type(response), HttpResponse):
-        data = {
-            'success': True, 'status': response.status_code,
-            'html': response.content
-        }
     elif issubclass(type(response), Exception):
         data = {
             'success': False, 'status': 500, 'exception': unicode(response),
             'path': request.path
+        }
+    elif issubclass(type(response), HttpResponse):
+        data = {
+            'success': True, 'status': response.status_code,
+            'data': response.content
         }
     else:
         data = {
