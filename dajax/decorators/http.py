@@ -1,3 +1,6 @@
+"""
+Django decorators
+"""
 from functools import wraps
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs

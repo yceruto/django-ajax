@@ -1,5 +1,5 @@
 """
-Middlewares
+Django middlewares
 """
 from dajax.http import JsonHttpResponse
 from dajax.utils import response_to_dict
