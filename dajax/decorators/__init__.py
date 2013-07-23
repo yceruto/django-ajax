@@ -1,1 +1,0 @@
-from dajax.decorators.http import ajax

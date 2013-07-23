@@ -4,7 +4,7 @@ Django decorators
 from functools import wraps
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
-from dajax.http.response import JsonHttpResponse
+from dajax.response import JsonHttpResponse
 from dajax.utils import response_to_dict
 
 

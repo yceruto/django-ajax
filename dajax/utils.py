@@ -3,7 +3,7 @@ Useful functions
 """
 from django.http.response import HttpResponseRedirectBase, \
     HttpResponseNotAllowed, HttpResponse
-from dajax.http import JsonHttpResponse
+from dajax.response import JsonHttpResponse
 
 
 def response_to_dict(request, response):
