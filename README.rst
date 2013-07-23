@@ -3,8 +3,8 @@ django-ajax-decorator
 
 Powerful and easy AJAX toolkit for django applications. Contains ajax decorator, ajax middleware, shortcuts and more.
 
-.. image:: https://travis-ci.org/yceruto/django-ajax-decorator.png?branch=master
-    :target: https://travis-ci.org/yceruto/django-ajax-decorator
+.. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
+    :target: https://travis-ci.org/yceruto/django-ajax
 
 Requirements
 ------------
