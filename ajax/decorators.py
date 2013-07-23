@@ -7,36 +7,36 @@ from django.utils.decorators import available_attrs
 from ajax.shortcuts import render_to_json
 
 
-def ajax(mandatory=True):
+def ajax(function=None, mandatory=True):
     """
     Decorator who guesses the user response type and translates to a serialized
     JSON response. Usage::
 
-        @ajax()
+        @ajax
         def my_view(request):
             do_something()
             # will send {'success': True, 'data': null, 'status': 200}
 
-        @ajax()
+        @ajax
         def my_view(request):
             return {'key': 'value'}
             # will send {'success': True, 'data': {'key': 'value'}, +
                          'status': 200}
 
-        @ajax()
+        @ajax
         def my_view(request):
             return HttpResponse('<h1>Hi! AJAX MANDATORY</h1>')
             # will send {'success': True, 'html': '<h1>Hi! AJAX MANDATORY</h1>',
                          'status': 200}
 
-        @ajax()
+        @ajax
         def my_view(request):
             return redirect('home')
             # will send {'success': False, 'location': '/', 'status': 302}
 
         # combination with others decorators:
 
-        @ajax()
+        @ajax
         @login_required
         @require_POST
         def my_view(request):
@@ -70,4 +70,6 @@ def ajax(mandatory=True):
 
         return inner
 
+    if function:
+        return decorator(function)
     return decorator
