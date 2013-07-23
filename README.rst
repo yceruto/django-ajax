@@ -1,7 +1,7 @@
 django-ajax-decorator
 =====================
 
-Powerful and easy AJAX decorator and middleware for django applications
+Powerful and easy AJAX toolkit for django applications. Contains ajax decorator, ajax middleware, shortcuts and more.
 
 .. image:: https://travis-ci.org/yceruto/django-ajax-decorator.png?branch=master
     :target: https://travis-ci.org/yceruto/django-ajax-decorator
@@ -16,11 +16,11 @@ Requirements
 Installation
 ------------
 
-Install django-ajax-decorator in your python environment
+Install django-ajax in your python environment
 
 .. code:: sh
 
-    $ python django-ajax-decorator install
+    $ python django-ajax install
 
 
 Usage
@@ -30,7 +30,7 @@ Basic Example
 
 .. code:: python
 
-    from dajax.decorators import ajax
+    from ajax.decorators import ajax
 
     @ajax()
     def my_view(request)
