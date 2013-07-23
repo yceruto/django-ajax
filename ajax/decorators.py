@@ -4,7 +4,7 @@ Django decorators
 from functools import wraps
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
-from dajax.shortcuts import render_to_json
+from ajax.shortcuts import render_to_json
 
 
 def ajax(mandatory=True):
