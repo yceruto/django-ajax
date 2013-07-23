@@ -30,7 +30,7 @@ def ajax(mandatory=True):
         @ajax()
         def my_view(request):
             return redirect('home')
-            # will send {'success': False, 'location': '/', 'status': 304}
+            # will send {'success': False, 'location': '/', 'status': 302}
 
         # combination with others decorators:
 
@@ -41,7 +41,7 @@ def ajax(mandatory=True):
             pass
             # if request user is not authenticated then the @login_required
             # decorator redirect to login page.
-            # will send {'success': False, 'location': '/login', 'status': 304}
+            # will send {'success': False, 'location': '/login', 'status': 302}
 
             # if request method is 'GET' then the @require_POST decorator return
             # a HttpResponseNotAllowed response.
