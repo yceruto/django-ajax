@@ -74,3 +74,18 @@ The result:
 .. code:: javascript
 
     {"success": False, "status": 302, "location": "path to login"}
+
+Catch exceptions:
+
+.. code:: python
+
+    @ajax
+    def my_view(request):
+        a = 23 / 0  # this line throws an exception
+        return a
+
+Result:
+
+.. code:: javascript
+
+    {"success": False, "status": 500, "exception": "integer division or modulo by zero"}
