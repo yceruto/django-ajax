@@ -75,6 +75,22 @@ The result:
 
     {"success": False, "status": 302, "location": "path to login"}
 
+
+Template response:
+
+.. code:: python
+
+    @ajax
+    def my_view(request):
+        return render(request, 'home.html')
+
+Result:
+
+.. code:: javascript
+
+    {"success": True, "status": 200, "data": "<html>...</html>"}
+
+
 Catch exceptions:
 
 .. code:: python
