@@ -59,7 +59,7 @@ The result is send to the browser in the following way (JSON format)
     {"success": true, "status": 200, "data": {"result": 5}}
 
 
-Combining with other decorators:
+Combining with others decorators:
 
 .. code:: python
 
