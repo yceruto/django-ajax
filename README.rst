@@ -1,3 +1,4 @@
+
 abalt-django-ajax
 =====================
 
@@ -23,8 +24,8 @@ Install abalt-django-ajax in your python environment
     $ python abalt-django-ajax install
 
 
-Usage
------
+AJAX Decorator Usage
+--------------------
 
 Basic Example
 
@@ -105,3 +106,15 @@ Result:
 .. code:: javascript
 
     {"success": False, "status": 500, "exception": "integer division or modulo by zero"}
+
+
+AJAX Middleware Usage
+---------------------
+
+.. code:: python
+
+Add ``abalt_ajax.middleware.AjaxMiddleware`` into ``MIDDLEWARE_CLASSES``
+
+Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return an HttpResponse.
+
+Enjoy!
