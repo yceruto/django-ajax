@@ -19,9 +19,14 @@ Installation
 
 Install abalt-django-ajax in your python environment
 
+1- Download and install package:
+
 .. code:: sh
 
     $ python abalt-django-ajax install
+
+2- Add ``'abalt_ajax'`` into the ``INSTALLED_APPS`` list.
+3- Read usage section and enjoy their advantage!
 
 
 AJAX Decorator Usage
@@ -113,7 +118,7 @@ AJAX Middleware Usage
 
 .. code:: python
 
-Add ``abalt_ajax.middleware.AjaxMiddleware`` into ``MIDDLEWARE_CLASSES``
+Add ``abalt_ajax.middleware.AjaxMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
 
 Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return an HttpResponse.
 
