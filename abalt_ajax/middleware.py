@@ -15,4 +15,4 @@ class AjaxMiddleware(object):
 
     def process_exception(self, request, exception):
         if request.is_ajax():
-            return render_to_json(request, exception)
+            return exception
