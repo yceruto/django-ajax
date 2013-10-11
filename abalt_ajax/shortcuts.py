@@ -1,9 +1,10 @@
 """
-Shortcuts
+Ajax Shortcuts
 """
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirectBase, \
     HttpResponseNotAllowed
+from django.template.response import TemplateResponse
 from abalt_ajax.response import JsonHttpResponse
 
 
@@ -26,6 +27,11 @@ def render_to_json(request, response):
         data = {
             'success': False, 'status': 500, 'exception': unicode(response),
             'path': request.path
+        }
+    elif issubclass(type(response), TemplateResponse):
+        data = {
+            'success': True, 'status': response.status_code,
+            'data': response.rendered_content
         }
     elif issubclass(type(response), HttpResponse):
         data = {

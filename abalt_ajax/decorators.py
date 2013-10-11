@@ -1,5 +1,5 @@
 """
-Django decorators
+Ajax Decorators
 """
 from functools import wraps
 from django.http import HttpResponseBadRequest

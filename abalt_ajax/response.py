@@ -1,5 +1,5 @@
 """
-Http responses
+Ajax responses
 """
 import json
 from django.conf import settings

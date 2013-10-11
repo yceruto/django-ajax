@@ -1,5 +1,5 @@
 """
-Django middlewares
+Ajax middlewares
 """
 from abalt_ajax.shortcuts import render_to_json
 
