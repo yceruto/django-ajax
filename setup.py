@@ -23,12 +23,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 version = __import__('abalt_ajax').get_version()
 
 setup(
-    author='Yonel Ceruto Glez.',
+    author='Yonel Ceruto Gonzalez',
     author_email='yceruto@abalt.org',
     name='abalt-django-ajax',
     version=version,
     description='Powerful and easy AJAX toolkit for django applications. '
-                'Contains ajax decorator, ajax middleware, shortcuts and more.',
+                'Contains AJAX decorator, AJAX middleware, shortcuts and more.',
     long_description=README,
     url='https://github.com/yceruto/abalt-django-ajax',
     license='MIT License',
