@@ -80,7 +80,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"success": False, "status": 302, "location": "path to login"}
+    {"success": False, "status": 302, "location": "/login"}
 
 
 Template response:
