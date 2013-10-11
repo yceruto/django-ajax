@@ -121,7 +121,7 @@ AJAX Middleware Usage
 
 Add ``abalt_ajax.middleware.AjaxMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
 
-Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return an HttpResponse.
+Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
 Note: If you use this middleware should not use the AJAX decorator.
 
