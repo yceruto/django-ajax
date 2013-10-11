@@ -159,6 +159,6 @@ Later, use the "post" or "get" functions for call ajax and fire the callback fun
         })
     </script>
 
-If the response is not successful, to show an alert with the message appropriated.
+If the response is not successful, is show an alert with the message appropriated.
 
 Enjoy!
