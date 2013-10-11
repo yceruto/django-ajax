@@ -76,7 +76,7 @@ Combining with others decorators:
         # if the request.user is anonymous then this view not proceed 
         return {'user_id': request.user.id}
         
-The result:
+The JSON response:
 
 .. code:: javascript
 
@@ -91,7 +91,7 @@ Template response:
     def my_view(request):
         return render(request, 'home.html')
 
-Result:
+The JSON response:
 
 .. code:: javascript
 
@@ -107,7 +107,7 @@ Catch exceptions:
         a = 23 / 0  # this line throws an exception
         return a
 
-Result:
+The JSON response:
 
 .. code:: javascript
 
@@ -134,7 +134,7 @@ AJAX response with class-based views
     class SimpleView(AJAXResponseMixin, TemplateView):
         template_name = 'home.html'
 
-Result:
+The JSON response:
 
 .. code:: javascript
 
