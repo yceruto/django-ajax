@@ -124,4 +124,20 @@ Then, all your responses will be converted to JSON if the request was made by AJ
 
 Note: If you use this middleware should not use the AJAX decorator.
 
+
+AJAX response with class-based views
+---------------------
+
+.. code:: python
+
+    class SimpleView(AJAXResponseMixin, TemplateView):
+        template_name = 'home.html'
+
+Result:
+
+.. code:: javascript
+
+    {"success": True, "status": 200, "data": "<html><title>Home</title>...</html>"}
+
+
 Enjoy!
