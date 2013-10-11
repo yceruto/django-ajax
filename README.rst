@@ -126,7 +126,7 @@ Note: If you use this middleware should not use the AJAX decorator.
 
 
 AJAX response with class-based views
----------------------
+------------------------------------
 
 .. code:: python
 
@@ -139,5 +139,26 @@ Result:
 
     {"success": True, "status": 200, "data": "<html><title>Home</title>...</html>"}
 
+
+Client side
+-----------
+
+Use the abalt_ajax.js as static file into base template
+
+.. code:: html
+
+    <script type="text/javascript" src="{% static 'js/abalt_ajax.js' %}"></script>
+
+Later, use the "post" or "get" functions for call ajax and fire the callback function if successful.
+
+.. code:: html
+
+    <script type="text/javascript">
+        get('/home', null, function(result){
+            alert(result.data);
+        })
+    </script>
+
+If the response is not successful, to show an alert with the message appropriated.
 
 Enjoy!
