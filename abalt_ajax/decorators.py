@@ -15,24 +15,22 @@ def ajax(function=None, mandatory=True):
         @ajax
         def my_view(request):
             do_something()
-            # will send {'success': True, 'data': null, 'status': 200}
+            # will send {'success': True, 'status': 200, 'data': null}
 
         @ajax
         def my_view(request):
             return {'key': 'value'}
-            # will send {'success': True, 'data': {'key': 'value'}, +
-                         'status': 200}
+            # will send {'success': True, 'status': 200, 'data': {'key': 'value'}}
 
         @ajax
         def my_view(request):
-            return HttpResponse('<h1>Hi! AJAX MANDATORY</h1>')
-            # will send {'success': True, 'html': '<h1>Hi! AJAX MANDATORY</h1>',
-                         'status': 200}
+            return HttpResponse('<h1>Hi!</h1>')
+            # will send {'success': True, 'status': 200, 'html': '<h1>Hi!</h1>'}
 
         @ajax
         def my_view(request):
             return redirect('home')
-            # will send {'success': False, 'location': '/', 'status': 302}
+            # will send {'success': False, 'status': 302, 'location': '/'}
 
         # combination with others decorators:
 
@@ -43,7 +41,7 @@ def ajax(function=None, mandatory=True):
             pass
             # if request user is not authenticated then the @login_required
             # decorator redirect to login page.
-            # will send {'success': False, 'location': '/login', 'status': 302}
+            # will send {'success': False, 'status': 302, 'location': '/login'}
 
             # if request method is 'GET' then the @require_POST decorator return
             # a HttpResponseNotAllowed response.
