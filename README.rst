@@ -26,6 +26,7 @@ Install abalt-django-ajax in your python environment
     $ python abalt-django-ajax install
 
 2- Add ``'abalt_ajax'`` into the ``INSTALLED_APPS`` list.
+
 3- Read usage section and enjoy their advantage!
 
 
