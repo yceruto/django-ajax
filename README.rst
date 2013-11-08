@@ -131,6 +131,8 @@ AJAX response with class-based views
 
 .. code:: python
 
+    from abalt_ajax.mixin import AJAXResponseMixin
+
     class SimpleView(AJAXResponseMixin, TemplateView):
         template_name = 'home.html'
 
