@@ -157,7 +157,7 @@ Later, use the "post" or "get" functions for call ajax and is fired the callback
 .. code:: html
 
     <script type="text/javascript">
-        get('/', null, function(result){
+        ajax_get('/', null, function(result){
             //onsuccess
             alert(result.data);
         }, function(status, status_text, message){
