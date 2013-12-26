@@ -47,7 +47,7 @@ When nothing is returned as result of view then returns (JSON format):
 
 .. code:: javascript
 
-    {"success": true, "status": 200, "data": null}
+    {"status": 200, "status_text": "OK", "path": "/", "data": null}
 
 
 Sending custom data in the response:
@@ -63,7 +63,7 @@ The result is send to the browser in the following way (JSON format)
 
 .. code:: javascript
 
-    {"success": true, "status": 200, "data": {"result": 5}}
+    {"status": 200, "status_text": "OK", "path": "/", "data": {"result": 5}}
 
 
 Combining with others decorators:
@@ -80,7 +80,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"success": False, "status": 302, "location": "/login"}
+    {"status": 302, "status_text": "FOUND", "path": "/", "location": "/login"}
 
 
 Template response:
@@ -95,7 +95,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"success": True, "status": 200, "data": "<html>...</html>"}
+    {"status": 200, "status_text": "OK", "path": "/", "data": "<html>...</html>"}
 
 
 Catch exceptions:
@@ -111,7 +111,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"success": False, "status": 500, "exception": "integer division or modulo by zero"}
+    {"status": 500, "status_text": "INTERNAL SERVER ERROR", "path": "/", "exception": "integer division or modulo by zero"}
 
 
 AJAX Middleware Usage
@@ -140,7 +140,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"success": True, "status": 200, "data": "<html><title>Home</title>...</html>"}
+    {"status": 200, "status_text": "OK", "path": "/", "data": "<html><title>Home</title>...</html>"}
 
 
 Client side
@@ -157,7 +157,7 @@ Later, use the "post" or "get" functions for call ajax and is fired the callback
 .. code:: html
 
     <script type="text/javascript">
-        get('/home', null, function(result){
+        get('/', null, function(result){
             alert(result.data);
         })
     </script>
