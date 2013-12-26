@@ -1,12 +1,22 @@
+from shortcuts import render_to_json
+from response import JsonHttpResponse
 from django.utils.unittest import TestCase
 
+DEBUG = True
+DEFAULT_CHARSET = 'utf-8'
+SECRET_KEY = 'secret-key'
 
-class DecoratorTestCase(TestCase):
+
+class ResponseTestCase(TestCase):
     """
-    Decorator Test Case
+    Response TestCase
     """
-    def test(self):
+    def test_json_response(self):
         """
-        test
+        test http json response
         """
-        self.assertEqual(1 + 1, 2)
+        data = {'test': True}
+        response = JsonHttpResponse(data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertEqual(response.content, '{"test": true}')
