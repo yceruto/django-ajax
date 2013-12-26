@@ -158,7 +158,14 @@ Later, use the "post" or "get" functions for call ajax and is fired the callback
 
     <script type="text/javascript">
         get('/', null, function(result){
+            //onsuccess
             alert(result.data);
+        }, function(status, status_text, message){
+            //onfail
+            alert(message);
+        }, function(status, path, location){
+            //onredirect
+            location.href = location
         })
     </script>
 
