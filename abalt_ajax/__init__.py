@@ -4,7 +4,7 @@ import datetime
 import os
 import subprocess
 
-VERSION = (1, 0, 0, 'final', 0)
+VERSION = (2, 0, 0, 'final', 0)
 
 
 def get_version(version=None):
