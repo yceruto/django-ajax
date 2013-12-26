@@ -150,7 +150,7 @@ Use the abalt_ajax.js as static file into base template
 
 .. code:: html
 
-    <script type="text/javascript" src="{% static 'js/abalt_ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'abalt_ajax/js/jquery.ajax.js' %}"></script>
 
 Later, use the "post" or "get" functions for call ajax and is fired the callback function if successful.
 
