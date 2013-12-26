@@ -15,8 +15,8 @@ def render_to_json(request, response):
     Render response to JSON
     """
     data = {
-        'status': response.status_code if hasattr(response, 'status_code') else 0,
-        'status_text': response.reason_phrase if hasattr(response, 'reason_phrase') else 'UNKNOWN STATUS CODE',
+        'status': response.status_code if hasattr(response, 'status_code') else 200,
+        'status_text': response.reason_phrase if hasattr(response, 'reason_phrase') else 'OK',
         'path': request.path
     }
 
