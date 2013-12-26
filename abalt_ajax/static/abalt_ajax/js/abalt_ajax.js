@@ -28,31 +28,52 @@ $.ajaxSetup({
     }
 });
 
-function ajax(method, url, data, onsuccess) {
+function _ajax(method, url, data, onsuccess, onfail, onredirect) {
     method(url, data, function(result){
-        if (result.success) {
+        if (result.status == 200) {
             if (onsuccess)
                 onsuccess(result)
-        } else
+        } else {
+            var message;
+
             switch (result.status) {
                 case 500:
-                    alert('Exception! ' + result.exception);
+                    message = result.exception;
                     break;
                 case 405:
-                    alert('Method "' + result.method + '" not allowed! Only allow: "' + result.allow + '"');
+                    message = result.method + ' ' + result.path;
+                    break;
+                case 410:
+                case 404:
+                case 403:
+                case 400:
+                case 304:
+                    message = result.path;
                     break;
                 case 301:
                 case 302:
-                    window.location.href = result.location;
+                    if (onredirect)
+                        onredirect(result.status, result.path, result.location);
+                    else
+                        window.location.href = result.location;
+                    break;
+                default:
+                    message = 'An unknown error has occurred.';
                     break;
             }
+
+            if (onfail)
+                onfail(result.status, result.status_text, message);
+            else
+                alert(result.status + ' ' + result.status_text + ' - ' + message);
+        }
     })
 }
 
-function post(url, data, onsuccess) {
-    ajax($.post, url, data, onsuccess)
+function ajax_post(url, data, onsuccess) {
+    _ajax($.post, url, data, onsuccess)
 }
 
-function get(url, data, onsuccess) {
-    ajax($.get, url, data, onsuccess)
+function ajax_get(url, data, onsuccess) {
+    _ajax($.get, url, data, onsuccess)
 }
