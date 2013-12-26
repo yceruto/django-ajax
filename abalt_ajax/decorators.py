@@ -15,22 +15,26 @@ def ajax(function=None, mandatory=True):
         @ajax
         def my_view(request):
             do_something()
-            # will send {'success': True, 'status': 200, 'data': null}
+            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
+                         'data': null}
 
         @ajax
         def my_view(request):
             return {'key': 'value'}
-            # will send {'success': True, 'status': 200, 'data': {'key': 'value'}}
+            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
+                         'data': {'key': 'value'}}
 
         @ajax
         def my_view(request):
             return HttpResponse('<h1>Hi!</h1>')
-            # will send {'success': True, 'status': 200, 'html': '<h1>Hi!</h1>'}
+            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
+                         'data': '<h1>Hi!</h1>'}
 
         @ajax
         def my_view(request):
             return redirect('home')
-            # will send {'success': False, 'status': 302, 'location': '/'}
+            # will send {'status': 302, 'status_text': 'FOUND', 'path': '/',
+                         'location': '/'}
 
         # combination with others decorators:
 
@@ -41,12 +45,13 @@ def ajax(function=None, mandatory=True):
             pass
             # if request user is not authenticated then the @login_required
             # decorator redirect to login page.
-            # will send {'success': False, 'status': 302, 'location': '/login'}
+            # will send {'status': 302, 'status_text': 'FOUND', 'path': '/',
+                         'location': '/login'}
 
             # if request method is 'GET' then the @require_POST decorator return
             # a HttpResponseNotAllowed response.
-            # will send {'success': False, 'status': 405, 'method': 'GET',
-                         'path': 'url from my_view', 'allow': 'POST'}
+            # will send {'status': 405, 'status_text': 'METHOD NOT ALLOWED',
+                         'path': '/', 'method': 'GET'}
 
     """
     def decorator(func):
