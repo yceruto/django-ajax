@@ -70,10 +70,10 @@ function _ajax(method, url, data, onsuccess, onfail, onredirect) {
     })
 }
 
-function ajax_post(url, data, onsuccess) {
-    _ajax($.post, url, data, onsuccess)
+function ajax_post(url, data, onsuccess, onfail, onredirect) {
+    _ajax($.post, url, data, onsuccess, onfail, onredirect)
 }
 
-function ajax_get(url, data, onsuccess) {
-    _ajax($.get, url, data, onsuccess)
+function ajax_get(url, data, onsuccess, onfail, onredirect) {
+    _ajax($.get, url, data, onsuccess, onfail, onredirect)
 }
