@@ -43,6 +43,7 @@ function sameOrigin(url) {
         crossDomain: false // obviates need for sameOrigin test
     });
 
+
     // AJAX CLASS DEFINITION
     // ======================
 
@@ -54,8 +55,13 @@ function sameOrigin(url) {
     Ajax.prototype.ajax = function (e) {
         var $this    = $(this)
         var method = $this.attr('data-method')
-        var url = $this.attr('href')
+        var url = $this.attr('href') || $this.attr('action') || null
         var data = $this.attr('data-data') || null
+
+        if (!url) {
+            alert('href or action attribute not found!')
+            return
+        }
 
         method = method ? method.toLowerCase() : 'get'
 
@@ -115,7 +121,33 @@ function sameOrigin(url) {
         if (e.isDefaultPrevented()) return
     }
 
-    //TODO: plugins
+
+    // ALERT PLUGIN DEFINITION
+    // =======================
+
+    var old = $.fn.ajax
+
+    $.fn.ajax = function (option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('ajax')
+
+      if (!data) $this.data('ajax', (data = new Alert(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+    }
+
+    $.fn.ajax.Constructor = Ajax
+
+
+    // ALERT NO CONFLICT
+    // =================
+
+    $.fn.ajax.noConflict = function () {
+    $.fn.ajax = old
+    return this
+    }
+
 
     // ALERT DATA-API
     // ==============
