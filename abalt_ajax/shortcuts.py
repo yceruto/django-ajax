@@ -30,11 +30,16 @@ def render_to_json(request, response):
         })
     elif issubclass(type(response), HttpResponseForbidden) or \
             issubclass(type(response), HttpResponseBadRequest) or \
-            issubclass(type(response), HttpResponseNotFound) or \
             issubclass(type(response), HttpResponseGone) or \
             issubclass(type(response), HttpResponseNotModified) or \
             issubclass(type(response), HttpResponseServerError):
         pass
+    elif issubclass(type(response), Http404) or \
+            issubclass(type(response), HttpResponseNotFound):
+        data.update({
+            'status': 404, 'status_text': REASON_PHRASES[404],
+            'exception': unicode(response),
+        })
     elif issubclass(type(response), TemplateResponse):
         data.update({
             'data': response.rendered_content
@@ -42,10 +47,6 @@ def render_to_json(request, response):
     elif issubclass(type(response), HttpResponse):
         data.update({
             'data': response.content
-        })
-    elif issubclass(type(response), Http404):
-        data.update({
-            'status': 404, 'status_text': REASON_PHRASES[404]
         })
     elif issubclass(type(response), Exception):
         data.update({
