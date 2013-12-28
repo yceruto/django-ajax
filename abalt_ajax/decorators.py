@@ -67,12 +67,11 @@ def ajax(function=None, mandatory=True):
                 return HttpResponseBadRequest()
 
             if request.is_ajax():
+                # json response
                 try:
-                    # json response
-                    return render_to_json(
-                        request, func(request, *args, **kwargs))
+                    return render_to_json(func(request, *args, **kwargs))
                 except Exception as exception:
-                    return render_to_json(request, exception)
+                    return render_to_json(exception)
             else:
                 # conventional response
                 return func(request, *args, **kwargs)
