@@ -14,74 +14,112 @@ function getCookie(name) {
     return cookieValue;
 }
 
+var csrftoken = getCookie('csrftoken');
+
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
+}
 
 +function ($) { "use strict";
 
-  // AJAX SETUP
-  // ======================
+    // AJAX SETUP
+    // ======================
 
-  $.ajaxSetup({
-    crossDomain: false, // obviates need for sameOrigin test
-    beforeSend: function(xhr, settings) {
-      if (!csrfSafeMethod(settings.type)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-      }
+    $.ajaxSetup({
+        crossDomain: false // obviates need for sameOrigin test
+    });
+
+    // AJAX CLASS DEFINITION
+    // ======================
+
+    var dismiss = '[data-ajax="true"]'
+    var Ajax    = function (el) {
+        $(el).on('click', dismiss, this.ajax)
     }
-  });
 
-  // AJAX CLASS DEFINITION
-  // ======================
+    Ajax.prototype.ajax = function (e) {
+        var $this    = $(this)
+        var method = $this.attr('data-method')
+        var url = $this.attr('href')
+        var data = $this.attr('data-data') || null
 
-  var dismiss = '[data-ajax="true"]'
-  var Ajax    = function (el) {
-    $(el).on('click', dismiss, this.ajax)
-  }
+        method = method ? method.toLowerCase() : 'get'
 
-  Ajax.prototype.ajax = function (e) {
-    var $this    = $(this)
-    var method = $this.attr('data-method')
-    var url = $this.attr('href')
-    var data = $this.attr('data-data')
+        url = url && url.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
 
-    method = method ? method.toLowerCase() : 'get'
+        // Fix the single quote
+        data = data && data.replace(/'/g, '"')
 
-    url = url && url.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+        if (e) e.preventDefault()
 
-    if (e) e.preventDefault()
-
-    $.ajax({
-      url: url,
-      type: method,
-      data: data, //TODO: serialize json data
-      success: function(result){
-        if (result.status == 200) {
-          //TODO: fire onsuccess
-          alert(result.content)
-        } else {
-          alert(method.toUpperCase() + ' ' + url + '\n' + result.status + ' ' + result.status_text + '\n' + result.content)
-
-          switch (result.status) {
-            case 301:
-            case 302:
-              window.location.href = result.content
-              break
-          }
+        try {
+            data = $.parseJSON(data)
+        } catch (e) {
+            alert(method.toUpperCase() + ' ' + url + '   PARSE JSON ERROR' + '\n' + data + '\n' + e);
+            return
         }
-      }
-    })
 
-    if (e.isDefaultPrevented()) return
-  }
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            beforeSend: function ( xhr, settings ) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    // Send the token to same-origin, relative URLs only.
+                    // Send the token only if the method warrants CSRF protection
+                    // Using the CSRFToken value acquired earlier
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
 
-  //TODO: plugins
+                //TODO: custom beforeSend function
+            },
+            success: function( response ){
+                if (response.status == 200) {
+                    //TODO: fire onsuccess
+                    alert(response.responseText)
+                } else {
+                    //TODO: custom fail function
+                    alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText)
 
-  // ALERT DATA-API
-  // ==============
+                    switch (response.status) {
+                        case 301:
+                        case 302:
+                            window.location.href = response.responseText
+                            break
+                    }
+                }
+            },
+            error: function ( response ) {
+                //TODO: custom fail function
+                alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText)
+            },
+            complete: function ( response ) {
+                //TODO: custom complete function
+            }
+        })
 
-  $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.ajax)
+        if (e.isDefaultPrevented()) return
+    }
+
+    //TODO: plugins
+
+    // ALERT DATA-API
+    // ==============
+
+    $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.ajax)
 
 }(jQuery);
