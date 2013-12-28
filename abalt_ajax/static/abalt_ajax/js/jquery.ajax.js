@@ -53,39 +53,31 @@ function csrfSafeMethod(method) {
 
     if (e) e.preventDefault()
 
-    $[method](url, data, function(result){
-      if (result.status == 200) {
-        alert(result.data)
-      } else {
-        var message = ''
-        switch (result.status) {
-          case 500:
-          case 404:
-            message = result.exception
-            break
-          case 405:
-            message = result.method
-            break
-          case 410:
-          case 403:
-          case 400:
-          case 304:
-            break
-          case 301:
-          case 302:
-            window.location.href = result.location
-            break
-          default:
-            message = 'An unknown error has occurred.'
-            break
-        }
+    $.ajax({
+      url: url,
+      type: method,
+      data: data, //TODO: serialize json data
+      success: function(result){
+        if (result.status == 200) {
+          //TODO: fire onsuccess
+          alert(result.content)
+        } else {
+          alert(method.toUpperCase() + ' ' + url + '\n' + result.status + ' ' + result.status_text + '\n' + result.content)
 
-        alert(result.path + '\n' + result.status + ' ' + result.status_text + '\n' + message)
+          switch (result.status) {
+            case 301:
+            case 302:
+              window.location.href = result.content
+              break
+          }
+        }
       }
     })
 
     if (e.isDefaultPrevented()) return
   }
+
+  //TODO: plugins
 
   // ALERT DATA-API
   // ==============
