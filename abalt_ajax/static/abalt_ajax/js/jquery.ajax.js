@@ -57,18 +57,24 @@ function sameOrigin(url) {
         var method = $this.attr('data-method')
         var url = $this.attr('href') || $this.attr('action') || null
         var data = $this.attr('data-data') || null
+        var callback_success = $this.attr('data-success') || null
 
         if (!url) {
             alert('href or action attribute not found!')
             return
         }
 
+        if (callback_success) {
+            eval('callback_success = ' + callback_success)
+            if (!$.isFunction(callback_success))
+                callback_success = null
+        }
+
         method = method ? method.toLowerCase() : 'get'
 
         url = url && url.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
 
-        // Fix the single quote
-        data = data && data.replace(/'/g, '"')
+        data = data && data.replace(/'/g, '"') // Fix single quote
 
         if (e) e.preventDefault()
 
@@ -95,8 +101,10 @@ function sameOrigin(url) {
             },
             success: function( response ){
                 if (response.status == 200) {
-                    //TODO: fire onsuccess
-                    alert(response.responseText)
+                    if (callback_success)
+                        callback_success(response.responseText)
+                    else
+                        alert(response.responseText)
                 } else {
                     //TODO: custom fail function
                     alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText)
