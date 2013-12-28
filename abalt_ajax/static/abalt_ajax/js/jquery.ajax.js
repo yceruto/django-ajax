@@ -132,7 +132,7 @@ function sameOrigin(url) {
       var $this = $(this)
       var data  = $this.data('ajax')
 
-      if (!data) $this.data('ajax', (data = new Alert(this)))
+      if (!data) $this.data('ajax', (data = new Ajax(this)))
       if (typeof option == 'string') data[option].call($this)
     })
     }
