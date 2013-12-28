@@ -128,13 +128,13 @@ function sameOrigin(url) {
     var old = $.fn.ajax
 
     $.fn.ajax = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('ajax')
+        return this.each(function () {
+            var $this = $(this)
+            var data  = $this.data('abalt.ajax')
 
-      if (!data) $this.data('ajax', (data = new Ajax(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
+            if (!data) $this.data('abalt.ajax', (data = new Ajax(this)))
+            if (typeof option == 'string') data[option].call($this)
+        })
     }
 
     $.fn.ajax.Constructor = Ajax
@@ -144,8 +144,8 @@ function sameOrigin(url) {
     // =================
 
     $.fn.ajax.noConflict = function () {
-    $.fn.ajax = old
-    return this
+        $.fn.ajax = old
+        return this
     }
 
 
