@@ -65,13 +65,14 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
                 if (onError && $.isFunction(onError))
                     onError(response);
                 else {
-                    alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText);
-
                     switch (response.status) {
                         case 301:
                         case 302:
                             window.location.href = response.responseText;
-                            break
+                            break;
+                        default:
+                            alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText);
+                            break;
                     }
                 }
             }
