@@ -39,7 +39,7 @@ function sameOrigin(url) {
         !(/^(\/\/|http:|https:).*/.test(url));
 }
 
-function ajax(method, url, data, onSuccess, onBeforeSend, onError, onComplete) {
+function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
     $.ajax({
         url: url,
         type: method,
@@ -89,10 +89,10 @@ function ajax(method, url, data, onSuccess, onBeforeSend, onError, onComplete) {
     })
 }
 
-function ajaxPost(url, data, onSuccess, onBeforeSend, onError, onComplete) {
-    ajax('post', url, data, onSuccess, onBeforeSend, onError, onComplete)
+function ajaxPost(url, data, onSuccess, onError, onBeforeSend, onComplete) {
+    ajax('post', url, data, onSuccess, onError, onBeforeSend, onComplete)
 }
 
-function ajaxGet(url, data, onSuccess, onBeforeSend, onError, onComplete) {
-    ajax('get', url, data, onSuccess, onBeforeSend, onError, onComplete)
+function ajaxGet(url, data, onSuccess, onError, onBeforeSend, onComplete) {
+    ajax('get', url, data, onSuccess, onError, onBeforeSend, onComplete)
 }

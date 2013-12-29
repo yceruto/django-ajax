@@ -14,6 +14,7 @@
         var url = $this.attr('href') || $this.attr('action') || null
         var data = $this.attr('data-data') || null
         var onSuccess = $this.attr('data-success') || null
+        var onError = $this.attr('data-error') || null
 
         if (!url) {
             alert('href or action attribute not found!')
@@ -24,6 +25,12 @@
             eval('onSuccess = ' + onSuccess)
             if (!$.isFunction(onSuccess))
                 onSuccess = null
+        }
+
+        if (onError) {
+            eval('onError = ' + onError)
+            if (!$.isFunction(onError))
+                onError = null
         }
 
         method = method ? method.toLowerCase() : 'get'
@@ -42,7 +49,7 @@
         }
 
         if (ajax && $.isFunction(ajax))
-            ajax(method, url, data, onSuccess)
+            ajax(method, url, data, onSuccess, onError)
         else
             alert('The ajax function not found. The jquery.ajax.js library is required.')
     }
