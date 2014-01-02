@@ -15,26 +15,24 @@ def ajax(function=None, mandatory=True):
         @ajax
         def my_view(request):
             do_something()
-            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
-                         'data': null}
+            # will send {'status': 200, 'statusText': 'OK', 'content': null}
 
         @ajax
         def my_view(request):
             return {'key': 'value'}
-            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
-                         'data': {'key': 'value'}}
+            # will send {'status': 200, 'statusText': 'OK',
+                         'content': {'key': 'value'}}
 
         @ajax
         def my_view(request):
             return HttpResponse('<h1>Hi!</h1>')
-            # will send {'status': 200, 'status_text': 'OK', 'path': '/',
-                         'data': '<h1>Hi!</h1>'}
+            # will send {'status': 200, 'statusText': 'OK',
+                         'content': '<h1>Hi!</h1>'}
 
         @ajax
         def my_view(request):
             return redirect('home')
-            # will send {'status': 302, 'status_text': 'FOUND', 'path': '/',
-                         'location': '/'}
+            # will send {'status': 302, 'statusText': 'FOUND', 'content': '/'}
 
         # combination with others decorators:
 
@@ -45,13 +43,13 @@ def ajax(function=None, mandatory=True):
             pass
             # if request user is not authenticated then the @login_required
             # decorator redirect to login page.
-            # will send {'status': 302, 'status_text': 'FOUND', 'path': '/',
-                         'location': '/login'}
+            # will send {'status': 302, 'statusText': 'FOUND',
+                         'content': '/login'}
 
             # if request method is 'GET' then the @require_POST decorator return
             # a HttpResponseNotAllowed response.
-            # will send {'status': 405, 'status_text': 'METHOD NOT ALLOWED',
-                         'path': '/', 'method': 'GET'}
+            # will send {'status': 405, 'statusText': 'METHOD NOT ALLOWED',
+                         'content': null}
 
     """
     def decorator(func):

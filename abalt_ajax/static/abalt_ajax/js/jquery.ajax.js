@@ -58,9 +58,9 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
         success: function( response ){
             if (response.status == 200) {
                 if (onSuccess && $.isFunction(onSuccess))
-                    onSuccess(response.responseText);
+                    onSuccess(response.content);
                 else
-                    alert(response.responseText)
+                    alert(response.content)
             } else {
                 if (onError && $.isFunction(onError))
                     onError(response);
@@ -68,10 +68,10 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
                     switch (response.status) {
                         case 301:
                         case 302:
-                            window.location.href = response.responseText;
+                            window.location.href = response.content;
                             break;
                         default:
-                            alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText);
+                            alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
                             break;
                     }
                 }
@@ -81,7 +81,7 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
             if (onError && $.isFunction(onError))
                 onError(response);
             else
-                alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.responseText)
+                alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content)
         },
         complete: function(response) {
             if (onComplete && $.isFunction(onComplete))

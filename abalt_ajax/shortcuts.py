@@ -23,20 +23,20 @@ def render_to_json(response):
 
     # define the response text
     if issubclass(type(response), HttpResponseRedirectBase):
-        response_text = response['Location']
+        content = response['Location']
     elif issubclass(type(response), TemplateResponse):
-        response_text = response.rendered_content
+        content = response.rendered_content
     elif issubclass(type(response), HttpResponse):
-        response_text = response.content
+        content = response.content
     elif issubclass(type(response), Exception):
-        response_text = unicode(response)
+        content = unicode(response)
     else:
-        response_text = response
+        content = response
 
     data = {
         'status': status_code,
         'statusText': REASON_PHRASES.get(status_code, 'UNKNOWN STATUS CODE'),
-        'responseText': response_text
+        'content': content
     }
 
     return JsonHttpResponse(data)
