@@ -47,7 +47,7 @@ When nothing is returned as result of view then returns (JSON format):
 
 .. code:: javascript
 
-    {"status": 200, "status_text": "OK", "path": "/", "data": null}
+    {"status": 200, "statusText": "OK", "content ": null}
 
 
 Sending custom data in the response:
@@ -63,7 +63,7 @@ The result is send to the browser in the following way (JSON format)
 
 .. code:: javascript
 
-    {"status": 200, "status_text": "OK", "path": "/", "data": {"result": 5}}
+    {"status": 200, "statusText": "OK", "content": {"result": 5}}
 
 
 Combining with others decorators:
@@ -80,7 +80,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"status": 302, "status_text": "FOUND", "path": "/", "location": "/login"}
+    {"status": 302, "statusText": "FOUND", "content": "/login"}
 
 
 Template response:
@@ -95,7 +95,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"status": 200, "status_text": "OK", "path": "/", "data": "<html>...</html>"}
+    {"status": 200, "statusText": "OK", "content": "<html>...</html>"}
 
 
 Catch exceptions:
@@ -111,7 +111,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"status": 500, "status_text": "INTERNAL SERVER ERROR", "path": "/", "exception": "integer division or modulo by zero"}
+    {"status": 500, "statusText": "INTERNAL SERVER ERROR", "content": "integer division or modulo by zero"}
 
 
 AJAX Middleware Usage
@@ -140,7 +140,7 @@ The JSON response:
 
 .. code:: javascript
 
-    {"status": 200, "status_text": "OK", "path": "/", "data": "<html><title>Home</title>...</html>"}
+    {"status": 200, "statusText": "OK", "content": "<html><title>Home</title>...</html>"}
 
 
 Client side
@@ -157,15 +157,12 @@ Later, use the "post" or "get" functions for call ajax and is fired the callback
 .. code:: html
 
     <script type="text/javascript">
-        ajax_get('/', null, function(result){
-            //onsuccess
-            alert(result.data);
-        }, function(status, status_text, message){
-            //onfail
-            alert(message);
-        }, function(status, path, location){
-            //onredirect
-            location.href = location
+        ajaxGet('/', null, function(content){
+            //onSuccess
+            alert(content);
+        }, function(response){
+            //onError
+            alert(response.status + ' ' + response.statusText + '\n' + response.content);
         })
     </script>
 
