@@ -51,7 +51,7 @@
         if (ajax && $.isFunction(ajax))
             ajax(method, url, data, onSuccess, onError);
         else
-            alert('The ajax function not found. The jquery.ajax.js library is required.')
+            alert('jquery.ajax.js is required')
     };
 
 
