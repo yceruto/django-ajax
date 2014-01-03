@@ -21,7 +21,7 @@ def render_to_json(response):
     else:
         status_code = 200
 
-    # define the response text
+    # define the content of the response
     if issubclass(type(response), HttpResponseRedirectBase):
         content = response['Location']
     elif issubclass(type(response), TemplateResponse):
