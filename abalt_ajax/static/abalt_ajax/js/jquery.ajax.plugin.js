@@ -1,45 +1,45 @@
-+function ($) { "use strict";
+;(function ($) { "use strict";
 
     // AJAX CLASS DEFINITION
     // ======================
 
-    var dismiss = '[data-ajax="true"]'
-    var Ajax    = function (el) {
-        $(el).on('click', dismiss, this.send)
-    }
+    var dismiss = '[data-ajax="true"]',
+        Ajax = function (el) {
+            $(el).on('click', dismiss, this.send)
+        };
 
     Ajax.prototype.send = function (e) {
-        var $this    = $(this)
-        var method = $this.attr('data-method')
-        var url = $this.attr('href') || $this.attr('action') || null
-        var data = $this.attr('data-data') || null
-        var onSuccess = $this.attr('data-success') || null
-        var onError = $this.attr('data-error') || null
+        var $this = $(this),
+            method = $this.attr('data-method'),
+            url = $this.attr('href') || $this.attr('action') || null,
+            data = $this.attr('data-data') || null,
+            onSuccess = $this.attr('data-success') || null,
+            onError = $this.attr('data-error') || null;
 
         if (!url) {
-            alert('href or action attribute not found!')
+            alert('href or action attribute not found!');
             return
         }
 
         if (onSuccess) {
-            eval('onSuccess = ' + onSuccess)
+            eval('onSuccess = ' + onSuccess);
             if (!$.isFunction(onSuccess))
                 onSuccess = null
         }
 
         if (onError) {
-            eval('onError = ' + onError)
+            eval('onError = ' + onError);
             if (!$.isFunction(onError))
                 onError = null
         }
 
-        method = method ? method.toLowerCase() : 'get'
+        method = method ? method.toLowerCase() : 'get';
 
-        url = url && url.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+        url = url && url.replace(/.*(?=#[^\s]*$)/, ''); // strip for ie7
 
-        data = data && data.replace(/'/g, '"') // Fix single quote
+        data = data && data.replace(/'/g, '"'); // Fix single quote
 
-        if (e) e.preventDefault()
+        if (e) e.preventDefault();
 
         try {
             data = $.parseJSON(data)
@@ -49,37 +49,37 @@
         }
 
         if (ajax && $.isFunction(ajax))
-            ajax(method, url, data, onSuccess, onError)
+            ajax(method, url, data, onSuccess, onError);
         else
             alert('The ajax function not found. The jquery.ajax.js library is required.')
-    }
+    };
 
 
     // ALERT PLUGIN DEFINITION
     // =======================
 
-    var old = $.fn.ajax
+    var old = $.fn.ajax;
 
     $.fn.ajax = function (option) {
         return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('abalt.ajax')
+            var $this = $(this),
+                data  = $this.data('abalt.ajax');
 
-            if (!data) $this.data('abalt.ajax', (data = new Ajax(this)))
+            if (!data) $this.data('abalt.ajax', (data = new Ajax(this)));
             if (typeof option == 'string') data[option].call($this)
         })
-    }
+    };
 
-    $.fn.ajax.Constructor = Ajax
+    $.fn.ajax.Constructor = Ajax;
 
 
     // ALERT NO CONFLICT
     // =================
 
     $.fn.ajax.noConflict = function () {
-        $.fn.ajax = old
+        $.fn.ajax = old;
         return this
-    }
+    };
 
 
     // ALERT DATA-API
@@ -87,4 +87,4 @@
 
     $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send)
 
-}(jQuery);
+})(jQuery);
