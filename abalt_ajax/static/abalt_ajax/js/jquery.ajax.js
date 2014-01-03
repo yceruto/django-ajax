@@ -39,7 +39,19 @@ function sameOrigin(url) {
         !(/^(\/\/|http:|https:).*/.test(url));
 }
 
+var ajaxOptions = {
+    onSuccess: null,
+    onError: null,
+    onBeforeSend: null,
+    onComplete: null
+};
+
 function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
+    onSuccess = onSuccess || ajaxOptions.onSuccess;
+    onError = onError || ajaxOptions.onError;
+    onBeforeSend = onBeforeSend || ajaxOptions.onBeforeSend;
+    onComplete = onComplete || ajaxOptions.onComplete;
+
     $.ajax({
         url: url,
         type: method,
