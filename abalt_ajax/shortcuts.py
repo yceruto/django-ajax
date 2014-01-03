@@ -9,7 +9,7 @@ from abalt_ajax.response import JsonHttpResponse
 
 def render_to_json(response):
     """
-    Render response to JSON
+    Guess response
     """
     # define the status code
     if hasattr(response, 'status_code'):
