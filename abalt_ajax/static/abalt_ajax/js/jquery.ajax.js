@@ -1,3 +1,9 @@
+/* ========================================================================
+ * Abalt Django Ajax: jquery.ajax.js v1.0
+ * https://github.com/yceruto/abalt-django-ajax/
+ * Copyright 2014 Yonel Ceruto Glez
+ * ======================================================================== */
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
