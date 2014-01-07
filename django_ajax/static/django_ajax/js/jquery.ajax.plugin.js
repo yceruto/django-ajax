@@ -9,7 +9,7 @@
     // AJAX CLASS DEFINITION
     // ======================
 
-    var dismiss = '[data-ajax="true"]',
+    var dismiss = '[data-ajax]',
         Ajax = function (el) {
             $(el).on('click', dismiss, this.send)
         };
@@ -28,15 +28,23 @@
         }
 
         if (onSuccess) {
-            eval('onSuccess = ' + onSuccess);
-            if (!$.isFunction(onSuccess))
-                onSuccess = null
+            try {
+                eval('onSuccess = ' + onSuccess);
+                if (!$.isFunction(onSuccess))
+                    onSuccess = null
+            } catch (e) {
+                alert(e);
+            }
         }
 
         if (onError) {
-            eval('onError = ' + onError);
-            if (!$.isFunction(onError))
-                onError = null
+            try {
+                eval('onError = ' + onError);
+                if (!$.isFunction(onError))
+                    onError = null
+            } catch (e) {
+                alert(e);
+            }
         }
 
         method = method ? method.toLowerCase() : 'get';
@@ -69,9 +77,9 @@
     $.fn.ajax = function (option) {
         return this.each(function () {
             var $this = $(this),
-                data  = $this.data('abalt.ajax');
+                data  = $this.data('django.ajax');
 
-            if (!data) $this.data('abalt.ajax', (data = new Ajax(this)));
+            if (!data) $this.data('django.ajax', (data = new Ajax(this)));
             if (typeof option == 'string') data[option].call($this)
         })
     };
