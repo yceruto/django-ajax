@@ -4,7 +4,7 @@ Ajax Decorators
 from functools import wraps
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
-from abalt_ajax.shortcuts import render_to_json
+from django_ajax.shortcuts import render_to_json
 
 
 def ajax(function=None, mandatory=True):

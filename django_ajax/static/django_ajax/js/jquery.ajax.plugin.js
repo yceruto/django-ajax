@@ -1,6 +1,6 @@
 /* ========================================================================
- * Abalt Django Ajax: jquery.ajax.plugin.js v1.0
- * https://github.com/yceruto/abalt-django-ajax/
+ * Django Ajax: jquery.ajax.plugin.js v1.0
+ * https://github.com/yceruto/django-ajax/
  * Copyright 2014 Yonel Ceruto Glez
  * ======================================================================== */
 

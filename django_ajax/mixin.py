@@ -1,7 +1,7 @@
 """
 Ajax mixin
 """
-from abalt_ajax.decorators import ajax
+from django_ajax.decorators import ajax
 
 
 class AJAXResponseMixin(object):

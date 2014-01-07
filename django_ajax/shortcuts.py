@@ -4,7 +4,7 @@ Ajax Shortcuts
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
 from django.template.response import TemplateResponse
-from abalt_ajax.response import JsonHttpResponse
+from django_ajax.response import JsonHttpResponse
 
 
 def render_to_json(response):
