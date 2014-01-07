@@ -3,3 +3,8 @@
 *.pyc
 .idea/*
 local_settings.py
+
+# folders generated when the packaged is installed
+build/*
+dist/*
+django_ajax.egg-info/*
