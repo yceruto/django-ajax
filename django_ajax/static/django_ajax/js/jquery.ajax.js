@@ -49,14 +49,16 @@ var ajaxOptions = {
     onSuccess: null,
     onError: null,
     onBeforeSend: null,
-    onComplete: null
+    onComplete: null,
+    onRedirect: null
 };
 
-function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
+function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect) {
     onSuccess = onSuccess || ajaxOptions.onSuccess;
     onError = onError || ajaxOptions.onError;
     onBeforeSend = onBeforeSend || ajaxOptions.onBeforeSend;
     onComplete = onComplete || ajaxOptions.onComplete;
+    onRedirect = onRedirect || ajaxOptions.onRedirect;
 
     $.ajax({
         url: url,
@@ -80,18 +82,20 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete) {
                 else
                     alert(response.content)
             } else {
-                if (onError && $.isFunction(onError))
-                    onError(response);
-                else {
-                    switch (response.status) {
-                        case 301:
-                        case 302:
+                switch (response.status) {
+                    case 301:
+                    case 302:
+                        if (onRedirect && $.isFunction(onRedirect))
+                            onRedirect(response.content);
+                        else
                             window.location.href = response.content;
-                            break;
-                        default:
+                        break;
+                    default:
+                        if (onError && $.isFunction(onError))
+                            onError(response);
+                        else
                             alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
-                            break;
-                    }
+                        break;
                 }
             }
         },
