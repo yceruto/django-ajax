@@ -6,7 +6,7 @@ from django.utils.unittest import TestCase
 
 DEBUG = True
 DEFAULT_CHARSET = 'utf-8'
-SECRET_KEY = 'secret-key'
+SECRET_KEY = 'j&^s-a4(uwj!fdqwr!_pa_0@#$kv8!4j(t3st44_6o^)g=ec%@'
 
 
 class ResponseTestCase(TestCase):
