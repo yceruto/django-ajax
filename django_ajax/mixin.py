@@ -1,12 +1,12 @@
 """
-Ajax mixin
+Mixin Response
 """
 from django_ajax.decorators import ajax
 
 
-class AJAXResponseMixin(object):
+class AJAXMixin(object):
     """
-    AJAX Mixin
+    AJAX Mixin Class
     """
     ajax_mandatory = True
 
@@ -14,6 +14,5 @@ class AJAXResponseMixin(object):
         """
         Using ajax decorator
         """
-        return ajax(mandatory=self.ajax_mandatory)(
-            super(AJAXResponseMixin, self).dispatch
-        )(request, *args, **kwargs)
+        return ajax(mandatory=self.ajax_mandatory)(super(
+            AJAXMixin, self).dispatch)(request, *args, **kwargs)

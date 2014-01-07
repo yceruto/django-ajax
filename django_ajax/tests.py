@@ -1,4 +1,6 @@
-from shortcuts import render_to_json
+"""
+Tests
+"""
 from response import JsonHttpResponse
 from django.utils.unittest import TestCase
 

@@ -1,5 +1,5 @@
 """
-Ajax Decorators
+Decorators
 """
 from functools import wraps
 from django.http import HttpResponseBadRequest
@@ -53,14 +53,8 @@ def ajax(function=None, mandatory=True):
 
     """
     def decorator(func):
-        """
-        Decorator function
-        """
         @wraps(func, assigned=available_attrs(func))
         def inner(request, *args, **kwargs):
-            """
-            Inner function
-            """
             if mandatory and not request.is_ajax():
                 return HttpResponseBadRequest()
 

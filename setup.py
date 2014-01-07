@@ -20,17 +20,16 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 # Dynamically calculate the version based on django.VERSION.
-version = __import__('abalt_ajax').get_version()
+version = __import__('django_ajax').get_version()
 
 setup(
-    author='Yonel Ceruto Gonzalez',
+    author='Yonel Ceruto Glez',
     author_email='yceruto@abalt.org',
-    name='abalt-django-ajax',
+    name='django-ajax',
     version=version,
-    description='Powerful and easy AJAX toolkit for django applications. '
-                'Contains AJAX decorator, AJAX middleware, shortcuts and more.',
+    description='Powerful and easy AJAX toolkit for django applications.',
     long_description=README,
-    url='https://github.com/yceruto/abalt-django-ajax',
+    url='https://github.com/yceruto/django-ajax',
     license='MIT License',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,

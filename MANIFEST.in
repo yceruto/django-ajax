@@ -1,2 +1,2 @@
 include README.rst
-recursive-include abalt_ajax *
+recursive-include django_ajax *

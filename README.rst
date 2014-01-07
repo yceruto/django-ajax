@@ -1,11 +1,11 @@
 
-abalt-django-ajax
+django-ajax
 =====================
 
-Powerful and easy AJAX toolkit for django applications. Contains ajax decorator, ajax middleware, shortcuts and more.
+Powerful and easy AJAX toolkit for django applications.
 
-.. image:: https://travis-ci.org/yceruto/abalt-django-ajax.png?branch=master
-    :target: https://travis-ci.org/yceruto/abalt-django-ajax
+.. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
+    :target: https://travis-ci.org/yceruto/django-ajax
 
 Requirements
 ------------
@@ -17,15 +17,15 @@ Requirements
 Installation
 ------------
 
-Install abalt-django-ajax in your python environment
+Install django-ajax in your python environment
 
 1- Download and install package:
 
 .. code:: sh
 
-    $ python abalt-django-ajax install
+    $ pip django-ajax install
 
-2- Add ``'abalt_ajax'`` into the ``INSTALLED_APPS`` list.
+2- Add ``'django_ajax'`` into the ``INSTALLED_APPS`` list.
 
 3- Read usage section and enjoy their advantage!
 
@@ -37,7 +37,7 @@ Basic Example
 
 .. code:: python
 
-    from abalt_ajax.decorators import ajax
+    from django_ajax.decorators import ajax
 
     @ajax
     def my_view(request)
@@ -119,21 +119,21 @@ AJAX Middleware Usage
 
 .. code:: python
 
-Add ``abalt_ajax.middleware.AjaxMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
+Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
 
 Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
 Note: If you use this middleware should not use the AJAX decorator.
 
 
-AJAX response with class-based views
+AJAX Mixin for class-based views
 ------------------------------------
 
 .. code:: python
 
-    from abalt_ajax.mixin import AJAXResponseMixin
+    from django_ajax.mixin import AJAXMixin
 
-    class SimpleView(AJAXResponseMixin, TemplateView):
+    class SimpleView(AJAXMixin, TemplateView):
         template_name = 'home.html'
 
 The JSON response:
@@ -143,29 +143,45 @@ The JSON response:
     {"status": 200, "statusText": "OK", "content": "<html><title>Home</title>...</html>"}
 
 
-Client side
+AJAX Client
 -----------
 
-Use the abalt_ajax.js as static file into base template
+Use the jquery.ajax.js as static file into base template
 
 .. code:: html
 
-    <script type="text/javascript" src="{% static 'abalt_ajax/js/jquery.ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.js' %}"></script>
 
-Later, use the "post" or "get" functions for call ajax and is fired the callback function if successful.
+Later, use "ajaxPost" or "ajaxGet" functions for call ajax request.
 
 .. code:: html
 
     <script type="text/javascript">
-        ajaxGet('/', null, function(content){
+        ajaxGet('/', {}, function(content){
             //onSuccess
             alert(content);
-        }, function(response){
-            //onError
-            alert(response.status + ' ' + response.statusText + '\n' + response.content);
         })
     </script>
 
 If the response is not successful, is show an alert with the message appropriated.
+
+AJAX plugin
+-----------
+
+Include the jquery.ajax.plugin.js as static file into base template
+
+.. code:: html
+
+    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.plugin.js' %}"></script>
+
+In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
+using the XMLHttpRequest object (AJAX) and the response is returned on JSON format.
+
+The success data will use as callback function if the request is successful. The callback function is
+called with a param that represent the response content.
+
+.. code:: html
+
+    <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="alert">Show Alert</a>
 
 Enjoy!

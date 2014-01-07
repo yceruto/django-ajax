@@ -1,5 +1,5 @@
 """
-Ajax Shortcuts
+Shortcuts
 """
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
@@ -9,9 +9,9 @@ from django_ajax.response import JsonHttpResponse
 
 def render_to_json(response):
     """
-    Guess response
+    Determine the appropriate content and create the JSON response
     """
-    # define the status code
+    # determine the status code response
     if hasattr(response, 'status_code'):
         status_code = response.status_code
     elif issubclass(type(response), Http404):
@@ -21,7 +21,7 @@ def render_to_json(response):
     else:
         status_code = 200
 
-    # define the content of the response
+    # determine the content response
     if issubclass(type(response), HttpResponseRedirectBase):
         content = response['Location']
     elif issubclass(type(response), TemplateResponse):
