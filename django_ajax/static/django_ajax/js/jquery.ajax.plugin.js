@@ -63,7 +63,9 @@
         }
 
         if (ajax && $.isFunction(ajax))
-            ajax(method, url, data, {
+            ajax(url, {
+                method: method,
+                data: data,
                 onSuccess: onSuccess,
                 onError: onError
             });
