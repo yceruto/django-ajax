@@ -22,20 +22,11 @@ function getCookie(name) {
 
 var csrftoken = getCookie('csrftoken');
 
-var ajaxOptions = {
-    onSuccess: null,
-    onError: null,
-    onBeforeSend: null,
-    onComplete: null,
-    onRedirect: null
-};
-
 $.ajaxSetup({
     crossDomain: false // obviates need for sameOrigin test
 });
 
-
-function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect) {
+var ajax = function (method, url, data, events) {
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -55,11 +46,10 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete, o
             !(/^(\/\/|http:|https:).*/.test(url));
     }
 
-    onSuccess = onSuccess || ajaxOptions.onSuccess;
-    onError = onError || ajaxOptions.onError;
-    onBeforeSend = onBeforeSend || ajaxOptions.onBeforeSend;
-    onComplete = onComplete || ajaxOptions.onComplete;
-    onRedirect = onRedirect || ajaxOptions.onRedirect;
+    if (!$.isPlainObject(events))
+        events = {};
+
+    events = $.extend({}, ajax.EVENTS, events);
 
     $.ajax({
         url: url,
@@ -73,27 +63,27 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete, o
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
 
-            if (onBeforeSend && $.isFunction(onBeforeSend))
-                onBeforeSend(xhr, settings);
+            if (events.onBeforeSend && $.isFunction(events.onBeforeSend))
+                events.onBeforeSend(xhr, settings);
         },
         success: function( response ){
             if (response.status == 200) {
-                if (onSuccess && $.isFunction(onSuccess))
-                    onSuccess(response.content);
+                if (events.onSuccess && $.isFunction(events.onSuccess))
+                    events.onSuccess(response.content);
                 else
                     alert(response.content)
             } else {
                 switch (response.status) {
                     case 301:
                     case 302:
-                        if (onRedirect && $.isFunction(onRedirect))
-                            onRedirect(response.content);
+                        if (events.onRedirect && $.isFunction(events.onRedirect))
+                            events.onRedirect(response.content);
                         else
                             window.location.href = response.content;
                         break;
                     default:
-                        if (onError && $.isFunction(onError))
-                            onError(response);
+                        if (events.onError && $.isFunction(events.onError))
+                            events.onError(response);
                         else
                             alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
                         break;
@@ -101,22 +91,30 @@ function ajax(method, url, data, onSuccess, onError, onBeforeSend, onComplete, o
             }
         },
         error: function(response) {
-            if (onError && $.isFunction(onError))
-                onError(response);
+            if (events.onError && $.isFunction(events.onError))
+                events.onError(response);
             else
                 alert(method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content)
         },
         complete: function(response) {
-            if (onComplete && $.isFunction(onComplete))
-                onComplete(response);
+            if (events.onComplete && $.isFunction(events.onComplete))
+                events.onComplete(response);
         }
     })
+};
+
+ajax.EVENTS = {
+    onSuccess: null,
+    onError: null,
+    onBeforeSend: null,
+    onComplete: null,
+    onRedirect: null
+};
+
+function ajaxPost(url, data, events) {
+    ajax('post', url, data, events)
 }
 
-function ajaxPost(url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect) {
-    ajax('post', url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect)
-}
-
-function ajaxGet(url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect) {
-    ajax('get', url, data, onSuccess, onError, onBeforeSend, onComplete, onRedirect)
+function ajaxGet(url, data, events) {
+    ajax('get', url, data, events)
 }

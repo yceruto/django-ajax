@@ -63,7 +63,10 @@
         }
 
         if (ajax && $.isFunction(ajax))
-            ajax(method, url, data, onSuccess, onError);
+            ajax(method, url, data, {
+                onSuccess: onSuccess,
+                onError: onError
+            });
         else
             alert('jquery.ajax.js is required')
     };
