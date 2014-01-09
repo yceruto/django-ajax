@@ -27,25 +27,6 @@ $.ajaxSetup({
 });
 
 var ajax = function (url, options) {
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    function sameOrigin(url) {
-        // test that a given url is a same-origin URL
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-
     if (!$.isPlainObject(options))
         options = {};
 
@@ -67,27 +48,26 @@ var ajax = function (url, options) {
                 options.onBeforeSend(xhr, settings);
         },
         success: function( response ){
-            if (response.status == 200) {
-                if (options.onSuccess && $.isFunction(options.onSuccess))
-                    options.onSuccess(response.content);
-                else
-                    alert(response.content)
-            } else {
-                switch (response.status) {
-                    case 301:
-                    case 302:
-                        if (options.onRedirect && $.isFunction(options.onRedirect))
-                            options.onRedirect(response.content);
-                        else
-                            window.location.href = response.content;
-                        break;
-                    default:
-                        if (options.onError && $.isFunction(options.onError))
-                            options.onError(response);
-                        else
-                            alert(options.method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
-                        break;
-                }
+            switch (response.status) {
+                case 200:
+                    if (options.onSuccess && $.isFunction(options.onSuccess))
+                        options.onSuccess(response.content);
+                    else
+                        alert(response.content);
+                    break;
+                case 301:
+                case 302:
+                    if (options.onRedirect && $.isFunction(options.onRedirect))
+                        options.onRedirect(response.content);
+                    else
+                        window.location.href = response.content;
+                    break;
+                default:
+                    if (options.onError && $.isFunction(options.onError))
+                        options.onError(response);
+                    else
+                        alert(options.method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
+                    break;
             }
         },
         error: function(response) {
@@ -100,7 +80,26 @@ var ajax = function (url, options) {
             if (options.onComplete && $.isFunction(options.onComplete))
                 options.onComplete(response);
         }
-    })
+    });
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    function sameOrigin(url) {
+        // test that a given url is a same-origin URL
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
 };
 
 ajax.DEFAULTS = {
