@@ -27,6 +27,13 @@ $.ajaxSetup({
 });
 
 var ajax = function (url, options) {
+    // If url is an object, simulate pre-1.5 signature
+    if ( typeof url === "object" ) {
+        options = url;
+        url = undefined;
+    }
+
+    // Force options to be an object
     if (!$.isPlainObject(options))
         options = {};
 
@@ -110,12 +117,12 @@ ajax.DEFAULTS = {
     onRedirect: null
 };
 
-function ajaxPost(url, options) {
-    options = $.extend({}, options, {method: 'post'});
-    ajax(url, options)
+function ajaxPost(url, data, onSuccess, options) {
+    options = $.extend({}, options, {url: url, method: 'post', data: data, onSuccess: onSuccess});
+    ajax(options)
 }
 
-function ajaxGet(url, options) {
-    options = $.extend({}, options, {method: 'get'});
-    ajax(url, options)
+function ajaxGet(url, onSuccess, options) {
+    options = $.extend({}, options, {url: url, method: 'get', onSuccess: onSuccess});
+    ajax(options);
 }
