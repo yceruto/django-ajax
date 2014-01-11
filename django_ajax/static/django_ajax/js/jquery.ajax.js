@@ -111,11 +111,11 @@ ajax.DEFAULTS = {
 };
 
 function ajaxPost(url, options) {
-    options = $.extend({}, ajax.DEFAULTS, options, {method: 'post'});
+    options = $.extend({}, options, {method: 'post'});
     ajax(url, options)
 }
 
 function ajaxGet(url, options) {
-    options = $.extend({}, ajax.DEFAULTS, options, {method: 'get'});
+    options = $.extend({}, options, {method: 'get'});
     ajax(url, options)
 }
