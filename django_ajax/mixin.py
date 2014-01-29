@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Mixin Response
 """
+
 from django_ajax.decorators import ajax
 
 

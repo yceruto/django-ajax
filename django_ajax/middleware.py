@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Middleware
 """
+
 from django_ajax.shortcuts import render_to_json
 
 

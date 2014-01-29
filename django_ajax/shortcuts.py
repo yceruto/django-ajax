@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Shortcuts
 """
+
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
 from django.template.response import TemplateResponse

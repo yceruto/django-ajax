@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 """
 Responses
 """
-import json
+
 from django.conf import settings
 from django.http import HttpResponse
+from django_ajax.utils import serialize_to_json
 
 
 class JSONResponse(HttpResponse):
@@ -12,6 +14,6 @@ class JSONResponse(HttpResponse):
     """
     def __init__(self, data):
         super(JSONResponse, self).__init__(
-            content=json.dumps(data, sort_keys=settings.DEBUG),
+            content=serialize_to_json(data, sort_keys=settings.DEBUG),
             content_type='application/json'
         )

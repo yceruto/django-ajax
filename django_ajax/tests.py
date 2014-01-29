@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 Tests
 """
+
 from response import JSONResponse
 from django.utils.unittest import TestCase
 
