@@ -23,7 +23,7 @@ Install django-ajax in your python environment
 
 .. code:: sh
 
-    $ pip django-ajax install
+    $ pip install abalt-django-ajax
 
 2- Add ``'django_ajax'`` into the ``INSTALLED_APPS`` list.
 
