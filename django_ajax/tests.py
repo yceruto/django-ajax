@@ -1,7 +1,7 @@
 """
 Tests
 """
-from response import JsonHttpResponse
+from response import JSONResponse
 from django.utils.unittest import TestCase
 
 DEBUG = True
@@ -18,7 +18,7 @@ class ResponseTestCase(TestCase):
         test http json response
         """
         data = {'test': True}
-        response = JsonHttpResponse(data)
+        response = JSONResponse(data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
         self.assertEqual(response.content, '{"test": true}')

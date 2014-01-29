@@ -4,7 +4,7 @@ Shortcuts
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
 from django.template.response import TemplateResponse
-from django_ajax.response import JsonHttpResponse
+from django_ajax.response import JSONResponse
 
 
 def render_to_json(response):
@@ -39,5 +39,5 @@ def render_to_json(response):
         'content': content
     }
 
-    return JsonHttpResponse(data)
+    return JSONResponse(data)
 
