@@ -121,7 +121,7 @@ AJAX Middleware Usage
 
 Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
 
-Then, all your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
+All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
 Note: If you use this middleware should not use the AJAX decorator.
 
@@ -152,7 +152,7 @@ Use the jquery.ajax.js as static file into base template
 
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.js' %}"></script>
 
-Later, use "ajaxPost" or "ajaxGet" functions for call ajax request.
+Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
 
 .. code:: html
 
