@@ -27,7 +27,7 @@ setup(
     author_email='yceruto@abalt.org',
     name='django-ajax',
     version=version,
-    description='Powerful and easy AJAX toolkit for django applications.',
+    description='Powerful and easy AJAX framework for django applications.',
     long_description=README,
     url='https://github.com/yceruto/django-ajax',
     license='MIT License',

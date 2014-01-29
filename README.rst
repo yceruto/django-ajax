@@ -2,7 +2,7 @@
 django-ajax
 =====================
 
-Powerful and easy AJAX toolkit for django applications.
+Powerful and easy AJAX framework for django applications.
 
 .. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
     :target: https://travis-ci.org/yceruto/django-ajax
