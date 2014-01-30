@@ -1,4 +1,3 @@
-
 django-ajax
 =====================
 
@@ -33,7 +32,7 @@ or simply with:
 
 2- Add ``'django_ajax'`` into the ``INSTALLED_APPS`` list.
 
-3- Read usage section and enjoy their advantage!
+3- Read usage section and enjoy its advantages!
 
 
 AJAX Decorator Usage
@@ -169,7 +168,7 @@ Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
         })
     </script>
 
-If the response is not successful, is show an alert with the message appropriated.
+If the response is not successful, it´s shown an alert with the message appropriated.
 
 AJAX plugin
 -----------
@@ -183,14 +182,14 @@ Include the jquery.ajax.plugin.js as static file into base template
 In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
 using the XMLHttpRequest object (AJAX) and the response is returned on JSON format.
 
-The success data will use as callback function if the request is successful. The callback function is
+The success data will be used as callback function if the request is successful. The callback function is
 called with a param that represent the response content.
 
 .. code:: html
 
     <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
 
-Where the success is a function:
+Where "success" is a function:
 
 .. code:: html
 
