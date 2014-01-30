@@ -25,7 +25,11 @@ class LazyJSONEncoder(json.JSONEncoder):
             return list(iterable)
 
         # this handlers Models
-        if issubclass(o, ModelBase):
+        try:
+            isinstance(o.__class__, ModelBase)
+        except TypeError:
+            pass
+        else:
             return force_unicode(o)
 
         return super(LazyJSONEncoder, self).default(o)
