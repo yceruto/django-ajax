@@ -190,7 +190,7 @@ called with a param that represent the response content.
 
     <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
 
-When the success is a function:
+Where the success is a function:
 
 .. code:: html
 
