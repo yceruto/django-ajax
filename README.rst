@@ -7,9 +7,9 @@ Powerful and easy AJAX libraries for django projects.
     :alt: Build Status
     :target: https://travis-ci.org/yceruto/django-ajax
     
-.. image:: https://badge.fury.io/py/django-monkey-team.png
+.. image:: https://badge.fury.io/py/abalt-django-ajax.png
     :alt: PYPI Package
-    :target: https://pypi.python.org/pypi/django-monkey-team    
+    :target: https://pypi.python.org/pypi/abalt-django-ajax    
 
 Requirements
 ------------
