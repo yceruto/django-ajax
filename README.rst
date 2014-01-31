@@ -4,7 +4,12 @@ django-ajax
 Powerful and easy AJAX libraries for django projects.
 
 .. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
+    :alt: Build Status
     :target: https://travis-ci.org/yceruto/django-ajax
+    
+.. image:: https://badge.fury.io/py/django-monkey-team.png
+    :alt: PYPI Package
+    :target: https://pypi.python.org/pypi/django-monkey-team    
 
 Requirements
 ------------
