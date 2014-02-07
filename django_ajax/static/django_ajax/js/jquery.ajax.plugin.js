@@ -16,19 +16,20 @@
 
     Ajax.prototype.send = function (e) {
         var $this = $(this),
-            method = $this.attr('data-method'),
-            url = $this.attr('href') || $this.attr('action') || null,
-            data = $this.attr('data-data') || null,
-            onSuccess = $this.attr('data-success') || null,
-            onError = $this.attr('data-error') || null;
+            method = $this.data('method'),
+            url = $this.attr('href') || $this.data('href') || $this.data('url') || null,
+            data = $this.data('data') || null,
+            onSuccess = $this.data('success') || null,
+            onError = $this.data('error') || null;
 
         if (!url) {
-            alert('href or action attribute not found!');
+            alert('href, data-href or data-url attribute not found!');
             return
         }
 
         if (onSuccess) {
             try {
+                //TODO: fix vulnerability
                 eval('onSuccess = ' + onSuccess);
                 if (!$.isFunction(onSuccess))
                     onSuccess = null
@@ -39,6 +40,7 @@
 
         if (onError) {
             try {
+                //TODO: fix vulnerability
                 eval('onError = ' + onError);
                 if (!$.isFunction(onError))
                     onError = null
@@ -66,12 +68,111 @@
             ajax(url, {
                 method: method,
                 data: data,
-                onSuccess: onSuccess,
+                onSuccess: function(response) {
+                    $.isFunction(onSuccess) && onSuccess(response.content);
+                    processData(response, $this);
+                },
                 onError: onError
             });
         else
             alert('jquery.ajax.js is required')
     };
+
+    function processData(response, $el) {
+        var replace_selector = $el.data('replace'),
+            replace_closest_selector = $el.data('replace-closest'),
+            replace_inner_selector = $el.data('replace-inner'),
+            replace_closest_inner_selector = $el.data('replace-closest-inner'),
+            append_selector = $el.data('append'),
+            prepend_selector = $el.data('prepend'),
+            refresh_selector = $el.data('refresh'),
+            refresh_closest_selector = $el.data('refresh-closest'),
+            clear_selector = $el.data('clear'),
+            remove_selector = $el.data('remove'),
+            clear_closest_selector = $el.data('clear-closest'),
+            remove_closest_selector = $el.data('remove-closest');
+
+        if (replace_selector) {
+            $(replace_selector).replaceWith(response.content)
+        }
+
+        if (replace_closest_selector) {
+            $el.closest(replace_closest_selector).replaceWith(response.content)
+        }
+
+        if (replace_inner_selector) {
+            $(replace_inner_selector).html(response.content)
+        }
+
+        if (replace_closest_inner_selector) {
+            $el.closest(replace_closest_inner_selector).html(response.content)
+        }
+
+        if (append_selector) {
+            $(append_selector).append(response.content)
+        }
+
+        if (prepend_selector) {
+            $(prepend_selector).prepend(response.content)
+        }
+
+        if (refresh_selector) {
+            $.each($(refresh_selector), function(index, value) {
+                ajaxGet($(value).data('refresh-url'), function(content) {
+                    $(value).replaceWith(content)
+                })
+            })
+        }
+
+        if (refresh_closest_selector) {
+            $.each($(refresh_closest_selector), function(index, value) {
+                ajaxGet($(value).data('refresh-url'), function(content) {
+                    $el.closest($(value)).replaceWith(content)
+                })
+            })
+        }
+
+        if (clear_selector) {
+            $(clear_selector).html('')
+        }
+
+        if (remove_selector) {
+            $(remove_selector).remove()
+        }
+
+        if (clear_closest_selector) {
+            $el.closest(clear_closest_selector).html('')
+        }
+
+        if (remove_closest_selector) {
+            $el.closest(remove_closest_selector).remove()
+        }
+
+        //process fragments
+        if (response.fragments) {
+            for (var s in response.fragments) {
+                $(s).replaceWith(response.fragments[s])
+            }
+        }
+
+        if (response['inner-fragments']) {
+            for (var i in response['inner-fragments']) {
+                $(i).html(response['inner-fragments'][i])
+            }
+        }
+
+        if (response['append-fragments']) {
+            for (var a in response['append-fragments']) {
+                $(a).append(response['append-fragments'][a])
+            }
+        }
+
+        if (response['prepend-fragments']) {
+            for (var p in response['prepend-fragments']) {
+                $(p).prepend(response['prepend-fragments'][p])
+            }
+        }
+    }
 
 
     // ALERT PLUGIN DEFINITION

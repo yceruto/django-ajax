@@ -6,8 +6,12 @@ Shortcuts
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
 from django.template.response import TemplateResponse
-from django.utils.encoding import force_unicode
+<<<<<<< HEAD
 from django_ajax.response import JSONResponse
+=======
+from django.utils.encoding import force_unicode
+from django_ajax.response import JsonHttpResponse
+>>>>>>> JSONEncoder
 
 
 def render_to_json(response):
