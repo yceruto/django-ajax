@@ -39,6 +39,13 @@ var ajax = function (url, options) {
 
     options = $.extend({}, ajax.DEFAULTS, options);
 
+    var
+        onSuccess = $.isFunction(options.onSuccess) ? options.onSuccess : null,
+        onRedirect = $.isFunction(options.onRedirect) ? options.onRedirect : null,
+        onError = $.isFunction(options.onError) ? options.onError : null,
+        onComplete = $.isFunction(options.onComplete) ? options.onComplete : null,
+        onBeforeSend = $.isFunction(options.onBeforeSend) ? options.onBeforeSend : null;
+
     $.ajax({
         url: url,
         type: options.method || 'get',
@@ -51,41 +58,36 @@ var ajax = function (url, options) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
 
-            if (options.onBeforeSend && $.isFunction(options.onBeforeSend))
-                options.onBeforeSend(xhr, settings);
+            onBeforeSend && onBeforeSend(xhr, settings);
         },
         success: function( response ){
             switch (response.status) {
                 case 200:
-                    if (options.onSuccess && $.isFunction(options.onSuccess))
-                        options.onSuccess(response.content);
-                    else
-                        alert(response.content);
+                    onSuccess && onSuccess(response);
                     break;
                 case 301:
                 case 302:
-                    if (options.onRedirect && $.isFunction(options.onRedirect))
-                        options.onRedirect(response.content);
+                    if (onRedirect)
+                        onRedirect(response.content); //location
                     else
                         window.location.href = response.content;
                     break;
                 default:
-                    if (options.onError && $.isFunction(options.onError))
-                        options.onError(response);
+                    if (onError)
+                        onError(response);
                     else
                         alert(options.method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content);
                     break;
             }
         },
         error: function(response) {
-            if (options.onError && $.isFunction(options.onError))
-                options.onError(response);
+            if (onError)
+                onError(response);
             else
                 alert(options.method.toUpperCase() + ' ' + url + '   ' + response.status + ' ' + response.statusText + '\n' + response.content)
         },
         complete: function(response) {
-            if (options.onComplete && $.isFunction(options.onComplete))
-                options.onComplete(response);
+            onComplete && onComplete(response);
         }
     });
 
@@ -118,11 +120,24 @@ ajax.DEFAULTS = {
 };
 
 function ajaxPost(url, data, onSuccess, options) {
-    options = $.extend({}, options, {url: url, method: 'post', data: data, onSuccess: onSuccess});
+    options = $.extend({}, options, {
+        url: url,
+        method: 'post',
+        data: data,
+        onSuccess: function(response){
+            $.isFunction(onSuccess) && onSuccess(response.content);
+        }
+    });
     ajax(options)
 }
 
 function ajaxGet(url, onSuccess, options) {
-    options = $.extend({}, options, {url: url, method: 'get', onSuccess: onSuccess});
+    options = $.extend({}, options, {
+        url: url,
+        method: 'get',
+        onSuccess: function(response){
+            $.isFunction(onSuccess) && onSuccess(response.content);
+        }
+    });
     ajax(options);
 }
