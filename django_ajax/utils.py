@@ -2,7 +2,8 @@
 """
 Utils
 """
-
+from django.http.response import HttpResponseRedirectBase, HttpResponse
+from django.template.response import TemplateResponse
 from django.utils.encoding import force_unicode
 from django.db.models.base import ModelBase
 
@@ -15,24 +16,30 @@ class LazyJSONEncoder(json.JSONEncoder):
     Add how handle your type of object here to use when when dump json
     """
 
-    def default(self, o):
+    def default(self, obj):
+        # handles HttpResponse and exception content
+        if issubclass(type(obj), HttpResponseRedirectBase):
+            return obj['Location']
+        elif issubclass(type(obj), TemplateResponse):
+            return obj.rendered_content
+        elif issubclass(type(obj), HttpResponse):
+            return obj.content
+        elif issubclass(type(obj), Exception):
+            return force_unicode(obj)
+
         # this handles querysets and other iterable types
         try:
-            iterable = iter(o)
+            iterable = iter(obj)
         except TypeError:
             pass
         else:
             return list(iterable)
 
         # this handlers Models
-        try:
-            isinstance(o.__class__, ModelBase)
-        except TypeError:
-            pass
-        else:
-            return force_unicode(o)
+        if isinstance(obj.__class__, ModelBase):
+            return force_unicode(obj)
 
-        return super(LazyJSONEncoder, self).default(o)
+        return super(LazyJSONEncoder, self).default(obj)
 
 
 def serialize_to_json(obj, *args, **kwargs):

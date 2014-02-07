@@ -24,33 +24,21 @@ def render_to_json(response):
     else:
         status_code = 200
 
-    # determine the content TODO: move to JSONEncoder class
-    if issubclass(type(response), HttpResponseRedirectBase):
-        content = response['Location']
-    elif issubclass(type(response), TemplateResponse):
-        content = response.rendered_content
-    elif issubclass(type(response), HttpResponse):
-        content = response.content
-    elif issubclass(type(response), Exception):
-        content = force_unicode(response)
-    else:
-        content = response
-
     data = {}
 
-    # TODO:
-    if isinstance(content, dict):
+    # TODO: add optional process for fragments
+    if isinstance(response, dict):
         for key in ['fragments', 'inner-fragments', 'append-fragments',
                     'prepend-fragments']:
-            if key in content:
+            if key in response:
                 data.update({
-                    key: content.pop(key)
+                    key: response.pop(key)
                 })
 
     data.update({
         'status': status_code,
         'statusText': REASON_PHRASES.get(status_code, 'UNKNOWN STATUS CODE'),
-        'content': content
+        'content': response
     })
 
     return JSONResponse(data)
