@@ -10,7 +10,7 @@ class JsonHttpResponse(HttpResponse):
     """
     Return a JSON serialized HTTP response
     """
-    def __init__(self, data):
+    def __init__(self, data, **kwargs):
         super(JsonHttpResponse, self).__init__(
             content=json.dumps(data, sort_keys=settings.DEBUG),
             content_type='application/json'
