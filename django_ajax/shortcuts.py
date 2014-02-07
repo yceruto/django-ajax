@@ -4,6 +4,7 @@ Shortcuts
 from django.http.response import HttpResponseRedirectBase, \
     Http404, REASON_PHRASES, HttpResponse
 from django.template.response import TemplateResponse
+from django.utils.encoding import force_unicode
 from django_ajax.response import JsonHttpResponse
 
 
@@ -11,7 +12,7 @@ def render_to_json(response):
     """
     Determine the appropriate content and create the JSON response
     """
-    # determine the status code response
+    # determine the status code
     if hasattr(response, 'status_code'):
         status_code = response.status_code
     elif issubclass(type(response), Http404):
@@ -21,7 +22,7 @@ def render_to_json(response):
     else:
         status_code = 200
 
-    # determine the content response
+    # determine the content TODO: move to JSONEncoder class
     if issubclass(type(response), HttpResponseRedirectBase):
         content = response['Location']
     elif issubclass(type(response), TemplateResponse):
@@ -29,15 +30,26 @@ def render_to_json(response):
     elif issubclass(type(response), HttpResponse):
         content = response.content
     elif issubclass(type(response), Exception):
-        content = unicode(response)
+        content = force_unicode(response)
     else:
         content = response
 
-    data = {
+    data = {}
+
+    # TODO:
+    if isinstance(content, dict):
+        for key in ['fragments', 'inner-fragments', 'append-fragments',
+                    'prepend-fragments']:
+            if key in content:
+                data.update({
+                    key: content.pop(key)
+                })
+
+    data.update({
         'status': status_code,
         'statusText': REASON_PHRASES.get(status_code, 'UNKNOWN STATUS CODE'),
         'content': content
-    }
+    })
 
     return JsonHttpResponse(data)
 
