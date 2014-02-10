@@ -35,7 +35,7 @@ setup(
     classifiers=CLASSIFIERS,
     install_requires=[
         'setuptools',
-        'Django>=1.3',
+        'django>=1.3',
     ],
     packages=find_packages(),
     include_package_data=True,
