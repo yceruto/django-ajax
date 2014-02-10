@@ -160,7 +160,7 @@ Use the jquery.ajax.js as static file into base template
 
 .. code:: html
 
-    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.min.js' %}"></script>
 
 Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
 
@@ -182,7 +182,7 @@ Include the jquery.ajax.plugin.js as static file into base template
 
 .. code:: html
 
-    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.plugin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax-plugin.min.js' %}"></script>
 
 In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
 using the XMLHttpRequest object (AJAX) and the response is returned on JSON format.
