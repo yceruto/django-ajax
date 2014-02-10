@@ -22,6 +22,8 @@
             onSuccess = $this.data('success') || null,
             onError = $this.data('error') || null;
 
+        if (e) e.preventDefault();
+
         if (!url) {
             alert('href, data-href or data-url attribute not found!');
             return
@@ -29,8 +31,7 @@
 
         if (onSuccess) {
             try {
-                //TODO: fix vulnerability
-                eval('onSuccess = ' + onSuccess);
+                onSuccess = window[onSuccess];
                 if (!$.isFunction(onSuccess))
                     onSuccess = null
             } catch (e) {
@@ -40,8 +41,7 @@
 
         if (onError) {
             try {
-                //TODO: fix vulnerability
-                eval('onError = ' + onError);
+                onError = window[onError];
                 if (!$.isFunction(onError))
                     onError = null
             } catch (e) {
@@ -54,8 +54,6 @@
         url = url && url.replace(/.*(?=#[^\s]*$)/, ''); // strip for ie7
 
         data = data && data.replace(/'/g, '"'); // Fix single quote
-
-        if (e) e.preventDefault();
 
         try {
             data = $.parseJSON(data)
