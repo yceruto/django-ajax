@@ -190,6 +190,8 @@ using the XMLHttpRequest object (AJAX) and the response is returned on JSON form
 The success data will be used as callback function if the request is successful. The callback function is
 called with a param that represent the response content:
 
+.. code:: html
+
     <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
 
 Where "success" is a function:
