@@ -158,13 +158,9 @@ AJAX Client
 
 Use the jquery.ajax.js as static file into base template
 
-.. code:: html
-
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.js' %}"></script>
 
 Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
-
-.. code:: html
 
     <script type="text/javascript">
         ajaxGet('/', {}, function(content){
@@ -180,28 +176,24 @@ AJAX plugin
 
 Include the jquery.ajax.plugin.js as static file into base template
 
-.. code:: html
-
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.plugin.js' %}"></script>
 
 In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
 using the XMLHttpRequest object (AJAX) and the response is returned on JSON format.
 
 The success data will be used as callback function if the request is successful. The callback function is
-called with a param that represent the response content.
-
-.. code:: html
+called with a param that represent the response content:
 
     <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
 
 Where "success" is a function:
-
-.. code:: html
 
    <script type="text/javascript">
         function success(content) {
             alert(content);
         }
     </script>
+
+Process fragments based on https://github.com/eldarion/eldarion-ajax
 
 Enjoy!
