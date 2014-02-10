@@ -158,9 +158,13 @@ AJAX Client
 
 Use the jquery.ajax.js as static file into base template
 
+.. code:: html
+
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.js' %}"></script>
 
 Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
+
+.. code:: html
 
     <script type="text/javascript">
         ajaxGet('/', {}, function(content){
@@ -176,6 +180,8 @@ AJAX plugin
 
 Include the jquery.ajax.plugin.js as static file into base template
 
+.. code:: html
+
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.plugin.js' %}"></script>
 
 In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
@@ -187,6 +193,8 @@ called with a param that represent the response content:
     <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
 
 Where "success" is a function:
+
+.. code:: html
 
    <script type="text/javascript">
         function success(content) {
