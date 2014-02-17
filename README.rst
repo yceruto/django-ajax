@@ -156,7 +156,7 @@ The JSON response:
 AJAX Client
 -----------
 
-Use the jquery.ajax.js as static file into base template
+Use the jquery.ajax.min.js as static file into base template
 
 .. code:: html
 
@@ -178,7 +178,7 @@ If the response is not successful, it´s shown an alert with the message appropr
 AJAX plugin
 -----------
 
-Include the jquery.ajax.plugin.js as static file into base template
+Include the jquery.ajax-plugin.min.js as static file into base template
 
 .. code:: html
 
