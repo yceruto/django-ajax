@@ -137,7 +137,7 @@ Note: If you use this middleware should not use the AJAX decorator.
 
 
 AJAX Mixin for class-based views
-------------------------------------
+--------------------------------
 
 .. code:: python
 
