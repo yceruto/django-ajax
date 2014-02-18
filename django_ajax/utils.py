@@ -4,7 +4,7 @@ Utils
 """
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.db.models.base import ModelBase
 
 import json
@@ -25,7 +25,7 @@ class LazyJSONEncoder(json.JSONEncoder):
         elif issubclass(type(obj), HttpResponse):
             return obj.content
         elif issubclass(type(obj), Exception):
-            return force_unicode(obj)
+            return force_text(obj)
 
         # this handles querysets and other iterable types
         try:
@@ -37,7 +37,7 @@ class LazyJSONEncoder(json.JSONEncoder):
 
         # this handlers Models
         if isinstance(obj.__class__, ModelBase):
-            return force_unicode(obj)
+            return force_text(obj)
 
         return super(LazyJSONEncoder, self).default(obj)
 
