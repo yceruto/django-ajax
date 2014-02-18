@@ -22,6 +22,10 @@ install:
 script:
   - coverage run --source=django_ajax setup.py test
 
+after_success:
+  - coverage report -m django_ajax/*.py
+  - coveralls
+
 matrix:
     exclude:
         - python: 3.3
