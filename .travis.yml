@@ -20,7 +20,7 @@ install:
 
 # Run the tests
 script:
-  - python setup.py test
+  - coverage run --source=django_ajax setup.py test
 
 matrix:
     exclude:
