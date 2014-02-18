@@ -15,7 +15,7 @@ env:
 
 # Package installation
 install:
-  - pip install --use-mirrors $DJANGO_VERSION
+  - pip install --use-mirrors $DJANGO_VERSION coverage coveralls
   - python setup.py install
 
 # Run the tests
