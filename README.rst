@@ -6,6 +6,10 @@ Powerful and easy AJAX libraries for django projects.
 .. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
     :alt: Build Status
     :target: https://travis-ci.org/yceruto/django-ajax
+
+.. image:: https://coveralls.io/repos/yceruto/django-ajax/badge.png
+    :alt: Coveralls
+    :target: https://coveralls.io/r/yceruto/django-ajax
     
 .. image:: https://badge.fury.io/py/abalt-django-ajax.png
     :alt: PYPI Package
