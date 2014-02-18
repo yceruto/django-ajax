@@ -41,7 +41,8 @@ def get_version(version=None):
 
 
 def get_git_changeset():
-    """Returns a numeric identifier of the latest git changeset.
+    """
+    Returns a numeric identifier of the latest git changeset.
 
     The result is the UTC timestamp of the changeset in YYYYMMDDHHMMSS format.
     This value isn't guaranteed to be unique, but collisions are very unlikely,
@@ -53,8 +54,10 @@ def get_git_changeset():
                                shell=True, cwd=repo_dir,
                                universal_newlines=True)
     timestamp = git_log.communicate()[0]
+
     try:
         timestamp = datetime.datetime.utcfromtimestamp(int(timestamp))
     except ValueError:
         return None
+
     return timestamp.strftime('%Y%m%d%H%M%S')
