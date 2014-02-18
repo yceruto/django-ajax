@@ -1,5 +1,5 @@
 django-ajax
-=====================
+===========
 
 Powerful and easy AJAX libraries for django projects.
 
@@ -14,9 +14,13 @@ Powerful and easy AJAX libraries for django projects.
 Requirements
 ------------
 
-* python>=2.6
-* django>=1.3
+* `python`_ >= 2.6
+* `django`_ >= 1.3
+* `jQuery`_ >= 1.5
 
+.. _`python`: http://www.python.org/
+.. _`django`: https://djangoproject.com
+.. _`jQuery`: http://jquery.com
 
 Installation
 ------------
