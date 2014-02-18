@@ -1,19 +1,20 @@
-# -*- coding: utf-8 -*-
 """
 Utils
 """
+from __future__ import unicode_literals
+
+import json
+
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.db.models.base import ModelBase
 
-import json
-
 
 class LazyJSONEncoder(json.JSONEncoder):
     """
     A JSONEncoder subclass that handle querysets and models objects.
-    Add how handle your type of object here to use when when dump json
+    Add how handle your type of object here to use when dump json
     """
 
     def default(self, obj):

@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
 """
 Decorators
 """
+from __future__ import unicode_literals
 
 from functools import wraps
+
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
+
 from django_ajax.shortcuts import render_to_json
 
 
@@ -61,17 +63,18 @@ def ajax(function=None, mandatory=True):
                 return HttpResponseBadRequest()
 
             if request.is_ajax():
-                # json response
+                # return json response
                 try:
                     return render_to_json(func(request, *args, **kwargs))
                 except Exception as exception:
                     return render_to_json(exception)
             else:
-                # conventional response
+                # return standard response
                 return func(request, *args, **kwargs)
 
         return inner
 
     if function:
         return decorator(function)
+
     return decorator

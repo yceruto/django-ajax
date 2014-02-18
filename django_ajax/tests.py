@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 Tests
 """
+from __future__ import unicode_literals
 
-from response import JSONResponse
 from django.utils.unittest import TestCase
+
+from django_ajax.response import JSONResponse
 
 DEBUG = True
 DEFAULT_CHARSET = 'utf-8'

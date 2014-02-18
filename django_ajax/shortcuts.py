@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
 """
 Shortcuts
 """
+from __future__ import unicode_literals
 
 from django.http.response import Http404
+
 from django_ajax.response import JSONResponse
 
+# Available since django 1.6
 REASON_PHRASES = {
     100: 'CONTINUE',
     101: 'SWITCHING PROTOCOLS',
@@ -68,9 +70,9 @@ REASON_PHRASES = {
 }
 
 
-def render_to_json(response):
+def render_to_json(response, *args, **kwargs):
     """
-    Determine the appropriate content and create the JSON response
+    Creates the main structure and returns the JSON response.
     """
     # determine the status code
     if hasattr(response, 'status_code'):
@@ -93,11 +95,12 @@ def render_to_json(response):
                     key: response.pop(key)
                 })
 
+    # Creating main structure
     data.update({
         'status': status_code,
         'statusText': REASON_PHRASES.get(status_code, 'UNKNOWN STATUS CODE'),
         'content': response
     })
 
-    return JSONResponse(data)
+    return JSONResponse(data,  *args, **kwargs)
 
