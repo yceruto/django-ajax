@@ -227,8 +227,8 @@ Where "success" is a function:
 **Process fragments**
 
 Inspired on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_ the data
-received by the names ``fragments``, ``inner-fragments``, ``append-fragments``
-or ``prepend-fragments`` will be processed by default, unless you pass in the
+received by the names ``'fragments'``, ``'inner-fragments'``, ``'append-fragments'``
+or ``'prepend-fragments'`` will be processed by default, unless you pass in the
 request the option "process-fragments" equal false. Here's an example:
 
 .. code:: python
