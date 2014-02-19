@@ -67,8 +67,8 @@
                 method: method,
                 data: data,
                 onSuccess: function(response) {
-                    $.isFunction(onSuccess) && onSuccess(response.content);
                     processData(response, $this);
+                    $.isFunction(onSuccess) && onSuccess(response.content);
                 },
                 onError: onError
             });
@@ -86,8 +86,8 @@
             refresh_selector = $el.data('refresh'),
             refresh_closest_selector = $el.data('refresh-closest'),
             clear_selector = $el.data('clear'),
-            remove_selector = $el.data('remove'),
             clear_closest_selector = $el.data('clear-closest'),
+            remove_selector = $el.data('remove'),
             remove_closest_selector = $el.data('remove-closest');
 
         if (replace_selector) {
@@ -144,31 +144,6 @@
 
         if (remove_closest_selector) {
             $el.closest(remove_closest_selector).remove()
-        }
-
-        //process fragments
-        if (response.fragments) {
-            for (var s in response.fragments) {
-                $(s).replaceWith(response.fragments[s])
-            }
-        }
-
-        if (response['inner-fragments']) {
-            for (var i in response['inner-fragments']) {
-                $(i).html(response['inner-fragments'][i])
-            }
-        }
-
-        if (response['append-fragments']) {
-            for (var a in response['append-fragments']) {
-                $(a).append(response['append-fragments'][a])
-            }
-        }
-
-        if (response['prepend-fragments']) {
-            for (var p in response['prepend-fragments']) {
-                $(p).prepend(response['prepend-fragments'][p])
-            }
         }
     }
 
