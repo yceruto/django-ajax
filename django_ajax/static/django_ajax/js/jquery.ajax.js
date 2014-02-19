@@ -63,6 +63,8 @@ var ajax = function (url, options) {
         success: function( response ){
             switch (response.status) {
                 case 200:
+                    options['process-fragments'] && process_fragments(response.content);
+
                     onSuccess && onSuccess(response);
                     break;
                 case 301:
@@ -109,9 +111,37 @@ var ajax = function (url, options) {
             // or any other URL that isn't scheme relative or absolute i.e relative.
             !(/^(\/\/|http:|https:).*/.test(url));
     }
+
+    function process_fragments(response) {
+        //process fragments
+        if (response.fragments) {
+            for (var s in response.fragments) {
+                $(s).replaceWith(response.fragments[s])
+            }
+        }
+
+        if (response['inner-fragments']) {
+            for (var i in response['inner-fragments']) {
+                $(i).html(response['inner-fragments'][i])
+            }
+        }
+
+        if (response['append-fragments']) {
+            for (var a in response['append-fragments']) {
+                $(a).append(response['append-fragments'][a])
+            }
+        }
+
+        if (response['prepend-fragments']) {
+            for (var p in response['prepend-fragments']) {
+                $(p).prepend(response['prepend-fragments'][p])
+            }
+        }
+    }
 };
 
 ajax.DEFAULTS = {
+    "process-fragments": true,
     onSuccess: null,
     onError: null,
     onBeforeSend: null,

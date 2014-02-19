@@ -212,6 +212,75 @@ Where "success" is a function:
         }
     </script>
 
-Process fragments based on https://github.com/eldarion/eldarion-ajax
+Process fragments based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
+
+The data received by the names "fragments", "inner-fragments", "append-fragments"
+or "prepend-fragments" will be processed by default, unless you pass in the
+request the option "process-fragments" equal false. Here's an example:
+
+.. code:: html
+
+   <script type="text/javascript">
+        function fragments() {
+            ajaxGet('/fragments-view-url', null, function(content){
+                alert('The fragments was processed successfully!');
+            });
+        }
+    </script>
+
+.. code:: python
+
+    @ajax
+    def fragments_view(request):
+        data = {
+            'fragments': {
+                '#id1': 'replace element with this content1'
+            },
+            'inner-fragments': {
+                '#id2': 'replace inner content'
+            },
+            'append-fragments': {
+                '.class1': 'append this content'
+            },
+            'prepend-fragments': {
+                '.class2': 'prepend this content'
+            }
+        }
+        return data
+
+These data are sent in response:
+
+.. code:: javascript
+
+    {"status": 200, "statusText": "OK", "content": {
+            "fragments": {"#id1": "replace element with this content1"},
+            "inner-fragments": {"#id2": "replace inner content"},
+            "append-fragments": {".class1": "append this content"},
+            "prepend-fragments": {".class2": "prepend this content"}
+        }}
+
+If you do not want to process the fragments never, modify the AJAX configuration
+that comes by default:
+
+.. code:: html
+
+    <script type="text/javascript">
+        ajax.DEFAULTS = {
+            "process-fragments": false, //true by default
+            ...
+        };
+    </script>
+
+or as option on the request:
+
+.. code:: html
+
+   <script type="text/javascript">
+        function fragments() {
+            ajaxGet('/fragments-view-url', null, function(content){
+                do_something_with(content.fragments);
+            }, {"process-fragments": false});
+        }
+    </script>
 
 Enjoy!
