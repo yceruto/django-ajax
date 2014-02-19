@@ -14,7 +14,10 @@ Fast and easy AJAX libraries for django projects.
     
 .. image:: https://badge.fury.io/py/abalt-django-ajax.png
     :alt: PYPI Package
-    :target: https://pypi.python.org/pypi/abalt-django-ajax    
+    :target: https://pypi.python.org/pypi/abalt-django-ajax
+
+.. image:: https://pypip.in/d/abalt-django-ajax/badge.png
+    :target: https://crate.io/packages/abalt-django-ajax/
 
 Requirements
 ------------
