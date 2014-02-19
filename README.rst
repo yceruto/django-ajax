@@ -262,7 +262,7 @@ These data are sent in response:
             "prepend-fragments": {".class2": "prepend this content"}
         }}
 
-Then:
+Then, using AJAX (``ajax``, ``ajaxPost`` or ``ajaxGet``) functions these fragments to be processed automatically before calling to success function.
 
 .. code:: html
 
@@ -280,7 +280,7 @@ that comes by default:
 .. code:: html
 
     <script type="text/javascript">
-        ajax.DEFAULTS["process-fragments"] = false; //true by default;
+        ajax.DEFAULTS["process-fragments"] = false; //true by default
     </script>
 
 or as option on the request:
