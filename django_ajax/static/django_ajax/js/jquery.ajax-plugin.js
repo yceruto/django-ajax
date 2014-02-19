@@ -1,5 +1,5 @@
 /* ========================================================================
- * Django Ajax: jquery.ajax.plugin.js v2.2.2
+ * Django Ajax v2.2.3
  * https://github.com/yceruto/django-ajax/
  * Copyright 2014 Yonel Ceruto Glez
  * ======================================================================== */
