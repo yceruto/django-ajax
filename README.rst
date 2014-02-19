@@ -175,7 +175,7 @@ Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
 .. code:: html
 
     <script type="text/javascript">
-        ajaxGet('/', {}, function(content){
+        ajaxGet('/', function(content){
             //onSuccess
             alert(content);
         })
@@ -253,7 +253,7 @@ These data are sent in response:
 
    <script type="text/javascript">
         function fragments() {
-            ajaxGet('/fragments-view-url', null, function(content){
+            ajaxGet('/fragments-view-url', function(content){
                 alert('The fragments was processed successfully!');
             });
         }
@@ -274,7 +274,7 @@ or as option on the request:
 
    <script type="text/javascript">
         function fragments() {
-            ajaxGet('/fragments-view-url', null, function(content){
+            ajaxGet('/fragments-view-url', function(content){
                 do_something_with(content.fragments);
             }, {"process-fragments": false});
         }
