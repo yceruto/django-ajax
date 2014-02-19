@@ -51,10 +51,7 @@ or simply with:
 Usage
 -----
 
-``@ajax`` Decorator
--------------------
-
-**Basic Example**
+**``@ajax`` Decorator**
 
 .. code:: python
 
@@ -71,7 +68,7 @@ When nothing is returned as result of view then returns (JSON format):
     {"status": 200, "statusText": "OK", "content ": null}
 
 
-**Sending custom data in the response**:
+**Sending custom data in the response**
 
 .. code:: python
 
@@ -87,7 +84,7 @@ The result is send to the browser in the following way (JSON format)
     {"status": 200, "statusText": "OK", "content": {"result": 5}}
 
 
-**Combining with others decorators**:
+**Combining with others decorators**
 
 .. code:: python
 
@@ -104,7 +101,7 @@ The JSON response:
     {"status": 302, "statusText": "FOUND", "content": "/login"}
 
 
-**Template response**:
+**Template response**
 
 .. code:: python
 
@@ -119,7 +116,7 @@ The JSON response:
     {"status": 200, "statusText": "OK", "content": "<html>...</html>"}
 
 
-**Catch exceptions**:
+**Catch exceptions**
 
 .. code:: python
 
