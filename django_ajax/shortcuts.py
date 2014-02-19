@@ -84,23 +84,12 @@ def render_to_json(response, *args, **kwargs):
     else:
         status_code = 200
 
-    data = {}
-
-    # TODO: add optional process for fragments
-    if isinstance(response, dict):
-        for key in ['fragments', 'inner-fragments', 'append-fragments',
-                    'prepend-fragments']:
-            if key in response:
-                data.update({
-                    key: response.pop(key)
-                })
-
-    # Creating main structure
-    data.update({
+    # creating main structure
+    data = {
         'status': status_code,
         'statusText': REASON_PHRASES.get(status_code, 'UNKNOWN STATUS CODE'),
         'content': response
-    })
+    }
 
     return JSONResponse(data,  *args, **kwargs)
 
