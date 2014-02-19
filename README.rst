@@ -1,7 +1,7 @@
 django-ajax
 ===========
 
-Powerful and easy AJAX libraries for django projects.
+Fast and easy AJAX libraries for django projects.
 
 .. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
     :alt: Build Status
@@ -48,10 +48,13 @@ or simply with:
 3- Read usage section and enjoy its advantages!
 
 
-AJAX Decorator Usage
---------------------
+Usage
+-----
 
-Basic Example
+``@ajax`` Decorator
+-------------------
+
+**Basic Example**
 
 .. code:: python
 
@@ -68,7 +71,7 @@ When nothing is returned as result of view then returns (JSON format):
     {"status": 200, "statusText": "OK", "content ": null}
 
 
-Sending custom data in the response:
+**Sending custom data in the response**:
 
 .. code:: python
 
@@ -84,7 +87,7 @@ The result is send to the browser in the following way (JSON format)
     {"status": 200, "statusText": "OK", "content": {"result": 5}}
 
 
-Combining with others decorators:
+**Combining with others decorators**:
 
 .. code:: python
 
@@ -101,7 +104,7 @@ The JSON response:
     {"status": 302, "statusText": "FOUND", "content": "/login"}
 
 
-Template response:
+**Template response**:
 
 .. code:: python
 
@@ -116,7 +119,7 @@ The JSON response:
     {"status": 200, "statusText": "OK", "content": "<html>...</html>"}
 
 
-Catch exceptions:
+**Catch exceptions**:
 
 .. code:: python
 
@@ -132,8 +135,8 @@ The JSON response:
     {"status": 500, "statusText": "INTERNAL SERVER ERROR", "content": "integer division or modulo by zero"}
 
 
-AJAX Middleware Usage
----------------------
+``AJAXMiddleware``
+------------------
 
 If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
 
@@ -141,13 +144,11 @@ Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` li
 
 All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
-.. caution::
-
-    Important! If you use this middleware should not use the AJAX decorator.
+.. caution:: If you use this middleware cannot use the AJAX decorator.
 
 
-AJAX Mixin for class-based views
---------------------------------
+``AJAXMixin`` for class-based views
+-----------------------------------
 
 .. code:: python
 
@@ -160,19 +161,30 @@ The JSON response:
 
 .. code:: javascript
 
-    {"status": 200, "statusText": "OK", "content": "<html><title>Home</title>...</html>"}
+    {"status": 200, "statusText": "OK", "content": "<html>...</html>"}
 
 
-AJAX Client
------------
+AJAX on client side
+-------------------
 
-Use the jquery.ajax.min.js as static file into base template
+Use the ``jquery.ajax.min.js`` as static file into base template:
 
 .. code:: html
 
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.min.js' %}"></script>
 
-Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
+Call to AJAX request using the ``ajaxPost`` or ``ajaxGet`` functions:
+
+.. code:: html
+
+    <script type="text/javascript">
+        ajaxPost('/save', {'foo': 'bar'}, function(content){
+            //onSuccess
+            alert(content);
+        })
+    </script>
+
+or
 
 .. code:: html
 
@@ -185,19 +197,18 @@ Call to Ajax request using the "ajaxPost" or "ajaxGet" functions.
 
 If the response is not successful, it´s shown an alert with the message appropriated.
 
-AJAX plugin
------------
+**AJAX plugin** (Based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_)
 
-Include the jquery.ajax-plugin.min.js as static file into base template
+Include the ``jquery.ajax-plugin.min.js`` as static file into base template:
 
 .. code:: html
 
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax-plugin.min.js' %}"></script>
 
-In this moment any tag with the attribute "data-ajax" will be handle by ajax plugin. Each request is sent
-using the XMLHttpRequest object (AJAX) and the response is returned on JSON format.
+In this moment any tag with the attribute ``data-ajax`` will be handle by ajax plugin. Each request is sent
+using AJAX and the response is returned on JSON format.
 
-The success data will be used as callback function if the request is successful. The callback function is
+The ``data-success`` will be used as callback function if the request is successful. The callback function is
 called with a param that represent the response content:
 
 .. code:: html
@@ -214,13 +225,11 @@ Where "success" is a function:
         }
     </script>
 
-Process fragments
------------------
+**Process fragments**
 
-Based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
-
-The data received by the names "fragments", "inner-fragments", "append-fragments"
-or "prepend-fragments" will be processed by default, unless you pass in the
+Inspired on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_ the data
+received by the names ``fragments``, ``inner-fragments``, ``append-fragments``
+or ``prepend-fragments`` will be processed by default, unless you pass in the
 request the option "process-fragments" equal false. Here's an example:
 
 .. code:: python
@@ -247,9 +256,14 @@ These data are sent in response:
 
 .. code:: javascript
 
-    {"status": 200, "statusText": "OK", "content": {"fragments": {"#id1": "replace element with this content1"},
-     "inner-fragments": {"#id2": "replace inner content"}, "append-fragments": {".class1": "append this content"},
-     "prepend-fragments": {".class2": "prepend this content"}}}
+    {"status": 200, "statusText": "OK", "content": {
+            "fragments": {"#id1": "replace element with this content1"},
+            "inner-fragments": {"#id2": "replace inner content"},
+            "append-fragments": {".class1": "append this content"},
+            "prepend-fragments": {".class2": "prepend this content"}
+        }}
+
+Then:
 
 .. code:: html
 
