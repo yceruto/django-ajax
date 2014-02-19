@@ -135,13 +135,15 @@ The JSON response:
 AJAX Middleware Usage
 ---------------------
 
-.. code:: python
+If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
 
 Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
 
 All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
-Note: If you use this middleware should not use the AJAX decorator.
+.. caution::
+
+    Important! If you use this middleware should not use the AJAX decorator.
 
 
 AJAX Mixin for class-based views
