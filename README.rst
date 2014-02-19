@@ -198,7 +198,7 @@ If the response is not successful, it´s shown an alert with the message appropr
 
 **AJAX plugin** (Based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_)
 
-Include the ``jquery.ajax-plugin.min.js`` as static file into base template:
+Include the ``jquery.ajax-plugin.min.js`` as static file into ``base.html`` template:
 
 .. code:: html
 
