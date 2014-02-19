@@ -265,10 +265,7 @@ that comes by default:
 .. code:: html
 
     <script type="text/javascript">
-        ajax.DEFAULTS = {
-            "process-fragments": false, //true by default
-            ...
-        };
+        ajax.DEFAULTS["process-fragments"] = false; //true by default;
     </script>
 
 or as option on the request:
