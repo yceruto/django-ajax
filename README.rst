@@ -215,21 +215,11 @@ Where "success" is a function:
 Process fragments
 -----------------
 
-based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
+Based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
 
 The data received by the names "fragments", "inner-fragments", "append-fragments"
 or "prepend-fragments" will be processed by default, unless you pass in the
 request the option "process-fragments" equal false. Here's an example:
-
-.. code:: html
-
-   <script type="text/javascript">
-        function fragments() {
-            ajaxGet('/fragments-view-url', null, function(content){
-                alert('The fragments was processed successfully!');
-            });
-        }
-    </script>
 
 .. code:: python
 
@@ -261,6 +251,16 @@ These data are sent in response:
             "append-fragments": {".class1": "append this content"},
             "prepend-fragments": {".class2": "prepend this content"}
         }}
+
+.. code:: html
+
+   <script type="text/javascript">
+        function fragments() {
+            ajaxGet('/fragments-view-url', null, function(content){
+                alert('The fragments was processed successfully!');
+            });
+        }
+    </script>
 
 If you do not want to process the fragments never, modify the AJAX configuration
 that comes by default:
