@@ -245,12 +245,9 @@ These data are sent in response:
 
 .. code:: javascript
 
-    {"status": 200, "statusText": "OK", "content": {
-            "fragments": {"#id1": "replace element with this content1"},
-            "inner-fragments": {"#id2": "replace inner content"},
-            "append-fragments": {".class1": "append this content"},
-            "prepend-fragments": {".class2": "prepend this content"}
-        }}
+    {"status": 200, "statusText": "OK", "content": {"fragments": {"#id1": "replace element with this content1"},
+     "inner-fragments": {"#id2": "replace inner content"}, "append-fragments": {".class1": "append this content"},
+     "prepend-fragments": {".class2": "prepend this content"}}}
 
 .. code:: html
 
