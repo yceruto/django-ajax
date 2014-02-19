@@ -166,7 +166,7 @@ The JSON response:
 AJAX on client side
 -------------------
 
-Use the ``jquery.ajax.min.js`` as static file into base template:
+Use the ``jquery.ajax.min.js`` as static file into ``base.html`` template:
 
 .. code:: html
 
