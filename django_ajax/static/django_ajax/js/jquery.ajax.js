@@ -30,7 +30,7 @@ var ajax = function (url, options) {
     // If url is an object, simulate pre-1.5 signature
     if ( typeof url === "object" ) {
         options = url;
-        url = undefined;
+        url = options.url;
     }
 
     // Force options to be an object
