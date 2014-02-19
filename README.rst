@@ -212,7 +212,10 @@ Where "success" is a function:
         }
     </script>
 
-Process fragments based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
+Process fragments
+-----------------
+
+based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_
 
 The data received by the names "fragments", "inner-fragments", "append-fragments"
 or "prepend-fragments" will be processed by default, unless you pass in the
