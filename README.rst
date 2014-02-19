@@ -1,3 +1,4 @@
+===========
 django-ajax
 ===========
 
@@ -51,7 +52,8 @@ or simply with:
 Usage
 -----
 
-**``@ajax`` Decorator**
+@ajax Decorator
+---------------
 
 .. code:: python
 
@@ -132,8 +134,8 @@ The JSON response:
     {"status": 500, "statusText": "INTERNAL SERVER ERROR", "content": "integer division or modulo by zero"}
 
 
-``AJAXMiddleware``
-------------------
+AJAXMiddleware
+--------------
 
 If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
 
@@ -144,8 +146,8 @@ All your responses will be converted to JSON if the request was made by AJAX, ot
 .. caution:: If you use this middleware cannot use the AJAX decorator.
 
 
-``AJAXMixin`` for class-based views
------------------------------------
+AJAXMixin for class-based views
+-------------------------------
 
 .. code:: python
 
