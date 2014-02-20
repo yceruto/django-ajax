@@ -120,6 +120,7 @@ The JSON response:
 .. code:: python
 
     from django.shortcuts import render
+    from django_ajax.decorators import ajax
 
     @ajax
     def my_view(request):
