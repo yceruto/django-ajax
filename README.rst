@@ -119,6 +119,8 @@ The JSON response:
 
 .. code:: python
 
+    from django.shortcuts import render
+
     @ajax
     def my_view(request):
         return render(request, 'home.html')
@@ -163,6 +165,7 @@ AJAXMixin for class-based views
 
 .. code:: python
 
+    from django.views.generic import TemplateView
     from django_ajax.mixin import AJAXMixin
 
     class SimpleView(AJAXMixin, TemplateView):
