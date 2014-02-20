@@ -35,7 +35,7 @@
                 if (!$.isFunction(onSuccess))
                     onSuccess = null
             } catch (e) {
-                alert(e);
+                alert(e.name + '\n' + e.message);
             }
         }
 
@@ -45,7 +45,7 @@
                 if (!$.isFunction(onError))
                     onError = null
             } catch (e) {
-                alert(e);
+                alert(e.name + '\n' + e.message);
             }
         }
 
@@ -58,7 +58,7 @@
         try {
             data = $.parseJSON(data)
         } catch (e) {
-            alert(method.toUpperCase() + ' ' + url + '   PARSE JSON ERROR' + '\n' + data + '\n' + e);
+            alert(e.name + '\n' + e.message);
             return
         }
 
