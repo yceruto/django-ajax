@@ -153,15 +153,17 @@ AJAXMiddleware
 
 If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
 
-Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list.
+Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list in ``settings.py``.
 
 All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
 
-.. caution:: If you use this middleware cannot use the AJAX decorator.
+.. caution:: If you use this middleware cannot use ``@ajax`` decorator.
 
 
 AJAXMixin for class-based views
 -------------------------------
+
+``AJAXMixin`` is an object that calls the AJAX decorator.
 
 .. code:: python
 
@@ -181,7 +183,7 @@ The JSON response:
 AJAX on client side
 -------------------
 
-Use the ``jquery.ajax.min.js`` as static file into ``base.html`` template:
+Include ``jquery.ajax.min.js`` into ``base.html`` template:
 
 .. code:: html
 
@@ -213,29 +215,27 @@ If the response is not successful, it´s shown an alert with the message appropr
 
 **AJAX plugin** (Based on `eldarion-ajax <https://github.com/eldarion/eldarion-ajax>`_)
 
-Include the ``jquery.ajax-plugin.min.js`` as static file into ``base.html`` template:
+Include ``jquery.ajax-plugin.min.js`` into ``base.html`` template:
 
 .. code:: html
 
     <script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax-plugin.min.js' %}"></script>
 
-In this moment any tag with the attribute ``data-ajax`` will be handle by ajax plugin. Each request is sent
-using AJAX and the response is returned on JSON format.
+In this moment any tag with the attribute ``data-ajax`` will be controlled by ajax plugin. Each request is sent using AJAX and the response will be handle on JSON format.
 
-The ``data-success`` will be used as callback function if the request is successful. The callback function is
-called with a param that represent the response content:
+The value of the attribute ``data-success`` will be used as callback function if the request is successful. This function is called with an argument that represent the content response:
 
 .. code:: html
 
-    <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="success">Show Alert</a>
+    <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="processResponse">Show Alert</a>
 
-Where "success" is a function:
+Where "processResponse" in this case is a callback function:
 
 .. code:: html
 
    <script type="text/javascript">
-        function success(content) {
-            alert(content);
+        function processResponse(content) {
+            do_something(content);
         }
     </script>
 
