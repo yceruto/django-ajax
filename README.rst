@@ -41,13 +41,13 @@ Install django-ajax in your python environment
 
     $ pip install abalt-django-ajax
 
-    Through Github:
+Through Github:
 
 .. code:: sh
 
     pip install -e git://github.com/joestump/django-ajax#egg=django-ajax
 
-    or simply with:
+or simply with:
 
 .. code:: sh
 
@@ -98,6 +98,9 @@ The result is send to the browser in the following way (JSON format)
 **Combining with others decorators**
 
 .. code:: python
+
+    from django.contrib.auth.decorators import login_required
+    from django_ajax.decorators import ajax
 
     @ajax
     @login_required
