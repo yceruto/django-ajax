@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.http import HttpResponse
 
-from django_ajax.utils import serialize_to_json
+from django_ajax.encoder import serialize_to_json
 
 
 class JSONResponse(HttpResponse):
