@@ -62,7 +62,7 @@ Usage
 -----
 
 @ajax Decorator
----------------
+~~~~~~~~~~~~~~~
 
 .. code:: python
 
@@ -150,7 +150,7 @@ The JSON response:
 
 
 AJAXMiddleware
---------------
+~~~~~~~~~~~~~~
 
 If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
 
@@ -162,7 +162,7 @@ All your responses will be converted to JSON if the request was made by AJAX, ot
 
 
 AJAXMixin for class-based views
--------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``AJAXMixin`` is an object that calls the AJAX decorator.
 
@@ -182,7 +182,7 @@ The JSON response:
 
 
 AJAX on client side
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Include ``jquery.ajax.min.js`` into ``base.html`` template:
 
