@@ -2,6 +2,7 @@ language: python
 
 # Python releases to test
 python:
+  - 2.6
   - 2.7
   - 3.3
 
