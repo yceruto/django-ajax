@@ -18,6 +18,10 @@ install:
   - pip install $DJANGO_VERSION
   - python setup.py install
 
+# Run the tests
+script:
+  - python setup.py test
+
 matrix:
     exclude:
         - python: 3.3
