@@ -4,7 +4,7 @@ language: python
 python:
   - 2.6
   - 2.7
-  - 3.3
+  - 3.4
 
 # Django releases
 env:
@@ -12,19 +12,12 @@ env:
   - DJANGO_VERSION=Django==1.4.10
   - DJANGO_VERSION=Django==1.5.5
   - DJANGO_VERSION=Django==1.6.2
+  - DJANGO_VERSION=Django==1.7b1
 
 # Package installation
 install:
-  - pip install --use-mirrors $DJANGO_VERSION coverage coveralls
+  - pip install --use-mirrors $DJANGO_VERSION
   - python setup.py install
-
-# Run the tests
-script:
-  - coverage run --source=django_ajax setup.py test
-
-after_success:
-  - coverage report -m django_ajax/*.py
-  - coveralls
 
 matrix:
     exclude:
