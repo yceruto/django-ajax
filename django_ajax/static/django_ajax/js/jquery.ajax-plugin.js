@@ -8,11 +8,11 @@
 
     // AJAX CLASS DEFINITION
     // ======================
-	var ajax_submit =  '[submit-ajax]';
+	var dismiss_submit = '[data-ajax-submit]';
     var dismiss = '[data-ajax]',
         Ajax = function (el) {
-            $(el).on('click', dismiss, this.send)
-            $(el).on('submit', ajax_submit, this.submit)
+            $(el).on('click', dismiss, this.send);
+            $(el).on('submit', dismiss_submit, this.submit);
         };
 
     Ajax.prototype.send = function (e) {
@@ -77,37 +77,42 @@
             alert('jquery.ajax.js is required');
     };
 
-	Ajax.prototype.submit = function (e) {
-			var myForm = $(this);
-		    var url = myForm.attr('action');
-		    var method = myForm.attr('method');
-		    var data = myForm.serialize();
-		    method = method ? method.toLowerCase() : 'get';
-		    if(method == "post"){
-			    ajaxPost(url, data, function(content){
-			    	var response={};
-			    	response.content = content;
-			    	processData(response, myForm);
-			    });
-		    }else{
-		       ajaxGet(url,  function(content){
-				    var response={};
-			    	response.content = content;
-			    	processData(response, myForm);
-			    });
-		   }
+	Ajax.prototype.submit = function(e) {
+        var $form = $(this),
+            url = $form.attr('action'),
+            method = $form.attr('method'),
+            data = $form.serialize();
+
+        method = method ? method.toLowerCase() : 'get';
+
+        if (method == "post") {
+            ajaxPost(url, data, function(content){
+                var response = {};
+                response.content = content;
+                processData(response, $form);
+            });
+        } else {
+            ajaxGet(url, function(content){
+                var response = {};
+                response.content = content;
+                processData(response, $form);
+            });
+        }
 	};
 
-    function find_father_child(father, child, $el){
+    function find_father_child(father, child, $el) {
         var closest_father_child = undefined;
-        if(father && child){
-            closest_father_child =  $el.closest(father).find(child);
-            if (closest_father_child.length == 0){
+
+        if (father && child) {
+            closest_father_child = $el.closest(father).find(child);
+            if (closest_father_child.length == 0) {
                 closest_father_child = undefined;
             }
         }
+
         return closest_father_child;
     }
+
     function processData(response, $el) {
         var replace_selector = $el.data('replace'),
             replace_closest_selector = $el.data('replace-closest'),
@@ -127,7 +132,6 @@
             remove_selector = $el.data('remove'),
             remove_closest_selector = $el.data('remove-closest');
 
-
         if (replace_selector) {
             $(replace_selector).replaceWith(response.content)
         }
@@ -143,6 +147,7 @@
         if (replace_closest_father_child) {
             replace_closest_father_child.replaceWith(response.content)
         }
+
         if (replace_closest_father_child_inner) {
             replace_closest_father_child_inner.html(response.content)
         }
@@ -182,6 +187,7 @@
                 })
             })
         }
+
         if (refresh_closest_father_child_inner) {
             $.each(refresh_closest_father_child_inner, function(index, value) {
                 ajaxGet($(value).data('refresh-url'), function(content) {
@@ -238,6 +244,6 @@
     // ALERT DATA-API
     // ==============
 
-    $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send)
+    $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send);
     $(document).on('submit.ajax.data-api', ajax_submit, Ajax.prototype.submit)
 })(jQuery);
