@@ -8,10 +8,11 @@
 
     // AJAX CLASS DEFINITION
     // ======================
-
+	var ajax_submit =  '[submit-ajax]';
     var dismiss = '[data-ajax]',
         Ajax = function (el) {
             $(el).on('click', dismiss, this.send)
+            $(el).on('submit', ajax_submit, this.submit)
         };
 
     Ajax.prototype.send = function (e) {
@@ -56,7 +57,7 @@
         data = data && data.replace(/'/g, '"'); // Fix single quote
 
         try {
-            data = $.parseJSON(data)
+            data = $.parseJSON(data);
         } catch (e) {
             alert(e.name + '\n' + e.message);
             return
@@ -73,22 +74,59 @@
                 onError: onError
             });
         else
-            alert('jquery.ajax.js is required')
+            alert('jquery.ajax.js is required');
     };
 
+	Ajax.prototype.submit = function (e) {
+			var myForm = $(this);
+		    var url = myForm.attr('action');
+		    var method = myForm.attr('method');
+		    var data = myForm.serialize();
+		    method = method ? method.toLowerCase() : 'get';
+		    if(method == "post"){
+			    ajaxPost(url, data, function(content){
+			    	var response={};
+			    	response.content = content;
+			    	processData(response, myForm);
+			    });
+		    }else{
+		       ajaxGet(url,  function(content){
+				    var response={};
+			    	response.content = content;
+			    	processData(response, myForm);
+			    });
+		   }
+	};
+
+    function find_father_child(father, child, $el){
+        var closest_father_child = undefined;
+        if(father && child){
+            closest_father_child =  $el.closest(father).find(child);
+            if (closest_father_child.length == 0){
+                closest_father_child = undefined;
+            }
+        }
+        return closest_father_child;
+    }
     function processData(response, $el) {
         var replace_selector = $el.data('replace'),
             replace_closest_selector = $el.data('replace-closest'),
             replace_inner_selector = $el.data('replace-inner'),
             replace_closest_inner_selector = $el.data('replace-closest-inner'),
+            replace_closest_father_child = find_father_child($el.data('replace-father'), $el.data('replace-child'), $el),
+            replace_closest_father_child_inner = find_father_child($el.data('replace-father'), $el.data('replace-child-inner'), $el),
             append_selector = $el.data('append'),
             prepend_selector = $el.data('prepend'),
             refresh_selector = $el.data('refresh'),
             refresh_closest_selector = $el.data('refresh-closest'),
+            refresh_inner = $el.data('refresh-inner'),
+            refresh_closest_father_child = find_father_child($el.data('refresh-father'), $el.data('refresh-child'), $el),
+            refresh_closest_father_child_inner = find_father_child($el.data('refresh-father'), $el.data('refresh-child-inner'), $el),
             clear_selector = $el.data('clear'),
             clear_closest_selector = $el.data('clear-closest'),
             remove_selector = $el.data('remove'),
             remove_closest_selector = $el.data('remove-closest');
+
 
         if (replace_selector) {
             $(replace_selector).replaceWith(response.content)
@@ -100,6 +138,13 @@
 
         if (replace_inner_selector) {
             $(replace_inner_selector).html(response.content)
+        }
+
+        if (replace_closest_father_child) {
+            replace_closest_father_child.replaceWith(response.content)
+        }
+        if (replace_closest_father_child_inner) {
+            replace_closest_father_child_inner.html(response.content)
         }
 
         if (replace_closest_inner_selector) {
@@ -126,6 +171,21 @@
             $.each($(refresh_closest_selector), function(index, value) {
                 ajaxGet($(value).data('refresh-url'), function(content) {
                     $el.closest($(value)).replaceWith(content)
+                })
+            })
+        }
+
+        if (refresh_closest_father_child) {
+            $.each(refresh_closest_father_child, function(index, value) {
+                ajaxGet($(value).data('refresh-url'), function(content) {
+                    $(value).replaceWith(content)
+                })
+            })
+        }
+        if (refresh_closest_father_child_inner) {
+            $.each(refresh_closest_father_child_inner, function(index, value) {
+                ajaxGet($(value).data('refresh-url'), function(content) {
+                    $(value).html(content)
                 })
             })
         }
@@ -179,5 +239,5 @@
     // ==============
 
     $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send)
-
+    $(document).on('submit.ajax.data-api', ajax_submit, Ajax.prototype.submit)
 })(jQuery);
