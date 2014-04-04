@@ -245,5 +245,5 @@
     // ==============
 
     $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send);
-    $(document).on('submit.ajax.data-api', dismiss_subsmit, Ajax.prototype.submit)
+    $(document).on('submit.ajax.data-api', dismiss_submit, Ajax.prototype.submit)
 })(jQuery);
