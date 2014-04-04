@@ -83,6 +83,8 @@
             method = $form.attr('method'),
             data = $form.serialize();
 
+        e.preventDefault();
+
         method = method ? method.toLowerCase() : 'get';
 
         if (method == "post") {
