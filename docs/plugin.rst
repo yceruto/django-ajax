@@ -27,7 +27,7 @@ If you want to use a link should include data-ajax="" as atribute and the option
 
 .. code:: html
 
-    <a href="/hello-world/" class="btn btn-primary" data-ajax="true" data-success="processResponse">Show Alert</a>
+    <a href="/hello-world/" class="btn btn-primary" data-ajax="" data-success="processResponse">Show Alert</a>
 
 For include a URL reference use href, data-href or data-url, it is util for example in refresh option.
 e.g
@@ -35,9 +35,9 @@ e.g
 .. code:: html
 
     <div data-url="/list/" id="myList"></div>
-    <a href="/hello-world/" class="btn btn-primary" refresh-inner="#myList" data-ajax="true" data-success="function(){}">Display List</a>
+    <a href="/hello-world/" class="btn btn-primary" refresh-inner="#myList" data-ajax="" data-success="function(){}">Display List</a>
 
-If you want to use a form should include submit-ajax="true" as atribute and the options that you want.
+If you want to use a form should include data-ajax-submit="" as atribute and the options that you want.
 e.g
 
 .. code:: html
@@ -45,12 +45,12 @@ e.g
     <div id="father">
         <div id="myList"></div>
         <div id="editList">
-            <form action="/edit/" method="post" submit-ajax="true" replace-father="father"
+            <form action="/edit/" method="post" data-ajax-submit="" replace-father="father"
                   replace-child-inner="#myList" onsubmit="return false;">
               ...
             </form>
         </div>
-        <button data-href="/create/" replace-inner="editList" data-ajax="true" data-success="function(){}" > create </button>
+        <button data-href="/create/" replace-inner="editList" data-ajax="" data-success="function(){}" > create </button>
     </div>
 
 .. note:

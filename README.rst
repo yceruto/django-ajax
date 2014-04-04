@@ -296,7 +296,7 @@ or as option on the request:
 
 .. code:: html
 
-   <script type="text/javascript">
+    <script type="text/javascript">
         function fragments() {
             ajaxGet('/fragments-view-url', function(content){
                 do_something_with(content.fragments);
