@@ -20,7 +20,6 @@
             method = $this.data('method'),
             url = $this.attr('href') || $this.data('href') || $this.data('url') || null,
             data = $this.data('data') || null,
-            onSuccess = $this.data('success') || null,
             onError = $this.data('error') || null;
 
         if (e) e.preventDefault();
@@ -28,16 +27,6 @@
         if (!url) {
             alert('href, data-href or data-url attribute not found!');
             return
-        }
-
-        if (onSuccess) {
-            try {
-                onSuccess = window[onSuccess];
-                if (!$.isFunction(onSuccess))
-                    onSuccess = null
-            } catch (e) {
-                alert(e.name + '\n' + e.message);
-            }
         }
 
         if (onError) {
@@ -69,7 +58,6 @@
                 data: data,
                 onSuccess: function(response) {
                     processData(response, $this);
-                    $.isFunction(onSuccess) && onSuccess(response.content);
                 },
                 onError: onError
             });
@@ -116,7 +104,8 @@
     }
 
     function processData(response, $el) {
-        var replace_selector = $el.data('replace'),
+        var success_function = $el.data('success'),
+            replace_selector = $el.data('replace'),
             replace_closest_selector = $el.data('replace-closest'),
             replace_inner_selector = $el.data('replace-inner'),
             replace_closest_inner_selector = $el.data('replace-closest-inner'),
@@ -126,13 +115,22 @@
             prepend_selector = $el.data('prepend'),
             refresh_selector = $el.data('refresh'),
             refresh_closest_selector = $el.data('refresh-closest'),
-            refresh_inner = $el.data('refresh-inner'),
+            refresh_inner_selector = $el.data('refresh-inner'),
             refresh_closest_father_child = find_father_child($el.data('refresh-father'), $el.data('refresh-child'), $el),
             refresh_closest_father_child_inner = find_father_child($el.data('refresh-father'), $el.data('refresh-child-inner'), $el),
             clear_selector = $el.data('clear'),
             clear_closest_selector = $el.data('clear-closest'),
             remove_selector = $el.data('remove'),
             remove_closest_selector = $el.data('remove-closest');
+
+        if (success_function) {
+            try {
+                success_function = window[success_function];
+                $.isFunction(success_function) && success_function(response.content);
+            } catch (e) {
+                alert(e.name + '\n' + e.message);
+            }
+        }
 
         if (replace_selector) {
             $(replace_selector).replaceWith(response.content)
@@ -170,6 +168,14 @@
             $.each($(refresh_selector), function(index, value) {
                 ajaxGet($(value).data('refresh-url'), function(content) {
                     $(value).replaceWith(content)
+                })
+            })
+        }
+
+        if (refresh_inner_selector) {
+            $.each($(refresh_inner_selector), function(index, value) {
+                ajaxGet($(value).data('refresh-url'), function(content) {
+                    $(value).html(content)
                 })
             })
         }
