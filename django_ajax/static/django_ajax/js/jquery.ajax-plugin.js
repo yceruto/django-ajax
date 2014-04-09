@@ -123,15 +123,6 @@
             remove_selector = $el.data('remove'),
             remove_closest_selector = $el.data('remove-closest');
 
-        if (success_function) {
-            try {
-                success_function = window[success_function];
-                $.isFunction(success_function) && success_function(response.content);
-            } catch (e) {
-                alert(e.name + '\n' + e.message);
-            }
-        }
-
         if (replace_selector) {
             $(replace_selector).replaceWith(response.content)
         }
@@ -218,6 +209,15 @@
 
         if (remove_closest_selector) {
             $el.closest(remove_closest_selector).remove()
+        }
+
+        if (success_function) {
+            try {
+                success_function = window[success_function];
+                $.isFunction(success_function) && success_function(response.content);
+            } catch (e) {
+                alert(e.name + '\n' + e.message);
+            }
         }
     }
 
