@@ -1,5 +1,5 @@
 /* ========================================================================
- * Django Ajax v2.2.4
+ * Django Ajax v2.2.8
  * https://github.com/yceruto/django-ajax/
  * Copyright 2014 Yonel Ceruto Glez
  * ======================================================================== */
@@ -69,7 +69,15 @@
         var $form = $(this),
             url = $form.attr('action'),
             method = $form.attr('method'),
-            data = $form.serialize();
+            data = $form.serialize(),
+            redirect_inner_selector = $form.data('redirect-inner'),
+            options = redirect_inner_selector ? {
+                onRedirect: function (url) {
+                    ajaxGet(url, function(content){
+                        $(redirect_inner_selector).html(content);
+                    })
+                }
+            } : {};
 
         e.preventDefault();
 
@@ -80,13 +88,13 @@
                 var response = {};
                 response.content = content;
                 processData(response, $form);
-            });
+            }, options);
         } else {
             ajaxGet(url, function(content){
                 var response = {};
                 response.content = content;
                 processData(response, $form);
-            });
+            }, options);
         }
 	};
 
@@ -222,7 +230,7 @@
     }
 
 
-    // ALERT PLUGIN DEFINITION
+    // AJAX PLUGIN DEFINITION
     // =======================
 
     var old = $.fn.ajax;
@@ -240,7 +248,7 @@
     $.fn.ajax.Constructor = Ajax;
 
 
-    // ALERT NO CONFLICT
+    // AJAX NO CONFLICT
     // =================
 
     $.fn.ajax.noConflict = function () {
@@ -249,7 +257,7 @@
     };
 
 
-    // ALERT DATA-API
+    // AJAX DATA-API
     // ==============
 
     $(document).on('click.ajax.data-api', dismiss, Ajax.prototype.send);
