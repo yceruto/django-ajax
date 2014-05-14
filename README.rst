@@ -32,7 +32,7 @@ Install django-ajax in your python environment
 
 .. code:: sh
 
-    $ pip install abalt-django-ajax
+    $ pip install djangoajax
 
 Through Github:
 
