@@ -1,7 +1,7 @@
 /* ========================================================================
  * Django Ajax v2.2.8
  * https://github.com/yceruto/django-ajax/
- * Copyright 2014 Yonel Ceruto Glez
+ * Copyright 2014 Abalt
  * ======================================================================== */
 
 function getCookie(name) {
@@ -63,7 +63,7 @@ var ajax = function (url, options) {
         success: function( response ){
             switch (response.status) {
                 case 200:
-                    options['process-fragments'] && process_fragments(response.content);
+                    options['process-fragments'] && response.content && process_fragments(response.content);
 
                     onSuccess && onSuccess(response);
                     break;
@@ -112,29 +112,29 @@ var ajax = function (url, options) {
             !(/^(\/\/|http:|https:).*/.test(url));
     }
 
-    function process_fragments(response) {
+    function process_fragments(content) {
         //process fragments
-        if (response.fragments) {
-            for (var s in response.fragments) {
-                $(s).replaceWith(response.fragments[s])
+        if (content.fragments) {
+            for (var s in content.fragments) {
+                $(s).replaceWith(content.fragments[s])
             }
         }
 
-        if (response['inner-fragments']) {
-            for (var i in response['inner-fragments']) {
-                $(i).html(response['inner-fragments'][i])
+        if (content['inner-fragments']) {
+            for (var i in content['inner-fragments']) {
+                $(i).html(content['inner-fragments'][i])
             }
         }
 
-        if (response['append-fragments']) {
-            for (var a in response['append-fragments']) {
-                $(a).append(response['append-fragments'][a])
+        if (content['append-fragments']) {
+            for (var a in content['append-fragments']) {
+                $(a).append(content['append-fragments'][a])
             }
         }
 
-        if (response['prepend-fragments']) {
-            for (var p in response['prepend-fragments']) {
-                $(p).prepend(response['prepend-fragments'][p])
+        if (content['prepend-fragments']) {
+            for (var p in content['prepend-fragments']) {
+                $(p).prepend(content['prepend-fragments'][p])
             }
         }
     }
@@ -149,25 +149,56 @@ ajax.DEFAULTS = {
     onRedirect: null
 };
 
-function ajaxPost(url, data, onSuccess, options) {
+/**
+ * Ajax Method
+ *
+ * @param {String} method
+ * @param {String} url
+ * @param {Null|Object|Function} data
+ * @param {Null|Object|Function} onSuccess
+ * @param {Object} options
+ */
+function ajaxMethod(method, url, data, onSuccess, options) {
+    if ($.isFunction(data)) {
+        if ($.isPlainObject(onSuccess)) {
+            options = onSuccess;
+        }
+
+        onSuccess = data;
+        data = null;
+    }
+
     options = $.extend({}, options, {
         url: url,
-        method: 'post',
+        method: method,
         data: data,
         onSuccess: function(response){
             $.isFunction(onSuccess) && onSuccess(response.content);
         }
     });
-    ajax(options)
+    ajax(options);
 }
 
-function ajaxGet(url, onSuccess, options) {
-    options = $.extend({}, options, {
-        url: url,
-        method: 'get',
-        onSuccess: function(response){
-            $.isFunction(onSuccess) && onSuccess(response.content);
-        }
-    });
-    ajax(options);
+/**
+ * Ajax Post Method
+ *
+ * @param {String} url
+ * @param {Null|Object|Function} data
+ * @param {Null|Object|Function} onSuccess
+ * @param {Object} options
+ */
+function ajaxPost(url, data, onSuccess, options) {
+    ajaxMethod('post', url, data, onSuccess, options);
+}
+
+/**
+ * Ajax Get Method
+ *
+ * @param {String} url
+ * @param {Null|Object|Function} data
+ * @param {Null|Object|Function} onSuccess
+ * @param {Object} options
+ */
+function ajaxGet(url, data, onSuccess, options) {
+    ajaxMethod('get', url, data, onSuccess, options);
 }

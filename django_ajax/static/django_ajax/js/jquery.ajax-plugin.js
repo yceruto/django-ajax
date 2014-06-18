@@ -1,7 +1,7 @@
 /* ========================================================================
  * Django Ajax v2.2.8
  * https://github.com/yceruto/django-ajax/
- * Copyright 2014 Yonel Ceruto Glez
+ * Copyright 2014 Abalt
  * ======================================================================== */
 
  ;(function ($) { "use strict";
