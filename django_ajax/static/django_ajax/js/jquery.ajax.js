@@ -40,11 +40,11 @@ var ajax = function (url, options) {
     options = $.extend({}, ajax.DEFAULTS, options);
 
     var
-        onSuccess = $.isFunction(options.onSuccess) ? options.onSuccess : null,
-        onRedirect = $.isFunction(options.onRedirect) ? options.onRedirect : null,
-        onError = $.isFunction(options.onError) ? options.onError : null,
-        onComplete = $.isFunction(options.onComplete) ? options.onComplete : null,
-        onBeforeSend = $.isFunction(options.onBeforeSend) ? options.onBeforeSend : null;
+        onSuccess = $.isFunction(options.onSuccess) ? options.onSuccess : ajax.DEFAULTS['onSuccess'],
+        onRedirect = $.isFunction(options.onRedirect) ? options.onRedirect : ajax.DEFAULTS['onRedirect'],
+        onError = $.isFunction(options.onError) ? options.onError : ajax.DEFAULTS['onError'],
+        onComplete = $.isFunction(options.onComplete) ? options.onComplete : ajax.DEFAULTS['onComplete'],
+        onBeforeSend = $.isFunction(options.onBeforeSend) ? options.onBeforeSend : ajax.DEFAULTS['onBeforeSend'];
 
     $.ajax({
         url: url,
