@@ -4,12 +4,16 @@ Decorators
 from __future__ import unicode_literals
 
 from functools import wraps
+import logging
+import sys, traceback
 
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
 
 from django_ajax.shortcuts import render_to_json
 
+# Set logging
+log = logging.getLogger(__name__)
 
 def ajax(function=None, mandatory=True):
     """
@@ -67,6 +71,9 @@ def ajax(function=None, mandatory=True):
                 try:
                     return render_to_json(func(request, *args, **kwargs))
                 except Exception as exception:
+                    type, value, tb = sys.exc_info()
+                    log.error(exception.message + ' with json ' + str(request.POST))
+                    log.error('\n'.join(traceback.format_tb(tb)))
                     return render_to_json(exception)
             else:
                 # return standard response
