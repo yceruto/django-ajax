@@ -88,7 +88,7 @@ def render_to_json(response, *args, **kwargs):
     elif issubclass(type(response), Exception):
         status_code = 500
         error_message = "An error occured while processing an AJAX request."
-        logger.error(error_message, exc_info=True)
+        logger.exception(error_message)
         
         if settings.DEBUG:
             import sys
