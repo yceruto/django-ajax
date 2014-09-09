@@ -3,11 +3,15 @@ Shortcuts
 """
 from __future__ import unicode_literals
 
+import logging
+
 from django.conf import settings
 from django.http.response import Http404, HttpResponseServerError
 from django.views.debug import ExceptionReporter
 
 from django_ajax.response import JSONResponse
+
+logger = logging.getLogger(__name__)
 
 # Available since django 1.6
 REASON_PHRASES = {
@@ -83,11 +87,16 @@ def render_to_json(response, *args, **kwargs):
         status_code = 404
     elif issubclass(type(response), Exception):
         status_code = 500
+        error_message = "An error occured while processing an AJAX request."
+        logger.error(error_message, exc_info=True)
+        
         if settings.DEBUG:
             import sys
             reporter = ExceptionReporter(None, *sys.exc_info())
             text = reporter.get_traceback_text()
             response = HttpResponseServerError(text, content_type='text/plain')
+        else:
+            response = HttpResponseServerError(error_message, content_type='text/plain')
     else:
         status_code = 200
 
