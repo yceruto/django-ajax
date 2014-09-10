@@ -87,8 +87,7 @@ def render_to_json(response, *args, **kwargs):
         status_code = 404
     elif issubclass(type(response), Exception):
         status_code = 500
-        error_message = "An error occured while processing an AJAX request."
-        logger.exception(error_message)
+        logger.exception(str(response))
         
         if settings.DEBUG:
             import sys
@@ -96,7 +95,7 @@ def render_to_json(response, *args, **kwargs):
             text = reporter.get_traceback_text()
             response = HttpResponseServerError(text, content_type='text/plain')
         else:
-            response = HttpResponseServerError(error_message, content_type='text/plain')
+            response = HttpResponseServerError("An error occured while processing an AJAX request.", content_type='text/plain')
     else:
         status_code = 200
 
