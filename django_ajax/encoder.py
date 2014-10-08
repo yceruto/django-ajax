@@ -26,7 +26,7 @@ class LazyJSONEncoder(json.JSONEncoder):
             return obj.rendered_content
         elif issubclass(type(obj), HttpResponse):
             return obj.content
-        elif issubclass(type(obj), Exception):
+        elif issubclass(type(obj), Exception) or isinstance(obj, bytes):
             return force_text(obj)
 
         # this handles querysets and other iterable types
