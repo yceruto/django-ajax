@@ -1,3 +1,3 @@
 Authors
 
-- `Yonel Ceruto Glez <yceruto@abalt.org>`_
+- `Yonel Ceruto Glez <yonelceruto@gmail.com>`_
