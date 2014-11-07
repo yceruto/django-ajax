@@ -1,1 +1,298 @@
-Hello World!
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="django-ajax : Fast and easy AJAX libraries for django projects. Contains ajax decorator, ajax middleware, shortcuts, jquery plugins and more.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>django-ajax</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/yceruto/django-ajax">View on GitHub</a>
+
+          <h1 id="project_title">django-ajax</h1>
+          <h2 id="project_tagline">Fast and easy AJAX libraries for django projects. Contains ajax decorator, ajax middleware, shortcuts, jquery plugins and more.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/yceruto/django-ajax/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yceruto/django-ajax/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="django-ajax" class="anchor" href="#django-ajax" aria-hidden="true"><span class="octicon octicon-link"></span></a>django-ajax</h1>
+
+<p>Fast and easy AJAX libraries for django projects.</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>
+<a href="http://www.python.org">python</a> &gt;= 2.6</li>
+<li>
+<a href="https://djangoproject.com">django</a> &gt;= 1.3</li>
+<li>
+<a href="http://jquery.com">jQuery</a> &gt;= 1.5</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Install django-ajax in your python environment</p>
+
+<p>1- Download and install package:</p>
+
+<div class="highlight highlight-sh"><pre>$ pip install djangoajax</pre></div>
+
+<p>Through Github:</p>
+
+<div class="highlight highlight-sh"><pre>pip install -e git://github.com/yceruto/django-ajax#egg=django-ajax</pre></div>
+
+<p>or simply with:</p>
+
+<div class="highlight highlight-sh"><pre>$ python setup.py install</pre></div>
+
+<p>2- Add <code>'django_ajax'</code> into the <code>INSTALLED_APPS</code> list.</p>
+
+<p>3- Read usage section and enjoy its advantages!</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="ajax-decorator" class="anchor" href="#ajax-decorator" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/ajax" class="user-mention">@ajax</a> Decorator</h3>
+
+<div class="highlight highlight-python"><pre>    <span class="k">from</span> django_ajax.decorators <span class="k">import</span> ajax
+
+    <span class="nf">@ajax</span>
+    <span class="kt">def</span> <span class="nf">my_view</span>(<span class="nv">request</span>)
+        do_something()</pre></div>
+
+<p>When nothing is returned as result of view then returns (JSON format):</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">200</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"OK"</span>, <span class="s2">"content "</span><span class="o">:</span> <span class="kc">null</span>}</pre></div>
+
+<h4>
+<a id="sending-custom-data-in-the-response" class="anchor" href="#sending-custom-data-in-the-response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sending custom data in the response</h4>
+
+<div class="highlight highlight-python"><pre>    <span class="nf">@ajax</span>
+    <span class="kt">def</span> <span class="nf">my_view</span>(<span class="nv">request</span>):
+        c <span class="o">=</span> <span class="m">2</span> <span class="o">+</span> <span class="m">3</span>
+        <span class="k">return</span> {<span class="s1">'result'</span>: c}</pre></div>
+
+<p>The result is send to the browser in the following way (JSON format)</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">200</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"OK"</span>, <span class="s2">"content"</span><span class="o">:</span> {<span class="s2">"result"</span><span class="o">:</span> <span class="m">5</span>}}</pre></div>
+
+<h4>
+<a id="combining-with-others-decorators" class="anchor" href="#combining-with-others-decorators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Combining with others decorators</h4>
+
+<div class="highlight highlight-python"><pre>    <span class="k">from</span> django.contrib.auth.decorators <span class="k">import</span> login_required
+    <span class="k">from</span> django_ajax.decorators <span class="k">import</span> ajax
+
+    <span class="nf">@ajax</span>
+    <span class="nf">@login_required</span>
+    <span class="kt">def</span> <span class="nf">my_view</span>(<span class="nv">request</span>):
+        <span class="c1"># if the request.user is anonymous then this view not proceed </span>
+        <span class="k">return</span> {<span class="s1">'user_id'</span>: request.user.id}</pre></div>
+
+<p>The JSON response:</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">302</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"FOUND"</span>, <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"/login"</span>}</pre></div>
+
+<h4>
+<a id="template-response" class="anchor" href="#template-response" aria-hidden="true"><span class="octicon octicon-link"></span></a>Template response</h4>
+
+<div class="highlight highlight-python"><pre>    <span class="k">from</span> django.shortcuts <span class="k">import</span> render
+    <span class="k">from</span> django_ajax.decorators <span class="k">import</span> ajax
+
+    <span class="nf">@ajax</span>
+    <span class="kt">def</span> <span class="nf">my_view</span>(<span class="nv">request</span>):
+        <span class="k">return</span> render(request, <span class="s1">'home.html'</span>)</pre></div>
+
+<p>The JSON response:</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">200</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"OK"</span>, <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;html&gt;...&lt;/html&gt;"</span>}</pre></div>
+
+<h4>
+<a id="catch-exceptions" class="anchor" href="#catch-exceptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Catch exceptions</h4>
+
+<div class="highlight highlight-python"><pre>    <span class="nf">@ajax</span>
+    <span class="kt">def</span> <span class="nf">my_view</span>(<span class="nv">request</span>):
+        a <span class="o">=</span> <span class="m">23</span> <span class="o">/</span> <span class="m">0</span>  <span class="c1"># this line throws an exception</span>
+        <span class="k">return</span> a</pre></div>
+
+<p>The JSON response:</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">500</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"INTERNAL SERVER ERROR"</span>, <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"integer division or modulo by zero"</span>}</pre></div>
+
+<h3>
+<a id="ajaxmiddleware" class="anchor" href="#ajaxmiddleware" aria-hidden="true"><span class="octicon octicon-link"></span></a>AJAXMiddleware</h3>
+
+<p>If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.</p>
+
+<p>Add <code>django_ajax.middleware.AJAXMiddleware</code> into the <code>MIDDLEWARE_CLASSES</code> list in <code>settings.py</code>.</p>
+
+<p>All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.</p>
+
+<blockquote>
+<p><strong>Caution</strong>
+If you use this middleware cannot use <code>@ajax</code> decorator.</p>
+</blockquote>
+
+<h3>
+<a id="ajaxmixin-for-class-based-views" class="anchor" href="#ajaxmixin-for-class-based-views" aria-hidden="true"><span class="octicon octicon-link"></span></a>AJAXMixin for class-based views</h3>
+
+<p><code>AJAXMixin</code> is an object that calls the AJAX decorator.</p>
+
+<div class="highlight highlight-python"><pre>    <span class="k">from</span> django.views.generic <span class="k">import</span> TemplateView
+    <span class="k">from</span> django_ajax.mixin <span class="k">import</span> AJAXMixin
+
+    <span class="kt">class</span> <span class="nc">SimpleView</span>(<span class="no">AJAXMixin</span>, <span class="no">TemplateView</span>):
+        template_name <span class="o">=</span> <span class="s1">'home.html'</span></pre></div>
+
+<p>The JSON response:</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">200</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"OK"</span>, <span class="s2">"content"</span><span class="o">:</span> <span class="s2">"&lt;html&gt;...&lt;/html&gt;"</span>}</pre></div>
+
+<h3>
+<a id="ajax-on-client-side" class="anchor" href="#ajax-on-client-side" aria-hidden="true"><span class="octicon octicon-link"></span></a>AJAX on client side</h3>
+
+<p>Include <code>jquery.ajax.min.js</code> into <code>base.html</code> template:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span> <span class="na">src</span>=<span class="s2">"{% static 'django_ajax/js/jquery.ajax.min.js' %}"</span>&gt;&lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>Call to AJAX request using the <code>ajaxPost</code> or <code>ajaxGet</code> functions:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        ajaxPost(<span class="s1">'/save'</span>, {<span class="s1">'foo'</span><span class="o">:</span> <span class="s1">'bar'</span>}, <span class="kt">function</span>(<span class="nv">content</span>){</span>
+<span class="h">            <span class="c1">//onSuccess</span></span>
+<span class="h">            <span class="nf">alert</span>(content);</span>
+<span class="h">        })</span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>or</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        ajaxGet(<span class="s1">'/'</span>, <span class="kt">function</span>(<span class="nv">content</span>){</span>
+<span class="h">            <span class="c1">//onSuccess</span></span>
+<span class="h">            <span class="nf">alert</span>(content);</span>
+<span class="h">        })</span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>If the response is not successful, it´s shown an alert with the message appropriated.</p>
+
+<h3>
+<a id="ajax-plugin-based-on-eldarion-ajax" class="anchor" href="#ajax-plugin-based-on-eldarion-ajax" aria-hidden="true"><span class="octicon octicon-link"></span></a>AJAX plugin Based on <a href="https://github.com/eldarion/eldarion-ajax">eldarion-ajax</a>
+</h3>
+
+<p>Include <code>jquery.ajax-plugin.min.js</code> into <code>base.html</code> template:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span> <span class="na">src</span>=<span class="s2">"{% static 'django_ajax/js/jquery.ajax-plugin.min.js' %}"</span>&gt;&lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>In this moment any tag with the attribute <code>data-ajax</code> will be controlled by ajax plugin. Each request is sent using AJAX and the response will be handle on JSON format.</p>
+
+<p>The value of the attribute <code>data-success</code> will be used as callback function if the request is successful. This function is called with an argument that represent the content response:</p>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="nt">a</span> <span class="na">href</span>=<span class="s2">"/hello-world/"</span> <span class="na">class</span>=<span class="s2">"btn btn-primary"</span> <span class="na">data-ajax</span>=<span class="s2">"true"</span> <span class="na">data-success</span>=<span class="s2">"processResponse"</span>&gt;Show Alert&lt;/<span class="nt">a</span>&gt;</pre></div>
+
+<p>Where "processResponse" in this case is a callback function:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">   &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        <span class="kt">function</span> <span class="nf">processResponse</span>(<span class="nv">content</span>) {</span>
+<span class="h">            do_something(content);</span>
+<span class="h">        }</span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<h4>
+<a id="process-fragments" class="anchor" href="#process-fragments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Process fragments</h4>
+
+<p>Inspired on <a href="https://github.com/eldarion/eldarion-ajax">eldarion-ajax</a> the data
+received by the names <code>'fragments'</code>, <code>'inner-fragments'</code>, <code>'append-fragments'</code>
+or <code>'prepend-fragments'</code> will be processed by default, unless you pass in the
+request the option "process-fragments" equal false. Here's an example:</p>
+
+<div class="highlight highlight-python"><pre>    <span class="nf">@ajax</span>
+    <span class="kt">def</span> <span class="nf">fragments_view</span>(<span class="nv">request</span>):
+        data <span class="o">=</span> {
+            <span class="s1">'fragments'</span>: {
+                <span class="s1">'#id1'</span>: <span class="s1">'replace element with this content1'</span>
+            },
+            <span class="s1">'inner-fragments'</span>: {
+                <span class="s1">'#id2'</span>: <span class="s1">'replace inner content'</span>
+            },
+            <span class="s1">'append-fragments'</span>: {
+                <span class="s1">'.class1'</span>: <span class="s1">'append this content'</span>
+            },
+            <span class="s1">'prepend-fragments'</span>: {
+                <span class="s1">'.class2'</span>: <span class="s1">'prepend this content'</span>
+            }
+        }
+        <span class="k">return</span> data</pre></div>
+
+<p>These data are sent in response:</p>
+
+<div class="highlight highlight-javascript"><pre>    {<span class="s2">"status"</span><span class="o">:</span> <span class="m">200</span>, <span class="s2">"statusText"</span><span class="o">:</span> <span class="s2">"OK"</span>, <span class="s2">"content"</span><span class="o">:</span> {
+            <span class="s2">"fragments"</span><span class="o">:</span> {<span class="s2">"#id1"</span><span class="o">:</span> <span class="s2">"replace element with this content1"</span>},
+            <span class="s2">"inner-fragments"</span><span class="o">:</span> {<span class="s2">"#id2"</span><span class="o">:</span> <span class="s2">"replace inner content"</span>},
+            <span class="s2">"append-fragments"</span><span class="o">:</span> {<span class="s2">".class1"</span><span class="o">:</span> <span class="s2">"append this content"</span>},
+            <span class="s2">"prepend-fragments"</span><span class="o">:</span> {<span class="s2">".class2"</span><span class="o">:</span> <span class="s2">"prepend this content"</span>}
+        }}</pre></div>
+
+<p>Then, using AJAX (<code>ajax</code>, <code>ajaxPost</code> or <code>ajaxGet</code>) functions these fragments to be processed automatically before calling to success function.</p>
+
+<div class="highlight highlight-html"><pre><span class="h">   &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        <span class="kt">function</span> <span class="nf">fragments</span>() {</span>
+<span class="h">            ajaxGet(<span class="s1">'/fragments-view-url'</span>, <span class="kt">function</span>(<span class="nv">content</span>){</span>
+<span class="h">                <span class="nf">alert</span>(<span class="s1">'The fragments was processed successfully!'</span>);</span>
+<span class="h">            });</span>
+<span class="h">        }</span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>If you do not want to process the fragments never, modify the AJAX configuration
+that comes by default:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        ajax.DEFAULTS[<span class="s2">"process-fragments"</span>] <span class="o">=</span> <span class="kc">false</span>; <span class="c1">//true by default</span></span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<p>or as option on the request:</p>
+
+<div class="highlight highlight-html"><pre><span class="h">    &lt;<span class="nt">script</span> <span class="na">type</span>=<span class="s2">"text/javascript"</span>&gt;</span>
+<span class="h">        <span class="kt">function</span> <span class="nf">fragments</span>() {</span>
+<span class="h">            ajaxGet(<span class="s1">'/fragments-view-url'</span>, <span class="kt">function</span>(<span class="nv">content</span>){</span>
+<span class="h">                do_something_with(content.fragments);</span>
+<span class="h">            }, {<span class="s2">"process-fragments"</span><span class="o">:</span> <span class="kc">false</span>});</span>
+<span class="h">        }</span>
+<span class="h">    &lt;/<span class="nt">script</span>&gt;</span></pre></div>
+
+<h3>
+<a id="enjoy" class="anchor" href="#enjoy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enjoy!</h3>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">django-ajax maintained by <a href="https://github.com/yceruto">yceruto</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
