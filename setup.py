@@ -24,7 +24,7 @@ version = __import__('django_ajax').get_version()
 
 setup(
     author='Yonel Ceruto Glez',
-    author_email='yceruto@abalt.org',
+    author_email='yonelceruto@gmail.com',
     name='django-ajax',
     version=version,
     description='Powerful and easy AJAX framework for django applications.',
