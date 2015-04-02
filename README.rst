@@ -20,7 +20,7 @@ Requirements
 ------------
 
 * `python`_ >= 2.6
-* `django`_ >= 1.3
+* `django`_ >= 1.5
 * `jQuery`_ >= 1.5
 
 .. _`python`: http://www.python.org/
