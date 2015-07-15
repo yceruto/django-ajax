@@ -11,7 +11,7 @@ from django.utils.decorators import available_attrs
 from django_ajax.shortcuts import render_to_json
 
 
-def ajax(function=None, mandatory=True):
+def ajax(function=None, mandatory=True, **ajax_kwargs):
     """
     Decorator who guesses the user response type and translates to a serialized
     JSON response. Usage::
@@ -65,7 +65,7 @@ def ajax(function=None, mandatory=True):
             if request.is_ajax():
                 # return json response
                 try:
-                    return render_to_json(func(request, *args, **kwargs))
+                    return render_to_json(func(request, *args, **kwargs), **ajax_kwargs)
                 except Exception as exception:
                     return render_to_json(exception)
             else:
