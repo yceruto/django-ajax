@@ -11,7 +11,7 @@ from django.utils.encoding import force_text
 from django.db.models.base import ModelBase
 
 
-class LazyJSONEncoder(json.JSONEncoder):
+class LazyJSONEncoderMixin(object):
     """
     A JSONEncoder subclass that handle querysets and models objects.
     Add how handle your type of object here to use when dump json
@@ -41,7 +41,11 @@ class LazyJSONEncoder(json.JSONEncoder):
         if isinstance(obj.__class__, ModelBase):
             return force_text(obj)
 
-        return super(LazyJSONEncoder, self).default(obj)
+        return super(LazyJSONEncoderMixin, self).default(obj)
+
+
+class LazyJSONEncoder(LazyJSONEncoderMixin, json.JSONEncoder):
+    pass
 
 
 def serialize_to_json(data, *args, **kwargs):
