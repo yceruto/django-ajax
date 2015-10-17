@@ -11,10 +11,10 @@ from django.utils.decorators import available_attrs
 from django_ajax.shortcuts import render_to_json
 
 
-def ajax(function=None, mandatory=True, **ajax_kwargs):
+def ajax(function=None, mandatory=True, needs_ajax=True, **ajax_kwargs):
     """
     Decorator who guesses the user response type and translates to a serialized
-    JSON response. Usage::
+    JSON response. Usage:
 
         @ajax
         def my_view(request):
@@ -54,7 +54,10 @@ def ajax(function=None, mandatory=True, **ajax_kwargs):
             # a HttpResponseNotAllowed response.
             # will send {'status': 405, 'statusText': 'METHOD NOT ALLOWED',
                          'content': null}
-
+    
+    If `needs_ajax` is True (default), an ajax-type request is needed (i.e. via javascript; you can't see it in a normal Browser)
+        Set to False to allow any browser to access the json.
+        (See djangos `request.is_ajax()`)
     """
     def decorator(func):
         @wraps(func, assigned=available_attrs(func))
@@ -62,7 +65,7 @@ def ajax(function=None, mandatory=True, **ajax_kwargs):
             if mandatory and not request.is_ajax():
                 return HttpResponseBadRequest()
 
-            if request.is_ajax():
+            if request.is_ajax() or not needs_ajax:
                 # return json response
                 try:
                     return render_to_json(func(request, *args, **kwargs), **ajax_kwargs)
