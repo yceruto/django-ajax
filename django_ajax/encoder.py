@@ -40,7 +40,9 @@ class LazyJSONEncoderMixin(object):
         # this handlers Models
         if isinstance(obj.__class__, ModelBase):
             return force_text(obj)
-
+        #specificity for decimal
+            if isinstance(o, decimal.Decimal):
+                return str(o)
         return super(LazyJSONEncoderMixin, self).default(obj)
 
 
