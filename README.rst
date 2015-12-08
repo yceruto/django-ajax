@@ -8,12 +8,24 @@ Fast and easy AJAX libraries for django projects.
     :alt: Build Status
     :target: https://travis-ci.org/yceruto/django-ajax
     
-.. image:: https://badge.fury.io/py/djangoajax.png
+.. image:: https://img.shields.io/pypi/v/djangoajax.svg
     :alt: PYPI Package
     :target: https://pypi.python.org/pypi/djangoajax
     
-.. image:: https://pypip.in/d/djangoajax/badge.png
+.. image:: https://img.shields.io/pypi/dm/django-ajax.svg
     :alt: PYPI Download
+    :target: https://pypi.python.org/pypi/djangoajax
+    
+.. image:: https://img.shields.io/pypi/pyversions/djangoajax.svg
+    :alt: PYPI Versions
+    :target: https://pypi.python.org/pypi/djangoajax
+    
+.. image:: https://img.shields.io/pypi/status/django-ajax.svg
+    :alt: PYPI Status
+    :target: https://pypi.python.org/pypi/djangoajax
+    
+.. image:: https://img.shields.io/pypi/l/djangoajax.svg
+    :alt: PYPI License
     :target: https://pypi.python.org/pypi/djangoajax
 
 Requirements
