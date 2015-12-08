@@ -4,12 +4,12 @@ Utils
 from __future__ import unicode_literals
 
 import json
-import decimal
 
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
 from django.db.models.base import ModelBase
+from decimal import Decimal
 
 
 class LazyJSONEncoderMixin(object):
@@ -42,7 +42,7 @@ class LazyJSONEncoderMixin(object):
         if isinstance(obj.__class__, ModelBase):
             return force_text(obj)
 
-        if isinstance(obj, decimal.Decimal):
+        if isinstance(obj, Decimal):
             return float(obj)
 
         return super(LazyJSONEncoderMixin, self).default(obj)
