@@ -4,6 +4,7 @@ Utils
 from __future__ import unicode_literals
 
 import json
+import decimal
 
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
@@ -40,6 +41,9 @@ class LazyJSONEncoderMixin(object):
         # this handlers Models
         if isinstance(obj.__class__, ModelBase):
             return force_text(obj)
+
+        if isinstance(obj, decimal.Decimal):
+            return float(obj)
 
         return super(LazyJSONEncoderMixin, self).default(obj)
 
