@@ -90,7 +90,7 @@
                 processData(response, $form);
             }, options);
         } else {
-            ajaxGet(url, function(content){
+            ajaxGet(url, data, function(content){
                 var response = {};
                 response.content = content;
                 processData(response, $form);
