@@ -83,19 +83,11 @@
 
         method = method ? method.toLowerCase() : 'get';
 
-        if (method == "post") {
-            ajaxPost(url, data, function(content){
-                var response = {};
-                response.content = content;
-                processData(response, $form);
-            }, options);
-        } else {
-            ajaxGet(url, data, function(content){
-                var response = {};
-                response.content = content;
-                processData(response, $form);
-            }, options);
-        }
+        ajaxMethod(method, url, data, function(content){
+            var response = {};
+            response.content = content;
+            processData(response, $form);
+        }, options);
 	};
 
     function find_father_child(father, child, $el) {
