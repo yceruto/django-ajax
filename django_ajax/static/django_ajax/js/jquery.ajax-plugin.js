@@ -59,7 +59,13 @@
                 onSuccess: function(response) {
                     processData(response, $this);
                 },
-                onError: onError
+                onError: onError,
+                onBeforeSend: function (xhr, settings) {
+                    return beforeSend(xhr, settings, $this);
+                },
+                onComplete: function (xhr, textStatus) {
+                    return complete(xhr, textStatus, $this);
+                }
             });
         else
             alert('jquery.ajax.js is required');
@@ -215,6 +221,45 @@
             try {
                 success_function = window[success_function];
                 $.isFunction(success_function) && success_function(response.content);
+            } catch (e) {
+                alert(e.name + '\n' + e.message);
+            }
+        }
+    }
+
+    function beforeSend(jqXHR, settings, $el) {
+        var beforeSend_function = $el.data('beforesend');
+        var single = $el.data('ajaxsingle');
+        if (single) {
+            if($el.data('__hasajaxinstance'))
+            {
+                return false;
+            } else {
+                $el.data('__hasajaxinstance', true);
+            }
+        }
+        if (beforeSend_function) {
+            try {
+                beforeSend_function = window[beforeSend_function];
+                if ($.isFunction(beforeSend_function)) {
+                    return beforeSend_function(jqXHR, settings, $el);
+                }
+            } catch (e) {
+                alert(e.name + '\n' + e.message);
+            }
+        }
+    }
+
+    function complete(jqXHR, textStatus, $el) {
+        var complete_function = $el.data('complete');
+        var single = $el.data('ajaxsingle');
+        if (single && $el.data('__hasajaxinstance')) {
+            $el.removeData('__hasajaxinstance');
+        }
+        if (complete_function) {
+            try {
+                complete_function = window[complete_function];
+                $.isFunction(complete_function) && complete_function(jqXHR, textStatus, $el);
             } catch (e) {
                 alert(e.name + '\n' + e.message);
             }

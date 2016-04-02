@@ -58,7 +58,7 @@ var ajax = function (url, options) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
 
-            onBeforeSend && onBeforeSend(xhr, settings);
+            if(onBeforeSend) return onBeforeSend(xhr, settings);
         },
         success: function( response ){
             switch (response.status) {
