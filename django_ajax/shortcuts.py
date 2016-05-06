@@ -87,7 +87,7 @@ def render_to_json(response, *args, **kwargs):
         status_code = 404
     elif issubclass(type(response), Exception):
         status_code = 500
-        logger.exception(str(response))
+        logger.exception(str(response), extra={'request': kwargs.pop('request', None)})
         
         if settings.DEBUG:
             import sys
