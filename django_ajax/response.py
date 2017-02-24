@@ -27,5 +27,6 @@ class JSONResponse(HttpResponse):
 
         super(JSONResponse, self).__init__(
             content=serialize_to_json(data, *args, **kwargs),
+            status=data.get('status', 200),
             content_type='application/json'
         )

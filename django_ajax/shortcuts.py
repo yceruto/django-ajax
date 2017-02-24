@@ -81,7 +81,7 @@ def render_to_json(response, *args, **kwargs):
     Creates the main structure and returns the JSON response.
     """
     # determine the status code
-    if hasattr(response, 'status_code'):
+    if 'status_code' in response:
         status_code = response.status_code
     elif issubclass(type(response), Http404):
         status_code = 404
