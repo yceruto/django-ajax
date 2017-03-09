@@ -36,7 +36,19 @@ class LazyJSONEncoderMixin(object):
         except TypeError:
             pass
         else:
-            return list(iterable)
+            # Make sure the iterable is not a string
+            is_string = False
+
+            try:
+                if isinstance(obj, unicode):
+                    is_string = True
+            except NameError:
+                pass
+
+            if isinstance(obj, bytes):
+                is_string = True
+
+            return force_text(obj) if is_string else list(iterable)
 
         # this handlers Models
         if isinstance(obj.__class__, ModelBase):
