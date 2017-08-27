@@ -16,7 +16,7 @@ env:
 
 # Package installation
 install:
-  - export DJANGO_SETTINGS_MODULE=mysite.settings
+  - export DJANGO_SETTINGS_MODULE=django.conf.global_settings
   - pip install django~=$DJANGO_VERSION
   - python setup.py install
   - pip install djangoajax
