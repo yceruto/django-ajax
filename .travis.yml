@@ -18,6 +18,8 @@ env:
 install:
   - pip install django~=$DJANGO_VERSION
   - python setup.py install
+  - pip install djangoajax
+  - pip freeze djangoajax
 
 # Run the tests
 script:
