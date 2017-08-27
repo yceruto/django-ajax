@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.test import TestCase
 from django_ajax.response import JSONResponse
 
@@ -6,6 +7,6 @@ class ResponseTestCase(TestCase):
         data = {'test': True}
         response = JSONResponse(data)
 
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response['Content-Type'], 'application/json')
-        self.assertEquals(response.content, '{"test": true}')
+        self.assertEquals(200, response.status_code)
+        self.assertEquals('application/json', response['Content-Type'])
+        self.assertEquals('{"test": true}', response.content)
