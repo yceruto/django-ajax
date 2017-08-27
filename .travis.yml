@@ -16,9 +16,6 @@ env:
 
 # Package installation
 install:
-  - pip install decorator
-  - pip install django-appconf~=1.0.0
-  - pip install django-jenkins
   - pip install django~=$DJANGO_VERSION
   - python setup.py install
 
