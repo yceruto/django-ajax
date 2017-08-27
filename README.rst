@@ -12,10 +12,6 @@ Fast and easy AJAX libraries for django projects.
     :alt: PYPI Package
     :target: https://pypi.python.org/pypi/djangoajax
     
-.. image:: https://img.shields.io/pypi/dm/django-ajax.svg
-    :alt: PYPI Download
-    :target: https://pypi.python.org/pypi/djangoajax
-    
 .. image:: https://img.shields.io/pypi/pyversions/djangoajax.svg
     :alt: PYPI Versions
     :target: https://pypi.python.org/pypi/djangoajax
