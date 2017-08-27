@@ -9,4 +9,4 @@ class ResponseTestCase(TestCase):
 
         self.assertEquals(200, response.status_code)
         self.assertEquals('application/json', response['Content-Type'])
-        self.assertEquals('{"test": true}', response.content.encode('utf-8'))
+        self.assertEquals('{"test": true}', str(response.content))
