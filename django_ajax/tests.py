@@ -3,7 +3,7 @@ Tests
 """
 from __future__ import unicode_literals
 
-from django.utils.unittest import TestCase
+from unittest import TestCase
 
 from django_ajax.response import JSONResponse
 
