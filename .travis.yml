@@ -9,18 +9,16 @@ python:
 
 # Django releases
 env:
-  - DJANGO_VERSION=Django==1.5.12
-  - DJANGO_VERSION=Django==1.6.10
-  - DJANGO_VERSION=Django==1.7.5
-  - DJANGO_VERSION=Django==1.8.0
-  - DJANGO_VERSION=Django==1.9.0
+  - DJANGO_VERSION=Django>=1.5
+  - DJANGO_VERSION=Django>=1.11
 
 # Package installation
 install:
+  - export DJANGO_SETTINGS_MODULE=mysite.settings
   - pip install $DJANGO_VERSION
   - python setup.py install
   - pip install djangoajax
-  - pip freeze djang bvoajax
+  - pip freeze djangoajax
 
 # Run the tests
 script:
