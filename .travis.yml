@@ -3,19 +3,21 @@ dist: precise
 
 # Python releases to test
 python:
-  - 2.6
   - 2.7
   - 3.3
+  - 3.4
+  - 3.5
 
 # Django releases
 env:
-  - DJANGO_VERSION=Django>=1.5
-  - DJANGO_VERSION=Django>=1.11
+  - DJANGO_VERSION=1.7.0
+  - DJANGO_VERSION=1.9.0
+  - DJANGO_VERSION=1.11.0
 
 # Package installation
 install:
   - export DJANGO_SETTINGS_MODULE=mysite.settings
-  - pip install $DJANGO_VERSION
+  - pip install django~=$DJANGO_VERSION
   - python setup.py install
   - pip install djangoajax
   - pip freeze djangoajax
@@ -23,3 +25,10 @@ install:
 # Run the tests
 script:
   - python setup.py test
+
+matrix:
+    exclude:
+        - python: 3.5
+          env: DJANGO_VERSION=1.7.0
+        - python: 3.3
+          env: DJANGO_VERSION=1.9.0

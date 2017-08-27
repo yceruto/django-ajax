@@ -2,9 +2,7 @@
 Tests
 """
 from __future__ import unicode_literals
-
-from unittest import TestCase
-
+from django.test import TestCase
 from django_ajax.response import JSONResponse
 
 DEBUG = True
