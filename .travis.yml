@@ -1,4 +1,5 @@
 language: python
+dist: precise
 
 # Python releases to test
 python:
