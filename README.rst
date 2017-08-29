@@ -69,7 +69,7 @@ Usage
     from django_ajax.decorators import ajax
 
     @ajax
-    def my_view(request)
+    def my_view(request):
         do_something()
         
 When nothing is returned as result of view then returns (JSON format):
