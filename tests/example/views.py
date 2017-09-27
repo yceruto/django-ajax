@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django_ajax.mixin import AJAXMixin
 from django.shortcuts import render
+from django.http import Http404
 
 from django_ajax.decorators import ajax
 
@@ -26,3 +27,7 @@ class SimpleView(TemplateView):
 def exception_view(request):
     a = 23 / 0  # this line throws an exception
     return a
+    
+#@ajax
+def raise_exception_view(request):
+    raise Http404

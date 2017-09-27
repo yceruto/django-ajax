@@ -13,6 +13,7 @@ if django.VERSION < (1, 8):
         url(r'^ajax/render$', views.render_view, name='render'),
         url(r'^ajax/render-class-based-view$', views.SimpleView.as_view(), name='render_class_based_view'),
         url(r'^ajax/exception$', views.exception_view, name='exception'),
+        url(r'^ajax/raise-exception$', views.raise_exception_view, name='raise_exception'),
     )
 else:
     urlpatterns = [
@@ -21,4 +22,5 @@ else:
         url(r'^ajax/render$', views.render_view, name='render'),
         url(r'^ajax/render-class-based-view$', views.SimpleView.as_view(), name='render_class_based_view'),
         url(r'^ajax/exception$', views.exception_view, name='exception'),
+        url(r'^ajax/raise-exception$', views.raise_exception_view, name='raise_exception'),
     ]

@@ -52,5 +52,12 @@ class ExceptionTestCase(BaseTestCase):
         #self.assertEquals(200, data['status'])
         self.assertEqual('INTERNAL SERVER ERROR', data['statusText'])
 
+class RaiseExceptionTestCase(BaseTestCase):
+    def test_json_response(self):
+        resp, data = self.post('/ajax/raise-exception')
+
+        #self.assertEquals(200, data['status'])
+        self.assertEqual('NOT FOUND', data['statusText'])
+
 
 
