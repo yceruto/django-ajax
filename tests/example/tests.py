@@ -1,12 +1,19 @@
 from __future__ import unicode_literals
+from datetime import datetime
 from django.test import TestCase
 from django.utils import six
-
+from django_ajax.encoder import LazyJSONEncoder
 import json
 
 
+class LazyJSONEncoderMixinTestCase(TestCase):
+    def test_default_date(self):
+        data = {'datetime': datetime.today()}
+        self.assertEqual('{"datetime": "' + data['datetime'].isoformat() + '"}', json.dumps(data, cls=LazyJSONEncoder))
+
+
 class BaseTestCase(TestCase):
-    def post(self, uri, data={}):
+    def post(self, uri, data=None):
         response = resp = self.client.get(uri, data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         self.assertEquals(200, resp.status_code)
