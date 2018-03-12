@@ -4,8 +4,9 @@ from django.utils import six
 
 import json
 
+
 class BaseTestCase(TestCase):
-    def post(self, uri, data = {}):
+    def post(self, uri, data={}):
         response = resp = self.client.get(uri, data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         self.assertEquals(200, resp.status_code)
@@ -15,6 +16,7 @@ class BaseTestCase(TestCase):
         else:
             return response, json.loads(response.content.decode('utf-8'))
 
+
 class FooTestCase(BaseTestCase):
     def test_json_response(self):
         resp, data = self.post('/ajax/foo')
@@ -22,12 +24,14 @@ class FooTestCase(BaseTestCase):
         self.assertEqual('OK', data['statusText'])
         self.assertEqual({'foo': True}, data['content'])
 
+
 class LoginRequiredTestCase(BaseTestCase):
     def test_json_response(self):
         resp, data = self.post('/ajax/login-required')
 
         self.assertEquals(302, data['status'])
         self.assertEqual('FOUND', data['statusText'])
+
 
 class RenderTestCase(BaseTestCase):
     def test_json_response(self):
@@ -37,6 +41,7 @@ class RenderTestCase(BaseTestCase):
         self.assertEqual('OK', data['statusText'])
         self.assertEqual('<html>Hello</html>', data['content'].strip())
 
+
 class RenderClassBasedViewTestCase(BaseTestCase):
     def test_json_response(self):
         resp, data = self.post('/ajax/render-class-based-view')
@@ -45,19 +50,18 @@ class RenderClassBasedViewTestCase(BaseTestCase):
         self.assertEqual('OK', data['statusText'])
         self.assertEqual('<html>Hello</html>', data['content'].strip())
 
+
 class ExceptionTestCase(BaseTestCase):
     def test_json_response(self):
         resp, data = self.post('/ajax/exception')
 
-        #self.assertEquals(200, data['status'])
+        # self.assertEquals(200, data['status'])
         self.assertEqual('INTERNAL SERVER ERROR', data['statusText'])
+
 
 class RaiseExceptionTestCase(BaseTestCase):
     def test_json_response(self):
         resp, data = self.post('/ajax/raise-exception')
 
-        #self.assertEquals(200, data['status'])
+        # self.assertEquals(200, data['status'])
         self.assertEqual('NOT FOUND', data['statusText'])
-
-
-
