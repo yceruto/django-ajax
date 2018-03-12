@@ -4,7 +4,7 @@ Utils
 from __future__ import unicode_literals
 
 import json
-
+from datetime import date
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
 from django.utils.encoding import force_text
@@ -44,6 +44,9 @@ class LazyJSONEncoderMixin(object):
 
         if isinstance(obj, Decimal):
             return float(obj)
+
+        if isinstance(obj, date):
+            return obj.isoformat()
 
         return super(LazyJSONEncoderMixin, self).default(obj)
 
