@@ -4,8 +4,8 @@ django-ajax
 
 Fast and easy AJAX libraries for django applications.
 
-.. image:: https://travis-ci.org/yceruto/django-ajax.png?branch=master
-    :alt: Build Status
+.. image:: https://travis-ci.org/yceruto/django-ajax.svg?branch=master
+    :alt: Master Build Status
     :target: https://travis-ci.org/yceruto/django-ajax
     
 .. image:: https://img.shields.io/pypi/v/djangoajax.svg
@@ -23,8 +23,8 @@ Fast and easy AJAX libraries for django applications.
 Requirements
 ------------
 
-* `python`_ >= 2.6
-* `django`_ >= 1.5
+* `python`_ >= 3.5
+* `django`_ >= 2.0
 
 .. _`python`: http://www.python.org/
 .. _`django`: https://djangoproject.com
