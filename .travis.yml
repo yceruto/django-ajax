@@ -3,6 +3,7 @@ dist: precise
 
 # Python releases to test
 python:
+  - 3.5
   - 3.6
 
 # Django releases
