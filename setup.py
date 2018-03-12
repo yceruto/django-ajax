@@ -50,7 +50,7 @@ setup(
     
     install_requires=[
         'setuptools',
-        'django>=1.3',
+        'django>=1.5',
     ],
 
     include_package_data=True,
