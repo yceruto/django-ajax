@@ -4,9 +4,10 @@ Middleware
 from __future__ import unicode_literals
 
 from django_ajax.shortcuts import render_to_json
+from django.utils.deprecation import MiddlewareMixin
 
 
-class AJAXMiddleware(object):
+class AJAXMiddleware(MiddlewareMixin):
     """
     AJAX Middleware that decides when to convert the response to JSON.
     """
