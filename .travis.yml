@@ -3,15 +3,11 @@ dist: precise
 
 # Python releases to test
 python:
-  - 2.7
-  - 3.3
-  - 3.4
   - 3.6
 
 # Django releases
 env:
-  - DJANGO_VERSION=1.7.0
-  - DJANGO_VERSION=1.11.0
+  - DJANGO_VERSION=2.0.3
 
 # Package installation
 install:
@@ -21,10 +17,3 @@ install:
 # Run the tests
 script:
   - python tests/manage.py test example
-
-matrix:
-    exclude:
-        - python: 3.6
-          env: DJANGO_VERSION=1.7.0
-        - python: 3.3
-          env: DJANGO_VERSION=1.11.0
