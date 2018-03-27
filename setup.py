@@ -48,7 +48,6 @@ setup(
     platforms=['OS Independent'],
     
     install_requires=[
-        'setuptools',
         'django>=2.0',
     ],
 
