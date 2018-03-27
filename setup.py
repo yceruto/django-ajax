@@ -49,8 +49,7 @@ setup(
     platforms=['OS Independent'],
     
     install_requires=[
-        'setuptools',
-        'django>=1.5',
+        'django>=1.7',
     ],
 
     include_package_data=True,
