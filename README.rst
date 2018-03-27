@@ -23,6 +23,13 @@ Fast and easy AJAX libraries for django applications.
 Requirements
 ------------
 
+``3.x``
+
+* `python`_ >=3.5
+* `django`_ >=2.0
+
+``2.x``
+
 * `python`_ >=2.7
 * `django`_ >=1.7,<2.0
 
