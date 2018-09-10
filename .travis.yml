@@ -1,20 +1,21 @@
 language: python
-dist: precise
 
-# Python releases to test
 python:
   - 3.5
   - 3.6
 
-# Django releases
-env:
-  - DJANGO_VERSION=2.0.3
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
-# Package installation
+env:
+  - DJANGO_VERSION=2.0.8
+
 install:
   - pip install django~=$DJANGO_VERSION
   - python setup.py install
 
-# Run the tests
 script:
   - python tests/manage.py test example
