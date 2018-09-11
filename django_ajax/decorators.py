@@ -67,7 +67,7 @@ def ajax(function=None, mandatory=True, **ajax_kwargs):
                 try:
                     return render_to_json(func(request, *args, **kwargs), **ajax_kwargs)
                 except Exception as exception:
-                    return render_to_json(exception, {'request': request})
+                    return render_to_json(exception, **{'request': request})
             else:
                 # return standard response
                 return func(request, *args, **kwargs)
