@@ -22,7 +22,7 @@ class JSONResponse(HttpResponse):
         options to serialize_to_json in kwargs, other options are used by
         response.
         """
-        if not 'sort_keys' in kwargs:
+        if 'sort_keys' not in kwargs:
             kwargs['sort_keys'] = settings.DEBUG
 
         super(JSONResponse, self).__init__(
