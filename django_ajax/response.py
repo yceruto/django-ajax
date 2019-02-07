@@ -14,7 +14,7 @@ class JSONResponse(HttpResponse):
     Return a JSON serialized HTTP response
     """
 
-    def __init__(self, data, *args, **kwargs):
+    def __init__(self, data, **kwargs):
         """
         This returns a object that we send as json content using
         utils.serialize_to_json, that is a wrapper to json.dumps
@@ -26,6 +26,6 @@ class JSONResponse(HttpResponse):
             kwargs['sort_keys'] = settings.DEBUG
 
         super(JSONResponse, self).__init__(
-            content=serialize_to_json(data, *args, **kwargs),
+            content=serialize_to_json(data, **kwargs),
             content_type='application/json'
         )

@@ -55,7 +55,7 @@ class LazyJSONEncoder(LazyJSONEncoderMixin, json.JSONEncoder):
     pass
 
 
-def serialize_to_json(data, *args, **kwargs):
+def serialize_to_json(data, **kwargs):
     """
     A wrapper for simplejson.dumps with defaults as:
 
