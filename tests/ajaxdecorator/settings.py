@@ -1,5 +1,8 @@
 from __future__ import absolute_import
-import os, sys
+
+import os
+import sys
+
 sys.path.insert(0, '../')
 
 ROOT_DIR = os.path.dirname(__file__)
@@ -16,7 +19,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'example.sqlite3'),
+        'NAME': os.path.join(ROOT_DIR, 'data.sqlite3'),
     }
 }
 
@@ -83,7 +86,6 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_ajax.middleware.AJAXMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -91,7 +93,7 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(ROOT_DIR, 'example/templates')],
+        'DIRS': [os.path.join(ROOT_DIR, 'app/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,7 +107,7 @@ TEMPLATES = [
 ]
 
 INSTALLED_APPS = (
-    'example',
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -154,7 +156,7 @@ LOGGING = {
 }
 
 # Only run Jenkins report generation on these apps.
-PROJECT_APPS = ('example',)
+PROJECT_APPS = ('app',)
 
 # Which Jenkins reports/tasks to run.
 JENKINS_TASKS = ('django_jenkins.tasks.run_pylint',

@@ -76,7 +76,7 @@ REASON_PHRASES = {
 }
 
 
-def render_to_json(response, *args, **kwargs):
+def render_to_json(response, request=None, **kwargs):
     """
     Creates the main structure and returns the JSON response.
     """
@@ -87,7 +87,7 @@ def render_to_json(response, *args, **kwargs):
         status_code = 404
     elif issubclass(type(response), Exception):
         status_code = 500
-        logger.exception(str(response), extra={'request': kwargs.pop('request', None)})
+        logger.exception(str(response), extra={'request': request})
         
         if settings.DEBUG:
             import sys
@@ -106,5 +106,5 @@ def render_to_json(response, *args, **kwargs):
         'content': response
     }
 
-    return JSONResponse(data,  *args, **kwargs)
+    return JSONResponse(data, **kwargs)
 
