@@ -11,10 +11,10 @@ matrix:
       sudo: true
 
 env:
-  - DJANGO_VERSION=2.0.8
+  - DJANGO_VERSION=2.*
 
 install:
-  - pip install django~=$DJANGO_VERSION
+  - pip install django==$DJANGO_VERSION
   - python setup.py install
 
 script:
