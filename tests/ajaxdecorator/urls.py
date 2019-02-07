@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from example import views
+from app import views
 import django
 
 try:
