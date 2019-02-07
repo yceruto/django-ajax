@@ -65,4 +65,4 @@ def serialize_to_json(data, *args, **kwargs):
     """
     kwargs['cls'] = kwargs.get('cls', LazyJSONEncoder)
 
-    return json.dumps(data, *args, **kwargs)
+    return json.dumps(data, **kwargs)
