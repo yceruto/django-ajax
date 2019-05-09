@@ -22,5 +22,4 @@ class AJAXMixin(object):
         if self.json_encoder:
             ajax_kwargs['cls'] = self.json_encoder
 
-        return ajax(**ajax_kwargs)(super(
-            AJAXMixin, self).dispatch)(request, *args, **kwargs)
+        return ajax(**ajax_kwargs)(super(AJAXMixin, self).dispatch)(request, *args, **kwargs)
