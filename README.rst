@@ -62,7 +62,7 @@ or simply with:
 
 2- Add ``'django_ajax'`` into the ``INSTALLED_APPS`` list.
 
-3- Read usage section and enjoy its advantages!
+3- Read usage section and enjoy this feature!
 
 
 Usage
@@ -79,14 +79,14 @@ Usage
     def my_view(request):
         do_something()
         
-When nothing is returned as result of view then returns (JSON format):
+When the view does not return anything, you will receive this response (JSON format):
 
 .. code:: javascript
 
     {"status": 200, "statusText": "OK", "content ": null}
 
 
-**Sending custom data in the response**
+**Sending content**
 
 .. code:: python
 
@@ -95,7 +95,7 @@ When nothing is returned as result of view then returns (JSON format):
         c = 2 + 3
         return {'result': c}
         
-The result is send to the browser in the following way (JSON format)
+The whole result is converted into a JSON format as part of the `content' element:
 
 .. code:: javascript
 
@@ -115,7 +115,8 @@ The result is send to the browser in the following way (JSON format)
         # if the request.user is anonymous then this view not proceed 
         return {'user_id': request.user.id}
         
-The JSON response:
+The location or path of the redirection response will be given in the `content` item, 
+also the `status` and `statusText` will reflect what is going on:
 
 .. code:: javascript
 
@@ -159,19 +160,17 @@ The JSON response:
 AJAXMiddleware
 ~~~~~~~~~~~~~~
 
-If you use AJAX quite frequently in your project, we suggest using the AJAXMiddleware described below.
+If you are using AJAX at all times in your project, we suggest you activate the AJAXMiddleware described below.
 
-Add ``django_ajax.middleware.AJAXMiddleware`` into the ``MIDDLEWARE_CLASSES`` list in ``settings.py``.
+Add ``django_ajax.middleware.AJAXMiddleware`` to the ``MIDDLEWARE_CLASSES`` list in ``settings.py`` and all your responses will be converted to JSON whereas the request was made via AJAX, otherwise it will return a normal HttpResponse.
 
-All your responses will be converted to JSON if the request was made by AJAX, otherwise is return a HttpResponse.
-
-.. caution:: If you use this middleware cannot use ``@ajax`` decorator.
+.. caution:: If this middleware is activated you cannot use the ``@ajax`` decorator. That will cause double JSON conversion.
 
 
 AJAXMixin for class-based views
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``AJAXMixin`` is an object that calls the AJAX decorator.
+``AJAXMixin`` is an object that call to AJAX decorator.
 
 .. code:: python
 
