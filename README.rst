@@ -95,7 +95,7 @@ When the view does not return anything, you will receive this response (JSON for
         c = 2 + 3
         return {'result': c}
         
-The whole result is converted into a JSON format as part of the `content' element:
+The whole result is converted into a JSON format as part of the `content` element:
 
 .. code:: javascript
 
