@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from datetime import datetime
 from django.test import TestCase
-from django.utils import six
 from django_ajax.encoder import LazyJSONEncoder
 import json
 
@@ -18,7 +17,7 @@ class BaseTestCase(TestCase):
 
         self.assertEquals(200, resp.status_code)
         self.assertEquals('application/json', response['Content-Type'])
-        if isinstance(response.content, six.text_type):
+        if isinstance(response.content, str):
             return response, json.loads(response.content)
         else:
             return response, json.loads(response.content.decode('utf-8'))
