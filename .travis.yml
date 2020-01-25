@@ -1,14 +1,21 @@
-sudo: required
-dist: xenial
 language: python
 
 python:
   - 3.5
   - 3.6
   - 3.7
+  - 3.8
 
 env:
   - DJANGO_VERSION=2.*
+  - DJANGO_VERSION=3.*
+
+matrix:
+  exclude:
+    - python: 3.5
+      env: DJANGO_VERSION=3.*
+    - python: 3.8
+      env: DJANGO_VERSION=2.*
 
 install:
   - pip install django==$DJANGO_VERSION
