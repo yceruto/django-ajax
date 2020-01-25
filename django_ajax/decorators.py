@@ -3,7 +3,7 @@ Decorators
 """
 from __future__ import unicode_literals
 
-from functools import wraps
+from functools import wraps, WRAPPER_ASSIGNMENTS
 
 from django.http import HttpResponseBadRequest
 from django.utils.decorators import available_attrs
@@ -57,7 +57,7 @@ def ajax(function=None, mandatory=True, **ajax_kwargs):
 
     """
     def decorator(func):
-        @wraps(func, assigned=available_attrs(func))
+        @wraps(func, assigned=WRAPPER_ASSIGNMENTS)
         def inner(request, *args, **kwargs):
             if mandatory and not request.is_ajax():
                 return HttpResponseBadRequest()
