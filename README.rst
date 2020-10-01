@@ -186,4 +186,4 @@ The JSON response:
 
     {"status": 200, "statusText": "OK", "content": "<html>...</html>"}
 
-Enjoy!
+Enjoy And Share!
