@@ -17,7 +17,7 @@ class AJAXMiddleware(MiddlewareMixin):
         If the request was made by AJAX then convert response to JSON,
         otherwise return the original response.
         """
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return render_to_json(response)
         return response
 
@@ -26,5 +26,5 @@ class AJAXMiddleware(MiddlewareMixin):
         Catch exception if the request was made by AJAX,
         after will become up on JSON.
         """
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return exception
