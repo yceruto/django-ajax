@@ -7,7 +7,7 @@ import json
 from datetime import date
 from django.http.response import HttpResponseRedirectBase, HttpResponse
 from django.template.response import TemplateResponse
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.db.models.base import ModelBase
 from decimal import Decimal
 
@@ -28,7 +28,7 @@ class LazyJSONEncoderMixin(object):
         elif issubclass(type(obj), HttpResponse):
             return obj.content
         elif issubclass(type(obj), Exception) or isinstance(obj, bytes):
-            return force_text(obj)
+            return force_str(obj)
 
         # this handles querysets and other iterable types
         try:
@@ -40,7 +40,7 @@ class LazyJSONEncoderMixin(object):
 
         # this handlers Models
         if isinstance(obj.__class__, ModelBase):
-            return force_text(obj)
+            return force_str(obj)
 
         if isinstance(obj, Decimal):
             return float(obj)
