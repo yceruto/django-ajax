@@ -58,10 +58,10 @@ def ajax(function=None, mandatory=True, **ajax_kwargs):
     def decorator(func):
         @wraps(func, assigned=WRAPPER_ASSIGNMENTS)
         def inner(request, *args, **kwargs):
-            if mandatory and not request.is_ajax():
+            if mandatory and not request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return HttpResponseBadRequest()
 
-            if request.is_ajax():
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 # return json response
                 try:
                     return render_to_json(func(request, *args, **kwargs), request, **ajax_kwargs)
